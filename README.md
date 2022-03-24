@@ -1,9 +1,7 @@
 # Aplicação de Controle Financeiro
 
-<p style='text-align: justify;'>Em geral, ter uma boa visão dos seus ganhos e gastos é um ótimo 
-"Primeiro Passo" para alcançar uma melhor saúde financeira.
-Dessa forma, você deverá desenvolver uma aplicação de controle financeiro,
-para auxiliar aqueles que desejam melhorar o relacionamento com o seu "bolso".
+<p style='align: center;'>Em geral, ter uma boa visão dos seus ganhos e gastos é um ótimo "Primeiro Passo" para alcançar uma melhor saúde financeira.
+Dessa forma, você deverá desenvolver uma aplicação de controle financeiro, para auxiliar aqueles que desejam melhorar o relacionamento com o seu "bolso".
 A seguir você encontrará todos os requisitos!</p>
 
 
