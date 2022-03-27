@@ -19,6 +19,46 @@ let id: number = 1
 // npm install prompt-sync
 const prompt = require("prompt-sync")()
 
+// Inserindo valores iniciais apenas para teste
+function insereInicial(){
+    let gasto: tipos
+
+    gasto = new Educacao(id, "Educação", "Escola0", 150.99)
+    gastos.push(gasto)
+    id++
+    gasto = new Educacao(id, "Educação", "Escola1", 40.33)
+    gastos.push(gasto)
+    id++
+
+    gasto = new Alimentacao(id, "Alimentação", "Comida0", 23.99)
+    gastos.push(gasto)
+    id++
+    gasto = new Alimentacao(id, "Alimentação", "Comida1", 25)
+    gastos.push(gasto)
+    id++
+
+    gasto = new Entretenimento(id, "Entretenimento", "Filme0", 30.5)
+    gastos.push(gasto)
+    id++
+    gasto = new Entretenimento(id, "Entretenimento", "Filme1", 60.5)
+    gastos.push(gasto)
+    id++
+
+    gasto = new Saude(id, "Saúde", "Vacina0", 150.99)
+    gastos.push(gasto)
+    id++
+    gasto = new Saude(id, "Saúde", "Vacina1", 3.99)
+    gastos.push(gasto)
+    id++
+
+    gasto = new Transporte(id, "Transporte", "Uber0", 150.99)
+    gastos.push(gasto)
+    id++
+    gasto = new Transporte(id, "Transporte", "Uber1", 15.90)
+    gastos.push(gasto)
+    id++
+}
+
 // Função para imprimir uma linha do tamanho desejado
 function imprimeLinha(tamanho = 40, tipo = 1){
     if(tipo === 1){
@@ -85,12 +125,14 @@ function adicionarGasto(){
         case 5: 
             gasto = new Transporte()
             area = "Transporte"
+            break;
         default:
             console.log("Erro! Será atribuida a área da alimentação!")
             gasto = new Alimentacao()
             area = "Alimentação"
             break;
     }
+    console.log("")
 
     gasto.setId = id
     id++
@@ -104,13 +146,65 @@ function adicionarGasto(){
     gasto.setValor = valor
 
     gastos.push(gasto)
+}
+
+// Função para listar gastos
+function listarGastos() {
+    console.log("\n> ALIMENTAÇÃO <")
+    for(let i = 0; i < gastos.length; i++) {
+        if(gastos[i].getArea == "Alimentação") {
+            console.log(`\nID: ${gastos[i].getId}`)
+            console.log(`Descrição: ${gastos[i].getTitulo}`)
+            console.log(`Valor: R$${gastos[i].getValor}`)
+        } 
+    }
+    console.log("")
+
+    console.log("\n> EDUCAÇÃO <")
+    for(let i = 0; i < gastos.length; i++) {
+        if(gastos[i].getArea == "Educação") {
+            console.log(`\nID: ${gastos[i].getId}`)
+            console.log(`Descrição: ${gastos[i].getTitulo}`)
+            console.log(`Valor: R$${gastos[i].getValor}`)
+        } 
+    }
+    console.log("")
+
+    console.log("\n> ENTRETENIMENTO <")
+    for(let i = 0; i < gastos.length; i++) {
+        if(gastos[i].getArea == "Entretenimento") {
+            console.log(`\nID: ${gastos[i].getId}`)
+            console.log(`Descrição: ${gastos[i].getTitulo}`)
+            console.log(`Valor: R$${gastos[i].getValor}`)
+        } 
+    }
+    console.log("")
+
+    console.log("\n> SAÚDE <")
+    for(let i = 0; i < gastos.length; i++) {
+        if(gastos[i].getArea == "Saúde") {
+            console.log(`\nID: ${gastos[i].getId}`)
+            console.log(`Descrição: ${gastos[i].getTitulo}`)
+            console.log(`Valor: R$${gastos[i].getValor}`)
+        } 
+    }
+    console.log("")
+
+    console.log("\n> TRANSPORTE <")
+    for(let i = 0; i < gastos.length; i++) {
+        if(gastos[i].getArea == "Transporte") {
+            console.log(`\nID: ${gastos[i].getId}`)
+            console.log(`Descrição: ${gastos[i].getTitulo}`)
+            console.log(`Valor: R$${gastos[i].getValor}`)
+        } 
+    }
+    console.log("")
     
-    console.log(gastos)
-
-
 }
 
 // Começo do programa
+insereInicial()
+
 imprimeLinha(40,2)
 do{
     imprimeMenu()
@@ -125,6 +219,7 @@ do{
             break;
         case 3:
             console.log("~~~~~~~~~~LISTAR GASTOS~~~~~~~~~~")
+            listarGastos()
             break;
         case 4:
             console.log("~~~~~~~~~~EDITAR GASTOS~~~~~~~~~~")
