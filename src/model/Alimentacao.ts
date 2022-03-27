@@ -1,3 +1,5 @@
+import { Gasto } from './Gasto'
+
 class Alimentacao extends Gasto {
 
     constructor(id: number, area: string, titulo: string, valor: number){

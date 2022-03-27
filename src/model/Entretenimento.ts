@@ -1,3 +1,5 @@
+import { Gasto } from './Gasto'
+
 class Entretenimento extends Gasto {
 
     constructor(id: number, area: string, titulo: string, valor: number){
