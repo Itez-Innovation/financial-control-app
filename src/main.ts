@@ -151,51 +151,51 @@ function adicionarGasto(){
 // Função para listar gastos
 function listarGastos() {
     console.log("\n> ALIMENTAÇÃO <")
-    for(let i = 0; i < gastos.length; i++) {
-        if(gastos[i].getArea == "Alimentação") {
-            console.log(`\nID: ${gastos[i].getId}`)
-            console.log(`Descrição: ${gastos[i].getTitulo}`)
-            console.log(`Valor: R$${gastos[i].getValor}`)
+    for(let value of gastos) {
+        if(value.getArea == "Alimentação") {
+            console.log(`\nID: ${value.getId}`)
+            console.log(`Descrição: ${value.getTitulo}`)
+            console.log(`Valor: R$${value.getValor}`)
         } 
     }
     console.log("")
 
     console.log("\n> EDUCAÇÃO <")
-    for(let i = 0; i < gastos.length; i++) {
-        if(gastos[i].getArea == "Educação") {
-            console.log(`\nID: ${gastos[i].getId}`)
-            console.log(`Descrição: ${gastos[i].getTitulo}`)
-            console.log(`Valor: R$${gastos[i].getValor}`)
+    for(let value of gastos) {
+        if(value.getArea == "Educação") {
+            console.log(`\nID: ${value.getId}`)
+            console.log(`Descrição: ${value.getTitulo}`)
+            console.log(`Valor: R$${value.getValor}`)
         } 
     }
     console.log("")
 
     console.log("\n> ENTRETENIMENTO <")
-    for(let i = 0; i < gastos.length; i++) {
-        if(gastos[i].getArea == "Entretenimento") {
-            console.log(`\nID: ${gastos[i].getId}`)
-            console.log(`Descrição: ${gastos[i].getTitulo}`)
-            console.log(`Valor: R$${gastos[i].getValor}`)
+    for(let value of gastos) {
+        if(value.getArea == "Entretenimento") {
+            console.log(`\nID: ${value.getId}`)
+            console.log(`Descrição: ${value.getTitulo}`)
+            console.log(`Valor: R$${value.getValor}`)
         } 
     }
     console.log("")
 
     console.log("\n> SAÚDE <")
-    for(let i = 0; i < gastos.length; i++) {
-        if(gastos[i].getArea == "Saúde") {
-            console.log(`\nID: ${gastos[i].getId}`)
-            console.log(`Descrição: ${gastos[i].getTitulo}`)
-            console.log(`Valor: R$${gastos[i].getValor}`)
+    for(let value of gastos) {
+        if(value.getArea == "Saúde") {
+            console.log(`\nID: ${value.getId}`)
+            console.log(`Descrição: ${value.getTitulo}`)
+            console.log(`Valor: R$${value.getValor}`)
         } 
     }
     console.log("")
 
     console.log("\n> TRANSPORTE <")
-    for(let i = 0; i < gastos.length; i++) {
-        if(gastos[i].getArea == "Transporte") {
-            console.log(`\nID: ${gastos[i].getId}`)
-            console.log(`Descrição: ${gastos[i].getTitulo}`)
-            console.log(`Valor: R$${gastos[i].getValor}`)
+    for(let value of gastos) {
+        if(value.getArea == "Transporte") {
+            console.log(`\nID: ${value.getId}`)
+            console.log(`Descrição: ${value.getTitulo}`)
+            console.log(`Valor: R$${value.getValor}`)
         } 
     }
     console.log("")
