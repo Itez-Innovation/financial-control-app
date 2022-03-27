@@ -3,23 +3,41 @@ import { Alimentacao } from './model/Alimentacao'
 import { Entretenimento } from './model/Entretenimento'
 import { Saude } from './model/Saude'
 import { Transporte } from './model/Transporte'
+import { Ganho } from './model/Ganho'
 
-let teste: Educacao = new Educacao(1, "Educação", "Escola", 100.5)
-let teste1: Alimentacao = new Alimentacao(2, "Alimentação", "Escola", 100.5)
-let teste2: Entretenimento = new Entretenimento(3, "Entretenimento", "Escola", 100.5)
-let teste3: Saude = new Saude(4, "Educação", "Saúde", 100.5)
-let teste5: Saude = new Saude(5, "Transporte", "Saúde", 100.5)
+//import * as readline from 'node:readline/promises';
+import { stdin as input, stdout as output } from 'node:process';
+//const rl = readline.createInterface({ input, output });
+
+let gastos: Array<Educacao | Alimentacao | Entretenimento | Saude | Transporte> = []
+let ganhos: Array<Ganho> = []
 
 
-let teste4: Array<Educacao | Alimentacao | Entretenimento | Saude | Transporte> = []
-teste4.push(teste)
-teste4.push(teste1)
-teste4.push(teste2)
-teste4.push(teste3)
-teste4.push(teste5)
 
-console.log(`O índice é ${teste4.indexOf(teste)}`)
-console.log(`O índice é ${teste4.indexOf(teste1)}`)
-console.log(`O índice é ${teste4.indexOf(teste2)}`)
-console.log(`O índice é ${teste4.indexOf(teste3)}`)
-console.log(`O índice é ${teste4.indexOf(teste5)}`)
+function imprimeLinha(tamanho = 25){
+    for(let i = 1; i < tamanho; i++){
+        process.stdout.write("-");
+    }
+    console.log("-")
+}
+
+
+function imprimeMenu() {
+    console.log("---------------MENU---------------")
+    console.log("1 - ADICIONAR GASTO")
+    console.log("2 - REMOVER GASTO")
+    console.log("3 - LISTAR GASTOS")
+    console.log("4 - EDITAR GASTO")
+    console.log("5 - ADICIONAR GANHO")
+    console.log("6 - REMOVER GANHO")
+    console.log("7 - LISTAR GANHOS")
+    console.log("8 - EDITAR GANHO")
+    console.log("9 - ENCERRAR")
+}
+
+imprimeMenu()
+
+//let entrada = rl.question("Opção escolhida: ")
+//rl.close()
+
+//console.log(entrada)

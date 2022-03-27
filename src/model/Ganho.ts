@@ -1,19 +1,15 @@
-export abstract class Gasto {
+export class Ganho {
     private _id: number
-    private _area: string
     private _titulo: string
     private _valor: number
     
-
-    constructor(id?: number, area?: string, titulo?: string, valor?: number){
-        if (id && area && titulo && valor) {
+    constructor(id?: number, titulo?: string, valor?: number) {
+        if (id && titulo && valor) {
             this._id = id
-            this._area = area
             this._titulo = titulo
             this._valor = valor
         } else {
             this._id = 0
-            this._area = ""
             this._titulo = ""
             this._valor = 0.0
         }
@@ -24,13 +20,6 @@ export abstract class Gasto {
     }
     public set id(value: number) {
         this._id = value
-    }
-
-    public get area(): string {
-        return this._area
-    }
-    public set area(value: string) {
-        this._area = value
     }
 
     public get titulo(): string {
@@ -46,4 +35,5 @@ export abstract class Gasto {
     public set valor(value: number) {
         this._valor = value
     }
+
 }
