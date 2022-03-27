@@ -1,6 +1,6 @@
 import { Gasto } from './Gasto'
 
-class Saude extends Gasto {
+export class Saude extends Gasto {
 
     constructor(id: number, area: string, titulo: string, valor: number){
         super(id, area, titulo, valor)

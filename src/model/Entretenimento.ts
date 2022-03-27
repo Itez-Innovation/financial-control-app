@@ -1,6 +1,6 @@
 import { Gasto } from './Gasto'
 
-class Entretenimento extends Gasto {
+export class Entretenimento extends Gasto {
 
     constructor(id: number, area: string, titulo: string, valor: number){
         super(id, area, titulo, valor)
