@@ -2,8 +2,12 @@ import { Gasto } from './Gasto'
 
 export class Alimentacao extends Gasto {
 
-    constructor(id: number, area: string, titulo: string, valor: number){
-        super(id, area, titulo, valor)
+    constructor(id?: number, area?: string, titulo?: string, valor?: number){
+        if (id && area && titulo && valor) {
+            super(id, area, titulo, valor)
+        } else {
+            super()
+        }
     }
 
     get getId() {
