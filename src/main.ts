@@ -202,6 +202,26 @@ function listarGastos() {
     
 }
 
+// Função para remover gastos
+function removerGastos(){
+    console.log("Listando todos os gastos: ")
+    listarGastos()
+
+    let idOpcao = Number(prompt("Digite o ID do gasto a ser removido: "))
+    for(let value of gastos) {
+        if(value.getId == idOpcao) {
+            gastos.splice(gastos.indexOf(value), 1)
+            console.log("Gasto removido!")
+            idOpcao = -15
+            break;
+        } 
+    }
+    if(idOpcao != -15){
+        console.log("Não há gasto com esse ID!")
+    }
+
+}
+
 // Começo do programa
 insereInicial()
 
@@ -216,6 +236,7 @@ do{
             break;
         case 2:
             console.log("~~~~~~~~~~REMOVER GASTO~~~~~~~~~~")
+            removerGastos()
             break;
         case 3:
             console.log("~~~~~~~~~~LISTAR GASTOS~~~~~~~~~~")
