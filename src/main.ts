@@ -306,7 +306,7 @@ function editarGastos() {
 
 /*
 ADIANTE ESTÃO AS FUNÇÕES USADAS PARA SOLUCIONAR TODOS 
-OS REQUISITOS QUE ENVOLVEM EXCLUSIVAMENTE OS GASTOS
+OS REQUISITOS QUE ENVOLVEM EXCLUSIVAMENTE OS GANHOS
 */
 
 // Função para adicionar ganho
@@ -321,7 +321,7 @@ function adicionarGanho() {
     ganho.id = idGanho
     idGanho++
 
-    titulo = prompt("Insira uma breve descrição do ganho: ")
+    titulo = prompt("\nInsira uma breve descrição do ganho: ")
     ganho.titulo = titulo
 
     valor = Number(prompt("Insira o valor do ganho (apenas números): "))
