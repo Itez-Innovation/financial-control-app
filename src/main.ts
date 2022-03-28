@@ -6,58 +6,66 @@ import { Saude } from './model/Saude'
 import { Transporte } from './model/Transporte'
 import { Ganho } from './model/Ganho'
 
+/*-----------------------------------------------------------------------------------------*/
+
 // Type Alias
 type tipos = Educacao | Alimentacao | Entretenimento | Saude | Transporte
 
+/*-----------------------------------------------------------------------------------------*/
 
 // Declarações
 let gastos: Array<tipos> = []
+let idGasto: number = 1
 let ganhos: Array<Ganho> = []
+let idGanho: number = 1
 let opcao: number = 0
-let id: number = 1
 
 // npm install prompt-sync
 const prompt = require("prompt-sync")()
+
+/*-----------------------------------------------------------------------------------------*/
 
 // Inserindo valores iniciais apenas para teste
 function insereInicial(){
     let gasto: tipos
 
-    gasto = new Educacao(id, "Educação", "Escola0", 150.99)
+    gasto = new Educacao(idGasto, "Educação", "Escola0", 150.99)
     gastos.push(gasto)
-    id++
-    gasto = new Educacao(id, "Educação", "Escola1", 40.33)
+    idGasto++
+    gasto = new Educacao(idGasto, "Educação", "Escola1", 40.33)
     gastos.push(gasto)
-    id++
+    idGasto++
 
-    gasto = new Alimentacao(id, "Alimentação", "Comida0", 23.99)
+    gasto = new Alimentacao(idGasto, "Alimentação", "Comida0", 23.99)
     gastos.push(gasto)
-    id++
-    gasto = new Alimentacao(id, "Alimentação", "Comida1", 25)
+    idGasto++
+    gasto = new Alimentacao(idGasto, "Alimentação", "Comida1", 25)
     gastos.push(gasto)
-    id++
+    idGasto++
 
-    gasto = new Entretenimento(id, "Entretenimento", "Filme0", 30.5)
+    gasto = new Entretenimento(idGasto, "Entretenimento", "Filme0", 30.5)
     gastos.push(gasto)
-    id++
-    gasto = new Entretenimento(id, "Entretenimento", "Filme1", 60.5)
+    idGasto++
+    gasto = new Entretenimento(idGasto, "Entretenimento", "Filme1", 60.5)
     gastos.push(gasto)
-    id++
+    idGasto++
 
-    gasto = new Saude(id, "Saúde", "Vacina0", 150.99)
+    gasto = new Saude(idGasto, "Saúde", "Vacina0", 150.99)
     gastos.push(gasto)
-    id++
-    gasto = new Saude(id, "Saúde", "Vacina1", 3.99)
+    idGasto++
+    gasto = new Saude(idGasto, "Saúde", "Vacina1", 3.99)
     gastos.push(gasto)
-    id++
+    idGasto++
 
-    gasto = new Transporte(id, "Transporte", "Uber0", 150.99)
+    gasto = new Transporte(idGasto, "Transporte", "Uber0", 150.99)
     gastos.push(gasto)
-    id++
-    gasto = new Transporte(id, "Transporte", "Uber1", 15.90)
+    idGasto++
+    gasto = new Transporte(idGasto, "Transporte", "Uber1", 15.90)
     gastos.push(gasto)
-    id++
+    idGasto++
 }
+
+/*-----------------------------------------------------------------------------------------*/
 
 // Função para imprimir uma linha do tamanho desejado
 function imprimeLinha(tamanho = 40, tipo = 1){
@@ -89,6 +97,13 @@ function imprimeMenu() {
 
     opcao = Number(prompt("Opção escolhida: "))
 }
+
+/*-----------------------------------------------------------------------------------------*/
+
+/*
+ADIANTE ESTÃO AS FUNÇÕES USADAS PARA SOLUCIONAR TODOS 
+OS REQUISITOS QUE ENVOLVEM EXCLUSIVAMENTE OS GASTOS
+*/
 
 // Função para adicionar gastos
 function adicionarGasto(){
@@ -134,8 +149,8 @@ function adicionarGasto(){
     }
     console.log("")
 
-    gasto.setId = id
-    id++
+    gasto.setId = idGasto
+    idGasto++
 
     gasto.setArea = area
 
@@ -233,7 +248,7 @@ function editarGastos() {
 
             // Alterando a área do gasto
             let yesNo = prompt("Deseja alterar a área do gasto (S/N)? ")
-            if(yesNo == 'S' || yesNo == 's'){
+            if(yesNo == 'S' || yesNo == 's' || yesNo == 'Y' || yesNo == 'y'){
                 console.log("Selecione a nova área do gasto: ")
                 console.log("1 - Alimentação")
                 console.log("2 - Educação")
@@ -278,6 +293,41 @@ function editarGastos() {
     }
 }
 
+/*-----------------------------------------------------------------------------------------*/
+
+/*
+ADIANTE ESTÃO AS FUNÇÕES USADAS PARA SOLUCIONAR TODOS 
+OS REQUISITOS QUE ENVOLVEM EXCLUSIVAMENTE OS GASTOS
+*/
+
+// Função para adicionar ganho
+function adicionarGanho(){
+    let area = ""
+    let gasto: tipos
+    let titulo: string
+    let valor: number
+
+    let ganho = new Ganho()
+
+    ganho.id = idGanho
+    idGanho++
+
+    titulo = prompt("Insira uma breve descrição do ganho: ")
+    ganho.titulo = titulo
+
+    valor = Number(prompt("Insira o valor do ganho (apenas números): "))
+    ganho.valor = valor
+
+    ganhos.push(ganho)
+    console.log(ganhos)
+}
+
+
+
+
+
+/*-----------------------------------------------------------------------------------------*/
+
 // Começo do programa
 insereInicial()
 
@@ -304,6 +354,7 @@ do{
             break;
         case 5:
             console.log("~~~~~~~~~~ADICIONAR GANHO~~~~~~~~~~")
+            adicionarGanho()
             break;
         case 6:
             console.log("~~~~~~~~~~REMOVER GANHO~~~~~~~~~~")
