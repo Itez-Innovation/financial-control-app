@@ -101,7 +101,8 @@ function imprimeMenu() {
     console.log("6 - REMOVER GANHO")
     console.log("7 - LISTAR GANHOS")
     console.log("8 - EDITAR GANHO")
-    console.log("9 - ENCERRAR")
+    console.log("9 - GERAR EXTRATO")
+    console.log("10 - ENCERRAR")
 
     opcao = Number(prompt("Opção escolhida: "))
 }
@@ -250,7 +251,7 @@ function editarGastos() {
     console.log("Listando todos os gastos: ")
     listarGastos()
 
-    let idOpcao = Number(prompt("Digite o ID do gasto a ser removido: "))
+    let idOpcao = Number(prompt("Digite o ID do gasto a ser editado: "))
     for(let value of gastos) {
         if(value.getId == idOpcao) {
 
@@ -360,13 +361,88 @@ function removerGanhos() {
     }
 }
 
+// Função para editar ganhos
+function editarGanhos() {
+    console.log("Listando todos os ganhos: ")
+    listarGanhos()
 
+    let idOpcao = Number(prompt("Digite o ID do ganho a ser editado: "))
+    for(let value of ganhos) {
+        if(value.id == idOpcao) {
 
+            value.titulo = prompt("Digite uma breve descrição do ganho: ")
+            value.valor = Number(prompt("Insira o valor ganho (apenas números): "))
 
+            idOpcao = -15
+            break;
+        } 
+    }
 
+    // Se o ID digitado estiver errado...
+    if(idOpcao != -15){
+        console.log("Não há ganho com esse ID!")
+    }
+}
+
+/*-----------------------------------------------------------------------------------------*/
+
+// Função que gera um extrato com gastos e ganhos
+function gerarExtrato() {
+    let somaGastos = 0
+    let gastoAli = 0, gastoEdu = 0, gastoEnt = 0, gastoSau = 0, gastoTra = 0
+    let somaGanhos = 0
+
+    console.log("\n> BALANÇO DA CARTEIRA <")
+    
+    // Somando gastos
+    for (let value of gastos) {
+        somaGastos += value.getValor
+        if (value.getArea == "Alimentação") {
+            gastoAli += value.getValor
+        } else if (value.getArea == "Educação") {
+            gastoEdu += value.getValor
+        } else if (value.getArea == "Entretenimento") {
+            gastoEnt += value.getValor
+        } else if (value.getArea == "Saúde") {
+            gastoSau += value.getValor
+        } else if (value.getArea == "Transporte") {
+            gastoTra += value.getValor
+        }
+    }
+    console.log(`\nNo total, foram gastos R$ ${somaGastos.toFixed(2)}, sendo distribuídos nas seguintes áreas: \n`)
+    console.log(`ALIMENTAÇÃO: R$ ${gastoAli.toFixed(2)}`)
+    console.log(`EDUCAÇÃO: R$ ${gastoEdu.toFixed(2)}`)
+    console.log(`ENTRETENIMENTO: R$ ${gastoEnt.toFixed(2)}`)
+    console.log(`SAÚDE: R$ ${gastoSau.toFixed(2)}`)
+    console.log(`TRANSPORTE: R$ ${gastoTra.toFixed(2)}`)
+
+    for (let value of ganhos) {
+        somaGanhos += value.valor
+    }
+
+    console.log(`\nNo total, foram recebidos R$ ${somaGanhos.toFixed(2)}, sendo distribuídos em: \n`)
+    for (let value of ganhos) {
+        console.log(`- ${value.titulo}: R$ ${value.valor.toFixed(2)}`)
+    }
+    
+    let balanco = Number(somaGanhos) - Number(somaGastos)
+    console.log(`\n Portanto, seu balanço geral da carteira é de R$ ${balanco.toFixed(2)}\n`)
+    
+
+    let yesNo = prompt("(S/N) Deseja exibir a lista de todos os ganhos? ")
+    if(yesNo == 'S' || yesNo == 's' || yesNo == 'Y' || yesNo == 'y') {
+        listarGanhos()
+    }
+
+    yesNo = prompt("(S/N) Deseja exibir a lista de todos os gastos? ")
+    if(yesNo == 'S' || yesNo == 's' || yesNo == 'Y' || yesNo == 'y') {
+        listarGastos()
+    }
+}
 
 
 /*-----------------------------------------------------------------------------------------*/
+
 
 // Começo do programa
 insereInicial()
@@ -406,10 +482,18 @@ do{
             break;
         case 8:
             console.log("~~~~~~~~~~EDITAR GANHO~~~~~~~~~~")
+            editarGanhos()
+            break;
+        case 9:
+            console.log("~~~~~~~~~~GERAR EXTRATO~~~~~~~~~~")
+            gerarExtrato()
+            break;
+        case 10:
+            console.log("OBRIGADO POR UTILIZAR O PROGRAMA!")
             break;
         default:
-            console.log("OBRIGADO POR UTILIZAR O PROGRAMA!")
+            console.log("OPÇÃO INCORRETA! SIGA O MENU E DIGITE NOVAMENTE!")
             break;
     }
     imprimeLinha(40, 2)
-} while (opcao != 9)
+} while (opcao != 10)
