@@ -222,6 +222,62 @@ function removerGastos(){
 
 }
 
+// Função que edita os dados dos gastos
+function editarGastos() {
+    console.log("Listando todos os gastos: ")
+    listarGastos()
+
+    let idOpcao = Number(prompt("Digite o ID do gasto a ser removido: "))
+    for(let value of gastos) {
+        if(value.getId == idOpcao) {
+
+            // Alterando a área do gasto
+            let yesNo = prompt("Deseja alterar a área do gasto (S/N)? ")
+            if(yesNo == 'S' || yesNo == 's'){
+                console.log("Selecione a nova área do gasto: ")
+                console.log("1 - Alimentação")
+                console.log("2 - Educação")
+                console.log("3 - Entretenimento")
+                console.log("4 - Saúde")
+                console.log("5 - Transporte")
+                let tipoArea = Number(prompt("Opção escolhida: "))
+
+                switch (tipoArea) {
+                    case 1:
+                        value.setArea = "Alimentação"
+                        break;
+                    case 2:
+                        value.setArea = "Educação"
+                        break;
+                    case 3:
+                        value.setArea = "Entretenimento"
+                        break;
+                    case 4:
+                        value.setArea = "Saúde"
+                        break;
+                    case 5:
+                        value.setArea = "Transporte"
+                        break;
+                    default:
+                        console.log("Opção incorreta! A área permanecerá a mesma!")
+                        break;
+                }
+            }
+
+            value.setTitulo = prompt("Digite uma breve descrição do gasto: ")
+            value.setValor = Number(prompt("Insira o valor gasto (apenas números): "))
+
+            idOpcao = -15
+            break;
+        } 
+    }
+
+    // Se o ID digitado estiver errado...
+    if(idOpcao != -15){
+        console.log("Não há gasto com esse ID!")
+    }
+}
+
 // Começo do programa
 insereInicial()
 
@@ -244,6 +300,7 @@ do{
             break;
         case 4:
             console.log("~~~~~~~~~~EDITAR GASTOS~~~~~~~~~~")
+            editarGastos()
             break;
         case 5:
             console.log("~~~~~~~~~~ADICIONAR GANHO~~~~~~~~~~")
