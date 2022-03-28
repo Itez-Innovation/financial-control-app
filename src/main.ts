@@ -28,6 +28,7 @@ const prompt = require("prompt-sync")()
 // Inserindo valores iniciais apenas para teste
 function insereInicial(){
     let gasto: tipos
+    let ganho: Ganho
 
     gasto = new Educacao(idGasto, "Educação", "Escola0", 150.99)
     gastos.push(gasto)
@@ -63,6 +64,13 @@ function insereInicial(){
     gasto = new Transporte(idGasto, "Transporte", "Uber1", 15.90)
     gastos.push(gasto)
     idGasto++
+
+    ganho = new Ganho(idGanho, "Venda0", 150.99)
+    ganhos.push(ganho)
+    idGanho++
+    ganho = new Ganho(idGanho, "Venda1", 157.90)
+    ganhos.push(ganho)
+    idGanho++
 }
 
 /*-----------------------------------------------------------------------------------------*/
@@ -301,7 +309,7 @@ OS REQUISITOS QUE ENVOLVEM EXCLUSIVAMENTE OS GASTOS
 */
 
 // Função para adicionar ganho
-function adicionarGanho(){
+function adicionarGanho() {
     let area = ""
     let gasto: tipos
     let titulo: string
@@ -319,8 +327,40 @@ function adicionarGanho(){
     ganho.valor = valor
 
     ganhos.push(ganho)
-    console.log(ganhos)
 }
+
+// Função para listar ganhos
+function listarGanhos(){
+    console.log("\nListando todos os ganhos: ")
+
+    for(let value of ganhos) {
+        console.log(`\nID: ${value.id}`)
+        console.log(`Descrição: ${value.titulo}`)
+        console.log(`Valor: R$${value.valor}`)
+    }
+
+    console.log("")
+}
+
+// Função para remover ganhos
+function removerGanhos() {
+    listarGanhos()
+
+    let idOpcao = Number(prompt("Digite o ID do ganho a ser removido: "))
+    for(let value of ganhos) {
+        if(value.id == idOpcao) {
+            ganhos.splice(ganhos.indexOf(value), 1)
+            console.log("Ganho removido!")
+            idOpcao = -15
+            break;
+        } 
+    }
+    if(idOpcao != -15){
+        console.log("Não há ganho com esse ID!")
+    }
+}
+
+
 
 
 
@@ -358,9 +398,11 @@ do{
             break;
         case 6:
             console.log("~~~~~~~~~~REMOVER GANHO~~~~~~~~~~")
+            removerGanhos()
             break;
         case 7:
             console.log("~~~~~~~~~~LISTAR GANHOS~~~~~~~~~~")
+            listarGanhos()
             break;
         case 8:
             console.log("~~~~~~~~~~EDITAR GANHO~~~~~~~~~~")
