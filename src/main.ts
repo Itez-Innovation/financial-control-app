@@ -1,9 +1,4 @@
 // Importações
-import { Educacao } from './model/Educacao'
-import { Alimentacao } from './model/Alimentacao'
-import { Entretenimento } from './model/Entretenimento'
-import { Saude } from './model/Saude'
-import { Transporte } from './model/Transporte'
 import { Ganho } from './model/Ganho'
 
 /*-----------------------------------------------------------------------------------------*/
