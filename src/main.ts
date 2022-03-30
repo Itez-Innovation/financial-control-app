@@ -1,12 +1,6 @@
 // Importações
 import { Ganho } from './model/Ganho'
-import { Gasto } from './model/Gasto'
-import { setores } from './model/Gasto'
-
-
-/*-----------------------------------------------------------------------------------------*/
-
-
+import { Gasto, setores } from './model/Gasto'
 
 /*-----------------------------------------------------------------------------------------*/
 
@@ -34,31 +28,31 @@ function insereInicial(){
     gastos.push(gasto)
     idGasto++
 
-    gasto = new Alimentacao(idGasto, "Alimentação", "Comida0", 23.99)
+    gasto = new Gasto(idGasto, setores.Alimentacao, "Comida0", 23.99)
     gastos.push(gasto)
     idGasto++
-    gasto = new Alimentacao(idGasto, "Alimentação", "Comida1", 25)
-    gastos.push(gasto)
-    idGasto++
-
-    gasto = new Entretenimento(idGasto, "Entretenimento", "Filme0", 30.5)
-    gastos.push(gasto)
-    idGasto++
-    gasto = new Entretenimento(idGasto, "Entretenimento", "Filme1", 60.5)
+    gasto = new Gasto(idGasto, setores.Alimentacao, "Comida1", 25)
     gastos.push(gasto)
     idGasto++
 
-    gasto = new Saude(idGasto, "Saúde", "Vacina0", 150.99)
+    gasto = new Gasto(idGasto, setores.Entretenimento, "Filme0", 30.5)
     gastos.push(gasto)
     idGasto++
-    gasto = new Saude(idGasto, "Saúde", "Vacina1", 3.99)
+    gasto = new Gasto(idGasto, setores.Entretenimento, "Filme1", 60.5)
     gastos.push(gasto)
     idGasto++
 
-    gasto = new Transporte(idGasto, "Transporte", "Uber0", 150.99)
+    gasto = new Gasto(idGasto, setores.Saude, "Vacina0", 150.99)
     gastos.push(gasto)
     idGasto++
-    gasto = new Transporte(idGasto, "Transporte", "Uber1", 15.90)
+    gasto = new Gasto(idGasto, setores.Saude, "Vacina1", 3.99)
+    gastos.push(gasto)
+    idGasto++
+
+    gasto = new Gasto(idGasto, setores.Transporte, "Uber0", 150.99)
+    gastos.push(gasto)
+    idGasto++
+    gasto = new Gasto(idGasto, setores.Transporte, "Uber1", 15.90)
     gastos.push(gasto)
     idGasto++
 
@@ -106,64 +100,6 @@ function imprimeMenu() {
 
 /*-----------------------------------------------------------------------------------------*/
 
-// Função que gera um extrato com gastos e ganhos
-function gerarExtrato() {
-    let somaGastos = 0
-    let gastoAli = 0, gastoEdu = 0, gastoEnt = 0, gastoSau = 0, gastoTra = 0
-    let somaGanhos = 0
-
-    console.log("\n> BALANÇO DA CARTEIRA <")
-    
-    // Somando gastos
-    for (let value of gastos) {
-        somaGastos += value.getValor
-        if (value.getArea == "Alimentação") {
-            gastoAli += value.getValor
-        } else if (value.getArea == "Educação") {
-            gastoEdu += value.getValor
-        } else if (value.getArea == "Entretenimento") {
-            gastoEnt += value.getValor
-        } else if (value.getArea == "Saúde") {
-            gastoSau += value.getValor
-        } else if (value.getArea == "Transporte") {
-            gastoTra += value.getValor
-        }
-    }
-    console.log(`\nNo total, foram gastos R$ ${somaGastos.toFixed(2)}, sendo distribuídos nas seguintes áreas: \n`)
-    console.log(`ALIMENTAÇÃO: R$ ${gastoAli.toFixed(2)}`)
-    console.log(`EDUCAÇÃO: R$ ${gastoEdu.toFixed(2)}`)
-    console.log(`ENTRETENIMENTO: R$ ${gastoEnt.toFixed(2)}`)
-    console.log(`SAÚDE: R$ ${gastoSau.toFixed(2)}`)
-    console.log(`TRANSPORTE: R$ ${gastoTra.toFixed(2)}`)
-
-    for (let value of ganhos) {
-        somaGanhos += value.valor
-    }
-
-    console.log(`\nNo total, foram recebidos R$ ${somaGanhos.toFixed(2)}, sendo distribuídos em: \n`)
-    for (let value of ganhos) {
-        console.log(`- ${value.titulo}: R$ ${value.valor.toFixed(2)}`)
-    }
-    
-    let balanco = Number(somaGanhos) - Number(somaGastos)
-    console.log(`\n Portanto, seu balanço geral da carteira é de R$ ${balanco.toFixed(2)}\n`)
-    
-
-    let yesNo = prompt("(S/N) Deseja exibir a lista de todos os ganhos? ")
-    if(yesNo == 'S' || yesNo == 's' || yesNo == 'Y' || yesNo == 'y') {
-        listarGanhos()
-    }
-
-    yesNo = prompt("(S/N) Deseja exibir a lista de todos os gastos? ")
-    if(yesNo == 'S' || yesNo == 's' || yesNo == 'Y' || yesNo == 'y') {
-        listarGastos()
-    }
-}
-
-
-/*-----------------------------------------------------------------------------------------*/
-
-
 // Começo do programa
 insereInicial()
 
@@ -174,39 +110,41 @@ do{
     switch (opcao) {
         case 1:
             console.log("~~~~~~~~~~ADICIONAR GASTO~~~~~~~~~~")
-            adicionarGasto()
+            gastos.push(Gasto.adicionarGasto(idGasto))
+            idGasto++
+            console.log(gastos)
             break;
         case 2:
             console.log("~~~~~~~~~~REMOVER GASTO~~~~~~~~~~")
-            removerGastos()
+            //removerGastos()
             break;
         case 3:
             console.log("~~~~~~~~~~LISTAR GASTOS~~~~~~~~~~")
-            listarGastos()
+            //listarGastos()
             break;
         case 4:
             console.log("~~~~~~~~~~EDITAR GASTOS~~~~~~~~~~")
-            editarGastos()
+            //editarGastos()
             break;
         case 5:
             console.log("~~~~~~~~~~ADICIONAR GANHO~~~~~~~~~~")
-            adicionarGanho()
+            //adicionarGanho()
             break;
         case 6:
             console.log("~~~~~~~~~~REMOVER GANHO~~~~~~~~~~")
-            removerGanhos()
+            //removerGanhos()
             break;
         case 7:
             console.log("~~~~~~~~~~LISTAR GANHOS~~~~~~~~~~")
-            listarGanhos()
+            //listarGanhos()
             break;
         case 8:
             console.log("~~~~~~~~~~EDITAR GANHO~~~~~~~~~~")
-            editarGanhos()
+            //editarGanhos()
             break;
         case 9:
             console.log("~~~~~~~~~~GERAR EXTRATO~~~~~~~~~~")
-            gerarExtrato()
+            //gerarExtrato()
             break;
         case 10:
             console.log("OBRIGADO POR UTILIZAR O PROGRAMA!")

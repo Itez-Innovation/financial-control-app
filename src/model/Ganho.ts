@@ -18,75 +18,75 @@ export class Ganho {
 }
 
 
-// Função para adicionar ganho
-function adicionarGanho() {
-    let titulo: string
-    let valor: number
+// // Função para adicionar ganho
+// function adicionarGanho() {
+//     let titulo: string
+//     let valor: number
 
-    let ganho = new Ganho()
+//     let ganho = new Ganho()
 
-    ganho.id = idGanho
-    idGanho++
+//     ganho.id = idGanho
+//     idGanho++
 
-    titulo = prompt("\nInsira uma breve descrição do ganho: ")
-    ganho.titulo = titulo
+//     titulo = prompt("\nInsira uma breve descrição do ganho: ")
+//     ganho.titulo = titulo
 
-    valor = Number(prompt("Insira o valor do ganho (apenas números): "))
-    ganho.valor = valor
+//     valor = Number(prompt("Insira o valor do ganho (apenas números): "))
+//     ganho.valor = valor
 
-    ganhos.push(ganho)
-}
+//     ganhos.push(ganho)
+// }
 
-// Função para listar ganhos
-function listarGanhos(){
-    console.log("\nListando todos os ganhos: ")
+// // Função para listar ganhos
+// function listarGanhos(){
+//     console.log("\nListando todos os ganhos: ")
 
-    for(let value of ganhos) {
-        console.log(`\nID: ${value.id}`)
-        console.log(`Descrição: ${value.titulo}`)
-        console.log(`Valor: R$${value.valor}`)
-    }
+//     for(let value of ganhos) {
+//         console.log(`\nID: ${value.id}`)
+//         console.log(`Descrição: ${value.titulo}`)
+//         console.log(`Valor: R$${value.valor}`)
+//     }
 
-    console.log("")
-}
+//     console.log("")
+// }
 
-// Função para remover ganhos
-function removerGanhos() {
-    listarGanhos()
+// // Função para remover ganhos
+// function removerGanhos() {
+//     listarGanhos()
 
-    let idOpcao = Number(prompt("Digite o ID do ganho a ser removido: "))
-    for(let value of ganhos) {
-        if(value.id == idOpcao) {
-            ganhos.splice(ganhos.indexOf(value), 1)
-            console.log("Ganho removido!")
-            idOpcao = -15
-            break;
-        } 
-    }
-    if(idOpcao != -15){
-        console.log("Não há ganho com esse ID!")
-    }
-}
+//     let idOpcao = Number(prompt("Digite o ID do ganho a ser removido: "))
+//     for(let value of ganhos) {
+//         if(value.id == idOpcao) {
+//             ganhos.splice(ganhos.indexOf(value), 1)
+//             console.log("Ganho removido!")
+//             idOpcao = -15
+//             break;
+//         } 
+//     }
+//     if(idOpcao != -15){
+//         console.log("Não há ganho com esse ID!")
+//     }
+// }
 
-// Função para editar ganhos
-function editarGanhos() {
-    console.log("Listando todos os ganhos: ")
-    listarGanhos()
+// // Função para editar ganhos
+// function editarGanhos() {
+//     console.log("Listando todos os ganhos: ")
+//     listarGanhos()
 
-    let idOpcao = Number(prompt("Digite o ID do ganho a ser editado: "))
-    for(let value of ganhos) {
-        if(value.id == idOpcao) {
+//     let idOpcao = Number(prompt("Digite o ID do ganho a ser editado: "))
+//     for(let value of ganhos) {
+//         if(value.id == idOpcao) {
 
-            value.titulo = prompt("Digite uma breve descrição do ganho: ")
-            value.valor = Number(prompt("Insira o valor ganho (apenas números): "))
+//             value.titulo = prompt("Digite uma breve descrição do ganho: ")
+//             value.valor = Number(prompt("Insira o valor ganho (apenas números): "))
 
-            idOpcao = -15
-            break;
-        } 
-    }
+//             idOpcao = -15
+//             break;
+//         } 
+//     }
 
-    // Se o ID digitado estiver errado...
-    if(idOpcao != -15){
-        console.log("Não há ganho com esse ID!")
-    }
-}
+//     // Se o ID digitado estiver errado...
+//     if(idOpcao != -15){
+//         console.log("Não há ganho com esse ID!")
+//     }
+// }
