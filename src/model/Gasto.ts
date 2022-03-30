@@ -94,6 +94,30 @@ export class Gasto {
             });
         }
     }
+
+    // Função para remover gastos
+    static removerGastos(gastos: Array<Gasto>){
+        if (gastos.length === 0) {
+            console.log(`\nNão há gastos a serem removidos!\n`)
+        } else {
+            console.log("Listando todos os gastos: ")
+            Gasto.listarGastos(gastos)
+
+            let idOpcao = Number(prompt("Digite o ID do gasto a ser removido: "))
+
+            gastos.forEach(element => {
+                if(element._id == idOpcao) {
+                    gastos.splice(gastos.indexOf(element), 1)
+                    console.log("Gasto removido!")
+                    idOpcao = -15
+                } 
+            });
+
+            if(idOpcao != -15){
+                console.log("Não há gasto com esse ID!")
+            }
+        }
+    }
 }
 
 
@@ -101,25 +125,7 @@ export class Gasto {
 
 
 
-// // Função para remover gastos
-// function removerGastos(){
-//     console.log("Listando todos os gastos: ")
-//     listarGastos()
 
-//     let idOpcao = Number(prompt("Digite o ID do gasto a ser removido: "))
-//     for(let value of gastos) {
-//         if(value.getId == idOpcao) {
-//             gastos.splice(gastos.indexOf(value), 1)
-//             console.log("Gasto removido!")
-//             idOpcao = -15
-//             break;
-//         } 
-//     }
-//     if(idOpcao != -15){
-//         console.log("Não há gasto com esse ID!")
-//     }
-
-// }
 
 // // Função que edita os dados dos gastos
 // function editarGastos() {

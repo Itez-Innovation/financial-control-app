@@ -115,7 +115,7 @@ do{
             break;
         case 2:
             console.log("~~~~~~~~~~REMOVER GASTO~~~~~~~~~~")
-            //removerGastos()
+            Gasto.removerGastos(gastos)
             break;
         case 3:
             console.log("~~~~~~~~~~LISTAR GASTOS~~~~~~~~~~")
