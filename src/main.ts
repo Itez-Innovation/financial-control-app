@@ -127,15 +127,16 @@ do{
             break;
         case 5:
             console.log("~~~~~~~~~~ADICIONAR GANHO~~~~~~~~~~")
-            //adicionarGanho()
+            ganhos.push(Ganho.adicionarGanho(idGanho))
+            idGanho++
             break;
         case 6:
             console.log("~~~~~~~~~~REMOVER GANHO~~~~~~~~~~")
-            //removerGanhos()
+            Ganho.removerGanhos(ganhos)
             break;
         case 7:
             console.log("~~~~~~~~~~LISTAR GANHOS~~~~~~~~~~")
-            //listarGanhos()
+            Ganho.listarGanhos(ganhos)
             break;
         case 8:
             console.log("~~~~~~~~~~EDITAR GANHO~~~~~~~~~~")

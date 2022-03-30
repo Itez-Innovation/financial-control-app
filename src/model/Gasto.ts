@@ -159,17 +159,3 @@ export class Gasto {
         }
     }
 }
-
-
-
-
-
-
-
-
-
-//     // Se o ID digitado estiver errado...
-//     if(idOpcao != -15){
-//         console.log("Não há gasto com esse ID!")
-//     }
-// }
