@@ -30,15 +30,15 @@ export class Gasto {
         }
     }
 
-    // Função para adicionar gastos
-    static adicionarGasto(id: number){
+    // Função para o usuário escolher uma área de gasto
+    static findArea() {
         let entrada: boolean
-        let gasto = new Gasto()
+        let area: setores = setores.Alimentacao
 
         do{
             entrada = true
 
-            console.log("Primeiramente, selecione a área do gasto: ")
+            console.log("\nSelecione a área do gasto: ")
             console.log("1 - Alimentação")
             console.log("2 - Educação")
             console.log("3 - Entretenimento")
@@ -48,28 +48,36 @@ export class Gasto {
 
             switch (tipo) {
                 case 1:
-                    gasto._area = setores.Alimentacao
+                    area = setores.Alimentacao
                     break;
                 case 2:
-                    gasto._area = setores.Educacao
+                    area = setores.Educacao
                     break;
                 case 3:
-                    gasto._area = setores.Entretenimento
+                    area = setores.Entretenimento
                     break;
                 case 4:
-                    gasto._area = setores.Saude
+                    area = setores.Saude
                     break;
                 case 5: 
-                    gasto._area = setores.Transporte
+                    area = setores.Transporte
                     break;
                 default:
                     console.log("Erro! Siga as opções do menu!")
                     entrada = false
                     break;
             }
-
             console.log("")
         } while (!entrada)
+
+        return area
+    }
+
+    // Função para adicionar gastos
+    static adicionarGasto(id: number){
+        let gasto = new Gasto()
+
+        gasto._area = this.findArea()
         
         gasto._id = id
 
@@ -83,7 +91,7 @@ export class Gasto {
     // Função para listar gastos
     static listarGastos(gastos: Array<Gasto>) {
         if (gastos.length === 0) {
-            console.log(`\nNão há gastos a serem listados!\n`)
+            console.log(`\nNão há gasto a ser listado!\n`)
         } else {
             gastos.forEach(element => {
                 console.log(`\nÁrea: ${element._area}`)
@@ -98,10 +106,10 @@ export class Gasto {
     // Função para remover gastos
     static removerGastos(gastos: Array<Gasto>){
         if (gastos.length === 0) {
-            console.log(`\nNão há gastos a serem removidos!\n`)
+            console.log(`\nNão há gasto a ser removido!\n`)
         } else {
             console.log("Listando todos os gastos: ")
-            Gasto.listarGastos(gastos)
+            this.listarGastos(gastos)
 
             let idOpcao = Number(prompt("Digite o ID do gasto a ser removido: "))
 
@@ -118,6 +126,38 @@ export class Gasto {
             }
         }
     }
+
+    // Função que edita os dados dos gastos
+    static editarGastos(gastos: Array<Gasto>) {
+        if (gastos.length === 0) {
+            console.log(`\nNão há gasto a ser editado!\n`)
+        } else {
+            console.log("Listando todos os gastos: ")
+            this.listarGastos(gastos)
+
+            let idOpcao = Number(prompt("Digite o ID do gasto a ser editado: "))
+
+            let idCheck: boolean = false
+            gastos.forEach(element => {
+                if (idOpcao === element._id) {
+                    idCheck = true
+
+                    // Alterando a área do gasto
+                    let yesNo = prompt("Deseja alterar a área do gasto (S/N)? ")
+                    if(yesNo == 'S' || yesNo == 's' || yesNo == 'Y' || yesNo == 'y'){
+                        element._area = this.findArea()
+                    }
+
+                    element._titulo = prompt("Digite uma breve descrição do gasto: ")
+                    element._valor = Number(prompt("Insira o valor gasto (apenas números): "))
+                }
+            });
+
+            if (!idCheck) {
+                console.log(`Não há gasto com esse ID!`)
+            }
+        }
+    }
 }
 
 
@@ -127,55 +167,6 @@ export class Gasto {
 
 
 
-// // Função que edita os dados dos gastos
-// function editarGastos() {
-//     console.log("Listando todos os gastos: ")
-//     listarGastos()
-
-//     let idOpcao = Number(prompt("Digite o ID do gasto a ser editado: "))
-//     for(let value of gastos) {
-//         if(value.getId == idOpcao) {
-
-//             // Alterando a área do gasto
-//             let yesNo = prompt("Deseja alterar a área do gasto (S/N)? ")
-//             if(yesNo == 'S' || yesNo == 's' || yesNo == 'Y' || yesNo == 'y'){
-//                 console.log("Selecione a nova área do gasto: ")
-//                 console.log("1 - Alimentação")
-//                 console.log("2 - Educação")
-//                 console.log("3 - Entretenimento")
-//                 console.log("4 - Saúde")
-//                 console.log("5 - Transporte")
-//                 let tipoArea = Number(prompt("Opção escolhida: "))
-
-//                 switch (tipoArea) {
-//                     case 1:
-//                         value.setArea = "Alimentação"
-//                         break;
-//                     case 2:
-//                         value.setArea = "Educação"
-//                         break;
-//                     case 3:
-//                         value.setArea = "Entretenimento"
-//                         break;
-//                     case 4:
-//                         value.setArea = "Saúde"
-//                         break;
-//                     case 5:
-//                         value.setArea = "Transporte"
-//                         break;
-//                     default:
-//                         console.log("Opção incorreta! A área permanecerá a mesma!")
-//                         break;
-//                 }
-//             }
-
-//             value.setTitulo = prompt("Digite uma breve descrição do gasto: ")
-//             value.setValor = Number(prompt("Insira o valor gasto (apenas números): "))
-
-//             idOpcao = -15
-//             break;
-//         } 
-//     }
 
 //     // Se o ID digitado estiver errado...
 //     if(idOpcao != -15){

@@ -123,7 +123,7 @@ do{
             break;
         case 4:
             console.log("~~~~~~~~~~EDITAR GASTOS~~~~~~~~~~")
-            //editarGastos()
+            Gasto.editarGastos(gastos)
             break;
         case 5:
             console.log("~~~~~~~~~~ADICIONAR GANHO~~~~~~~~~~")
