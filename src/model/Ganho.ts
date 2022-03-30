@@ -77,34 +77,32 @@ export class Ganho {
         } 
     }
 
+    // Função para editar ganhos
+    static editarGanhos(ganhos: Array<Ganho>) {
+        if (ganhos.length === 0 ) {
+            console.log("\nNão há ganho a ser editado!\n")
+        } else {
+            let entrada = false
+            do{
+                this.listarGanhos(ganhos)
+
+                let idOpcao = Number(prompt("Digite o ID do ganho a ser editado: "))
+                for(let value of ganhos) {
+                    if(value._id == idOpcao) {
+
+                        value._titulo = prompt("Digite uma breve descrição do ganho: ")
+                        value._valor = Number(prompt("Insira o valor ganho (apenas números): "))
+
+                        entrada = true
+                        break;
+                    } 
+                }
+
+                // Se o ID digitado estiver errado...
+                if(!entrada){
+                    console.log("Não há ganho com esse ID!")
+                }
+            } while (!entrada)
+        }
+    }
 }
-
-
-
-
-
-
-
-
-// // Função para editar ganhos
-// function editarGanhos() {
-//     console.log("Listando todos os ganhos: ")
-//     listarGanhos()
-
-//     let idOpcao = Number(prompt("Digite o ID do ganho a ser editado: "))
-//     for(let value of ganhos) {
-//         if(value.id == idOpcao) {
-
-//             value.titulo = prompt("Digite uma breve descrição do ganho: ")
-//             value.valor = Number(prompt("Insira o valor ganho (apenas números): "))
-
-//             idOpcao = -15
-//             break;
-//         } 
-//     }
-
-//     // Se o ID digitado estiver errado...
-//     if(idOpcao != -15){
-//         console.log("Não há ganho com esse ID!")
-//     }
-// }

@@ -140,7 +140,7 @@ do{
             break;
         case 8:
             console.log("~~~~~~~~~~EDITAR GANHO~~~~~~~~~~")
-            //editarGanhos()
+            Ganho.editarGanhos(ganhos)
             break;
         case 9:
             console.log("~~~~~~~~~~GERAR EXTRATO~~~~~~~~~~")
