@@ -79,64 +79,27 @@ export class Gasto {
 
         return gasto
     }
+
+    // Função para listar gastos
+    static listarGastos(gastos: Array<Gasto>) {
+        if (gastos.length === 0) {
+            console.log(`\nNão há gastos a serem listados!\n`)
+        } else {
+            gastos.forEach(element => {
+                console.log(`\nÁrea: ${element._area}`)
+                console.log(`ID: ${element._id}`)
+                console.log(`Descrição: ${element._titulo}`)
+                console.log(`Valor: R$ ${element._valor}`)
+                console.log("")
+            });
+        }
+    }
 }
 
 
 
 
-// // Função para listar gastos
-// function listarGastos() {
-//     console.log("\n> ALIMENTAÇÃO <")
-//     for(let value of gastos) {
-//         if(value.getArea == "Alimentação") {
-//             console.log(`\nID: ${value.getId}`)
-//             console.log(`Descrição: ${value.getTitulo}`)
-//             console.log(`Valor: R$${value.getValor}`)
-//         } 
-//     }
-//     console.log("")
 
-//     console.log("\n> EDUCAÇÃO <")
-//     for(let value of gastos) {
-//         if(value.getArea == "Educação") {
-//             console.log(`\nID: ${value.getId}`)
-//             console.log(`Descrição: ${value.getTitulo}`)
-//             console.log(`Valor: R$${value.getValor}`)
-//         } 
-//     }
-//     console.log("")
-
-//     console.log("\n> ENTRETENIMENTO <")
-//     for(let value of gastos) {
-//         if(value.getArea == "Entretenimento") {
-//             console.log(`\nID: ${value.getId}`)
-//             console.log(`Descrição: ${value.getTitulo}`)
-//             console.log(`Valor: R$${value.getValor}`)
-//         } 
-//     }
-//     console.log("")
-
-//     console.log("\n> SAÚDE <")
-//     for(let value of gastos) {
-//         if(value.getArea == "Saúde") {
-//             console.log(`\nID: ${value.getId}`)
-//             console.log(`Descrição: ${value.getTitulo}`)
-//             console.log(`Valor: R$${value.getValor}`)
-//         } 
-//     }
-//     console.log("")
-
-//     console.log("\n> TRANSPORTE <")
-//     for(let value of gastos) {
-//         if(value.getArea == "Transporte") {
-//             console.log(`\nID: ${value.getId}`)
-//             console.log(`Descrição: ${value.getTitulo}`)
-//             console.log(`Valor: R$${value.getValor}`)
-//         } 
-//     }
-//     console.log("")
-    
-// }
 
 // // Função para remover gastos
 // function removerGastos(){

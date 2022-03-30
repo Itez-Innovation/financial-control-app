@@ -112,7 +112,6 @@ do{
             console.log("~~~~~~~~~~ADICIONAR GASTO~~~~~~~~~~")
             gastos.push(Gasto.adicionarGasto(idGasto))
             idGasto++
-            console.log(gastos)
             break;
         case 2:
             console.log("~~~~~~~~~~REMOVER GASTO~~~~~~~~~~")
@@ -120,7 +119,7 @@ do{
             break;
         case 3:
             console.log("~~~~~~~~~~LISTAR GASTOS~~~~~~~~~~")
-            //listarGastos()
+            Gasto.listarGastos(gastos)
             break;
         case 4:
             console.log("~~~~~~~~~~EDITAR GASTOS~~~~~~~~~~")
