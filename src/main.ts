@@ -110,48 +110,48 @@ do{
     printLine(40, 1)
     switch (option) {
         case 1:
-            console.log("~~~~~~~~~~ADICIONAR GASTO~~~~~~~~~~")
+            console.log("~~~~~~~~~~ADICIONAR GASTO~~~~~~~~~~\n")
             outflow.push(Output.adicionarGasto(idOutflow))
             idOutflow++
             break;
         case 2:
-            console.log("~~~~~~~~~~REMOVER GASTO~~~~~~~~~~")
+            console.log("~~~~~~~~~~REMOVER GASTO~~~~~~~~~~\n")
             Output.removerGastos(outflow)
             break;
         case 3:
-            console.log("~~~~~~~~~~LISTAR GASTOS~~~~~~~~~~")
+            console.log("~~~~~~~~~~LISTAR GASTOS~~~~~~~~~~\n")
             Output.listarGastos(outflow)
             break;
         case 4:
-            console.log("~~~~~~~~~~EDITAR GASTOS~~~~~~~~~~")
+            console.log("~~~~~~~~~~EDITAR GASTOS~~~~~~~~~~\n")
             Output.editarGastos(outflow)
             break;
         case 5:
-            console.log("~~~~~~~~~~ADICIONAR GANHO~~~~~~~~~~")
+            console.log("~~~~~~~~~~ADICIONAR GANHO~~~~~~~~~~\n")
             inflow.push(Input.adicionarGanho(idInflow))
             idInflow++
             break;
         case 6:
-            console.log("~~~~~~~~~~REMOVER GANHO~~~~~~~~~~")
+            console.log("~~~~~~~~~~REMOVER GANHO~~~~~~~~~~\n")
             Input.removerGanhos(inflow)
             break;
         case 7:
-            console.log("~~~~~~~~~~LISTAR GANHOS~~~~~~~~~~")
+            console.log("~~~~~~~~~~LISTAR GANHOS~~~~~~~~~~\n")
             Input.listarGanhos(inflow)
             break;
         case 8:
-            console.log("~~~~~~~~~~EDITAR GANHO~~~~~~~~~~")
+            console.log("~~~~~~~~~~EDITAR GANHO~~~~~~~~~~\n")
             Input.editarGanhos(inflow)
             break;
         case 9:
-            console.log("~~~~~~~~~~GERAR EXTRATO~~~~~~~~~~")
+            console.log("~~~~~~~~~~GERAR EXTRATO~~~~~~~~~~\n")
             financialStats.generateStats(inflow, outflow)
             break;
         case 10:
-            console.log("OBRIGADO POR UTILIZAR O PROGRAMA!")
+            console.log("OBRIGADO POR UTILIZAR O PROGRAMA!\n")
             break;
         default:
-            console.log("OPÇÃO INCORRETA! SIGA O MENU E DIGITE NOVAMENTE!")
+            console.log("OPÇÃO INCORRETA! SIGA O MENU E DIGITE NOVAMENTE!\n")
             break;
     }
     printLine(40, 2)
