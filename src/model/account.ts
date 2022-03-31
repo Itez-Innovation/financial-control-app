@@ -35,16 +35,20 @@ export class account {
         let check = false
         do{
             acc._nome = String(prompt(`Olá! Insira seu nome completo: `))
-            if(acc._nome !== null){
+            if(acc._nome.trim()){
                 check = true
+            } else {
+                console.log("Insira um nome válido!\n")
             }
         } while (!check)
 
         check = false
         do{
             acc._cpf = String(prompt(`Insira seu CPF: `))
-            if(acc._cpf !== null){
+            if(acc._cpf.trim()){
                 check = true
+            } else {
+                console.log("Insira um CPF válido!\n")
             }
         } while (!check)
 
@@ -52,6 +56,12 @@ export class account {
         acc._output = []
 
         return acc
+    }
+
+    static showDataAccount(acc: account){
+        console.log(`ID da conta: ${acc._id}`)
+        console.log(`Nome: ${acc._nome}`)
+        console.log(`CPF: ${acc._cpf}\n`)
     }
 
     // Adicionando ganho
