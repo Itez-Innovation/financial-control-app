@@ -1,7 +1,4 @@
 // Importações
-import { Input } from './model/cashInflow'
-import { Output, setores } from './model/cashOutflow'
-import { financialStats } from './control/financialStats'
 import { account } from "./model/account"
 
 /*-----------------------------------------------------------------------------------------*/
@@ -15,56 +12,6 @@ let idInflow: number = 1
 
 // npm install prompt-sync
 const prompt = require("prompt-sync")()
-
-/*-----------------------------------------------------------------------------------------*/
-
-// Inserindo valores iniciais apenas para teste
-// function insereInicial(){
-//     let output: Output
-//     let input: Input
-
-//     output = new Output(idOutflow, setores.education, "Escola0", 150.99)
-//     outflow.push(output)
-//     idOutflow++
-//     output = new Output(idOutflow, setores.education, "Escola1", 40.33)
-//     outflow.push(output)
-//     idOutflow++
-
-//     output = new Output(idOutflow, setores.groceries, "Comida0", 23.99)
-//     outflow.push(output)
-//     idOutflow++
-//     output = new Output(idOutflow, setores.groceries, "Comida1", 25)
-//     outflow.push(output)
-//     idOutflow++
-
-//     output = new Output(idOutflow, setores.entertainment, "Filme0", 30.5)
-//     outflow.push(output)
-//     idOutflow++
-//     output = new Output(idOutflow, setores.entertainment, "Filme1", 60.5)
-//     outflow.push(output)
-//     idOutflow++
-
-//     output = new Output(idOutflow, setores.health, "Vacina0", 150.99)
-//     outflow.push(output)
-//     idOutflow++
-//     output = new Output(idOutflow, setores.health, "Vacina1", 3.99)
-//     outflow.push(output)
-//     idOutflow++
-
-//     output = new Output(idOutflow, setores.transport, "Uber0", 150.99)
-//     outflow.push(output)
-//     idOutflow++
-//     output = new Output(idOutflow, setores.transport, "Uber1", 15.90)
-//     outflow.push(output)
-//     idOutflow++
-
-//     input = new Input(idInflow, "Venda0", 150.99)
-//     inflow.push(input)
-//     idInflow++
-//     input = new Input(idInflow, "Venda1", 157.90)
-//     inflow.push(input)
-//     idInflow++
-// }
 
 /*-----------------------------------------------------------------------------------------*/
 
@@ -83,14 +30,14 @@ function printLine(tamanho = 40, tipo = 1){
     }
 }
 
-function printMenuAccount() {
-    console.log("------------------CONTAS------------------")
-    console.log("1 - CADASTRO")
-    console.log("2 - VER DADOS CADASTRADOS")
-    console.log("3 - ACESSAR FUNCIONALIDADES")
+// function printMenuAccount() {
+//     console.log("------------------CONTAS------------------")
+//     console.log("1 - CADASTRO")
+//     console.log("2 - VER DADOS CADASTRADOS")
+//     console.log("3 - ACESSAR FUNCIONALIDADES")
 
-    option = Number(prompt("Opção escolhida: "))
-}
+//     option = Number(prompt("Opção escolhida: "))
+// }
 
 // Função para imprimir o menu e pegar a opção escolhida
 function printMenu() {
@@ -113,35 +60,6 @@ function printMenu() {
 
 // Começo do programa
 printLine(40,2)
-
-
-// O código abaixo pode ser usado como estrutura para
-// ampliar a área de cadastro de clientes
-// do{
-//     printMenuAccount()
-
-//     switch (option) {
-//         case 1:
-//             acc = account.createAccount(idAcc)
-//             break;
-//         case 2:
-//             if(acc == null){
-//                 option = 0
-//                 console.log(`Crie uma conta primeiro!`)
-//             } else {
-//                 account.showDataAccount(acc)
-//             }
-//             break;
-//         case 3:
-//             if(acc == null){
-//                 option = 0
-//                 console.log(`Crie uma conta primeiro!`)
-//             }
-//             break;
-//         default:
-//             break;
-//     }
-// } while(option != 3)
 
 console.log("~~~~~~~~~~ADICIONAR CONTA~~~~~~~~~~\n")
 acc = account.createAccount(idAcc)
