@@ -1,5 +1,6 @@
 import { Input } from './cashInflow'
 import { Output } from './cashOutflow'
+import { financialStats } from '../control/financialStats'
 
 // npm install prompt-sync
 const prompt = require("prompt-sync")()
@@ -110,6 +111,10 @@ export class account {
     // Removendo gastos
     static rmOutput(acc: account) {
         Output.removerGastos(acc._output)
+    }
+
+    static genStats(acc: account) {
+        financialStats.generateStats(acc._input, acc._output)
     }
 
 }

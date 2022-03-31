@@ -193,7 +193,7 @@ do{
             break;
         case 9:
             console.log("~~~~~~~~~~GERAR EXTRATO~~~~~~~~~~\n")
-            //financialStats.generateStats(inflow, outflow)
+            account.genStats(acc)
             break;
         case 10:
             console.log("OBRIGADO POR UTILIZAR O PROGRAMA!\n")

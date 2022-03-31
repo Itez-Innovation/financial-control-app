@@ -16,7 +16,7 @@ export class financialStats {
         let gastoAli = 0, gastoEdu = 0, gastoEnt = 0, gastoSau = 0, gastoTra = 0
         let sumInput = 0
 
-        console.log("\n> BALANÇO DA CARTEIRA <")
+        console.log("> BALANÇO DA CARTEIRA <")
         
         // Somando gastos
         for (let value of outflow) {
@@ -33,7 +33,7 @@ export class financialStats {
                 gastoTra += value._valor
             }
         }
-        console.log(`\nNo total, foram gastos R$ ${sumOutput.toFixed(2)}, sendo distribuídos nas seguintes áreas: \n`)
+        console.log(`\nNo total, foram gastos R$ ${sumOutput.toFixed(2)}, sendo distribuídos nas seguintes áreas: `)
         console.log(`ALIMENTAÇÃO: R$ ${gastoAli.toFixed(2)}`)
         console.log(`EDUCAÇÃO: R$ ${gastoEdu.toFixed(2)}`)
         console.log(`ENTRETENIMENTO: R$ ${gastoEnt.toFixed(2)}`)
@@ -44,13 +44,13 @@ export class financialStats {
             sumInput += value._valor
         }
 
-        console.log(`\nNo total, foram recebidos R$ ${sumInput.toFixed(2)}, sendo distribuídos em: \n`)
+        console.log(`\nNo total, foram recebidos R$ ${sumInput.toFixed(2)}, sendo distribuídos em: `)
         for (let value of inflow) {
             console.log(`- ${value._titulo}: R$ ${value._valor.toFixed(2)}`)
         }
         
         let balanco = Number(sumInput) - Number(sumOutput)
-        console.log(`\n Portanto, seu balanço geral da carteira é de R$ ${balanco.toFixed(2)}\n`)
+        console.log(`\nPortanto, seu balanço geral da carteira é de R$ ${balanco.toFixed(2)}\n`)
         
 
         let yesNo = prompt("(S/N) Deseja exibir a lista de todos os ganhos? ")
