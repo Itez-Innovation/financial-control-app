@@ -2,14 +2,14 @@
 const prompt = require("prompt-sync")()
 
 export enum setores {
-    Alimentacao = "Alimentação",
-    Educacao = "Educação",
-    Entretenimento = "Entretenimento",
-    Saude = "Saúde",
-    Transporte = "Transporte"
+    groceries = "Alimentação",
+    education = "Educação",
+    entertainment = "Entretenimento",
+    health = "Saúde",
+    transport = "Transporte"
 }
 
-export class Gasto { 
+export class Output { 
     _id: number
     _area: setores
     _titulo: string
@@ -24,7 +24,7 @@ export class Gasto {
             this._valor = valor
         } else {
             this._id = 0
-            this._area = setores.Alimentacao
+            this._area = setores.groceries
             this._titulo = ""
             this._valor = 0.0
         }
@@ -33,7 +33,7 @@ export class Gasto {
     // Função para o usuário escolher uma área de gasto
     static findArea() {
         let entrada: boolean
-        let area: setores = setores.Alimentacao
+        let area: setores = setores.groceries
 
         do{
             entrada = true
@@ -48,19 +48,19 @@ export class Gasto {
 
             switch (tipo) {
                 case 1:
-                    area = setores.Alimentacao
+                    area = setores.groceries
                     break;
                 case 2:
-                    area = setores.Educacao
+                    area = setores.education
                     break;
                 case 3:
-                    area = setores.Entretenimento
+                    area = setores.entertainment
                     break;
                 case 4:
-                    area = setores.Saude
+                    area = setores.health
                     break;
                 case 5: 
-                    area = setores.Transporte
+                    area = setores.transport
                     break;
                 default:
                     console.log("Erro! Siga as opções do menu!")
@@ -75,7 +75,7 @@ export class Gasto {
 
     // Função para adicionar gastos
     static adicionarGasto(id: number){
-        let gasto = new Gasto()
+        let gasto = new Output()
 
         gasto._area = this.findArea()
         
@@ -89,11 +89,11 @@ export class Gasto {
     }
 
     // Função para listar gastos
-    static listarGastos(gastos: Array<Gasto>) {
-        if (gastos.length === 0) {
+    static listarGastos(outflow: Array<Output>) {
+        if (outflow.length === 0) {
             console.log(`\nNão há gasto a ser listado!\n`)
         } else {
-            gastos.forEach(element => {
+            outflow.forEach(element => {
                 console.log(`\nÁrea: ${element._area}`)
                 console.log(`ID: ${element._id}`)
                 console.log(`Descrição: ${element._titulo}`)
@@ -104,18 +104,18 @@ export class Gasto {
     }
 
     // Função para remover gastos
-    static removerGastos(gastos: Array<Gasto>){
-        if (gastos.length === 0) {
+    static removerGastos(outflow: Array<Output>){
+        if (outflow.length === 0) {
             console.log(`\nNão há gasto a ser removido!\n`)
         } else {
             console.log("Listando todos os gastos: ")
-            this.listarGastos(gastos)
+            this.listarGastos(outflow)
 
             let idOpcao = Number(prompt("Digite o ID do gasto a ser removido: "))
 
-            gastos.forEach(element => {
+            outflow.forEach(element => {
                 if(element._id == idOpcao) {
-                    gastos.splice(gastos.indexOf(element), 1)
+                    outflow.splice(outflow.indexOf(element), 1)
                     console.log("Gasto removido!")
                     idOpcao = -15
                 } 
@@ -128,17 +128,17 @@ export class Gasto {
     }
 
     // Função que edita os dados dos gastos
-    static editarGastos(gastos: Array<Gasto>) {
-        if (gastos.length === 0) {
+    static editarGastos(outflow: Array<Output>) {
+        if (outflow.length === 0) {
             console.log(`\nNão há gasto a ser editado!\n`)
         } else {
             console.log("Listando todos os gastos: ")
-            this.listarGastos(gastos)
+            this.listarGastos(outflow)
 
             let idOpcao = Number(prompt("Digite o ID do gasto a ser editado: "))
 
             let idCheck: boolean = false
-            gastos.forEach(element => {
+            outflow.forEach(element => {
                 if (idOpcao === element._id) {
                     idCheck = true
 

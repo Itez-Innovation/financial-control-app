@@ -1,7 +1,7 @@
 // npm install prompt-sync
 const prompt = require("prompt-sync")()
 
-export class Ganho {
+export class Input {
     _id: number
     _titulo: string
     _valor: number
@@ -22,7 +22,7 @@ export class Ganho {
 
     // Função para adicionar ganho
     static adicionarGanho(idGanho: number) {
-        let ganho = new Ganho()
+        let ganho = new Input()
 
         ganho._id = idGanho
 
@@ -35,7 +35,7 @@ export class Ganho {
     }
 
     // Função para listar ganhos
-    static listarGanhos(ganhos: Array<Ganho>){
+    static listarGanhos(ganhos: Array<Input>){
         if (ganhos.length === 0 ) {
             console.log("\nNão há ganho a ser listado!\n")
         } else {
@@ -51,7 +51,7 @@ export class Ganho {
     }
 
     // Função para remover ganhos
-    static removerGanhos(ganhos: Array<Ganho>) {
+    static removerGanhos(ganhos: Array<Input>) {
         if (ganhos.length === 0 ) {
             console.log("\nNão há ganho a ser removido!\n")
         } else {
@@ -78,7 +78,7 @@ export class Ganho {
     }
 
     // Função para editar ganhos
-    static editarGanhos(ganhos: Array<Ganho>) {
+    static editarGanhos(ganhos: Array<Input>) {
         if (ganhos.length === 0 ) {
             console.log("\nNão há ganho a ser editado!\n")
         } else {

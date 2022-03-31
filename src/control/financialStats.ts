@@ -1,3 +1,18 @@
+// Importações
+import { Input } from '../model/cashInflow'
+import { Output } from '../model/cashOutflow'
+
+
+export class financialStats {
+
+    constructor () {}
+
+    static generateStats(inflow: Input, outflow: Output){
+        return 0
+    }
+    
+}
+
 // // Função que gera um extrato com gastos e ganhos
 // function gerarExtrato() {
 //     let somaGastos = 0

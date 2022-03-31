@@ -1,15 +1,16 @@
 // Importações
-import { Ganho } from './model/Ganho'
-import { Gasto, setores } from './model/Gasto'
+import { Input } from './model/cashInflow'
+import { Output, setores } from './model/cashOutflow'
+import { financialStats } from './control/financialStats'
 
 /*-----------------------------------------------------------------------------------------*/
 
 // Declarações
-let gastos: Array<Gasto> = []
-let idGasto: number = 1
-let ganhos: Array<Ganho> = []
-let idGanho: number = 1
-let opcao: number = 0
+let outflow: Array<Output> = []
+let idOutflow: number = 1
+let inflow: Array<Input> = []
+let idInflow: number = 1
+let option: number = 0
 
 // npm install prompt-sync
 const prompt = require("prompt-sync")()
@@ -18,56 +19,56 @@ const prompt = require("prompt-sync")()
 
 // Inserindo valores iniciais apenas para teste
 function insereInicial(){
-    let gasto: Gasto
-    let ganho: Ganho
+    let output: Output
+    let input: Input
 
-    gasto = new Gasto(idGasto, setores.Educacao, "Escola0", 150.99)
-    gastos.push(gasto)
-    idGasto++
-    gasto = new Gasto(idGasto, setores.Educacao, "Escola1", 40.33)
-    gastos.push(gasto)
-    idGasto++
+    output = new Output(idOutflow, setores.education, "Escola0", 150.99)
+    outflow.push(output)
+    idOutflow++
+    output = new Output(idOutflow, setores.education, "Escola1", 40.33)
+    outflow.push(output)
+    idOutflow++
 
-    gasto = new Gasto(idGasto, setores.Alimentacao, "Comida0", 23.99)
-    gastos.push(gasto)
-    idGasto++
-    gasto = new Gasto(idGasto, setores.Alimentacao, "Comida1", 25)
-    gastos.push(gasto)
-    idGasto++
+    output = new Output(idOutflow, setores.groceries, "Comida0", 23.99)
+    outflow.push(output)
+    idOutflow++
+    output = new Output(idOutflow, setores.groceries, "Comida1", 25)
+    outflow.push(output)
+    idOutflow++
 
-    gasto = new Gasto(idGasto, setores.Entretenimento, "Filme0", 30.5)
-    gastos.push(gasto)
-    idGasto++
-    gasto = new Gasto(idGasto, setores.Entretenimento, "Filme1", 60.5)
-    gastos.push(gasto)
-    idGasto++
+    output = new Output(idOutflow, setores.entertainment, "Filme0", 30.5)
+    outflow.push(output)
+    idOutflow++
+    output = new Output(idOutflow, setores.entertainment, "Filme1", 60.5)
+    outflow.push(output)
+    idOutflow++
 
-    gasto = new Gasto(idGasto, setores.Saude, "Vacina0", 150.99)
-    gastos.push(gasto)
-    idGasto++
-    gasto = new Gasto(idGasto, setores.Saude, "Vacina1", 3.99)
-    gastos.push(gasto)
-    idGasto++
+    output = new Output(idOutflow, setores.health, "Vacina0", 150.99)
+    outflow.push(output)
+    idOutflow++
+    output = new Output(idOutflow, setores.health, "Vacina1", 3.99)
+    outflow.push(output)
+    idOutflow++
 
-    gasto = new Gasto(idGasto, setores.Transporte, "Uber0", 150.99)
-    gastos.push(gasto)
-    idGasto++
-    gasto = new Gasto(idGasto, setores.Transporte, "Uber1", 15.90)
-    gastos.push(gasto)
-    idGasto++
+    output = new Output(idOutflow, setores.transport, "Uber0", 150.99)
+    outflow.push(output)
+    idOutflow++
+    output = new Output(idOutflow, setores.transport, "Uber1", 15.90)
+    outflow.push(output)
+    idOutflow++
 
-    ganho = new Ganho(idGanho, "Venda0", 150.99)
-    ganhos.push(ganho)
-    idGanho++
-    ganho = new Ganho(idGanho, "Venda1", 157.90)
-    ganhos.push(ganho)
-    idGanho++
+    input = new Input(idInflow, "Venda0", 150.99)
+    inflow.push(input)
+    idInflow++
+    input = new Input(idInflow, "Venda1", 157.90)
+    inflow.push(input)
+    idInflow++
 }
 
 /*-----------------------------------------------------------------------------------------*/
 
 // Função para imprimir uma linha do tamanho desejado
-function imprimeLinha(tamanho = 40, tipo = 1){
+function printLine(tamanho = 40, tipo = 1){
     if(tipo === 1){
         for(let i = 1; i < tamanho; i++){
             process.stdout.write("-");
@@ -82,7 +83,7 @@ function imprimeLinha(tamanho = 40, tipo = 1){
 }
 
 // Função para imprimir o menu e pegar a opção escolhida
-function imprimeMenu() {
+function printMenu() {
     console.log("------------------MENU------------------")
     console.log("1 - ADICIONAR GASTO")
     console.log("2 - REMOVER GASTO")
@@ -95,7 +96,7 @@ function imprimeMenu() {
     console.log("9 - GERAR EXTRATO")
     console.log("10 - ENCERRAR")
 
-    opcao = Number(prompt("Opção escolhida: "))
+    option = Number(prompt("Opção escolhida: "))
 }
 
 /*-----------------------------------------------------------------------------------------*/
@@ -103,44 +104,44 @@ function imprimeMenu() {
 // Começo do programa
 insereInicial()
 
-imprimeLinha(40,2)
+printLine(40,2)
 do{
-    imprimeMenu()
-    imprimeLinha(40, 1)
-    switch (opcao) {
+    printMenu()
+    printLine(40, 1)
+    switch (option) {
         case 1:
             console.log("~~~~~~~~~~ADICIONAR GASTO~~~~~~~~~~")
-            gastos.push(Gasto.adicionarGasto(idGasto))
-            idGasto++
+            outflow.push(Output.adicionarGasto(idOutflow))
+            idOutflow++
             break;
         case 2:
             console.log("~~~~~~~~~~REMOVER GASTO~~~~~~~~~~")
-            Gasto.removerGastos(gastos)
+            Output.removerGastos(outflow)
             break;
         case 3:
             console.log("~~~~~~~~~~LISTAR GASTOS~~~~~~~~~~")
-            Gasto.listarGastos(gastos)
+            Output.listarGastos(outflow)
             break;
         case 4:
             console.log("~~~~~~~~~~EDITAR GASTOS~~~~~~~~~~")
-            Gasto.editarGastos(gastos)
+            Output.editarGastos(outflow)
             break;
         case 5:
             console.log("~~~~~~~~~~ADICIONAR GANHO~~~~~~~~~~")
-            ganhos.push(Ganho.adicionarGanho(idGanho))
-            idGanho++
+            inflow.push(Input.adicionarGanho(idInflow))
+            idInflow++
             break;
         case 6:
             console.log("~~~~~~~~~~REMOVER GANHO~~~~~~~~~~")
-            Ganho.removerGanhos(ganhos)
+            Input.removerGanhos(inflow)
             break;
         case 7:
             console.log("~~~~~~~~~~LISTAR GANHOS~~~~~~~~~~")
-            Ganho.listarGanhos(ganhos)
+            Input.listarGanhos(inflow)
             break;
         case 8:
             console.log("~~~~~~~~~~EDITAR GANHO~~~~~~~~~~")
-            Ganho.editarGanhos(ganhos)
+            Input.editarGanhos(inflow)
             break;
         case 9:
             console.log("~~~~~~~~~~GERAR EXTRATO~~~~~~~~~~")
@@ -153,5 +154,5 @@ do{
             console.log("OPÇÃO INCORRETA! SIGA O MENU E DIGITE NOVAMENTE!")
             break;
     }
-    imprimeLinha(40, 2)
-} while (opcao != 10)
+    printLine(40, 2)
+} while (option != 10)
