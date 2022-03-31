@@ -147,60 +147,60 @@ console.log("~~~~~~~~~~ADICIONAR CONTA~~~~~~~~~~\n")
 acc = account.createAccount(idAcc)
 idAcc++
 
-printLine(40, 1)
-account.showDataAccount(acc)
-printLine(40, 1)
+// printLine(40, 1)
+// account.showDataAccount(acc)
+// printLine(40, 1)
 
 printLine(40,2)
 
-// do{
-//     printMenu()
-//     printLine(40, 1)
-//     switch (option) {
-//         case 1:
-//             console.log("~~~~~~~~~~ADICIONAR GASTO~~~~~~~~~~\n")
-//             outflow.push(Output.adicionarGasto(idOutflow))
-//             idOutflow++
-//             break;
-//         case 2:
-//             console.log("~~~~~~~~~~REMOVER GASTO~~~~~~~~~~\n")
-//             Output.removerGastos(outflow)
-//             break;
-//         case 3:
-//             console.log("~~~~~~~~~~LISTAR GASTOS~~~~~~~~~~\n")
-//             Output.listarGastos(outflow)
-//             break;
-//         case 4:
-//             console.log("~~~~~~~~~~EDITAR GASTOS~~~~~~~~~~\n")
-//             Output.editarGastos(outflow)
-//             break;
-//         case 5:
-//             console.log("~~~~~~~~~~ADICIONAR GANHO~~~~~~~~~~\n")
-//             inflow.push(Input.adicionarGanho(idInflow))
-//             idInflow++
-//             break;
-//         case 6:
-//             console.log("~~~~~~~~~~REMOVER GANHO~~~~~~~~~~\n")
-//             Input.removerGanhos(inflow)
-//             break;
-//         case 7:
-//             console.log("~~~~~~~~~~LISTAR GANHOS~~~~~~~~~~\n")
-//             Input.listarGanhos(inflow)
-//             break;
-//         case 8:
-//             console.log("~~~~~~~~~~EDITAR GANHO~~~~~~~~~~\n")
-//             Input.editarGanhos(inflow)
-//             break;
-//         case 9:
-//             console.log("~~~~~~~~~~GERAR EXTRATO~~~~~~~~~~\n")
-//             financialStats.generateStats(inflow, outflow)
-//             break;
-//         case 10:
-//             console.log("OBRIGADO POR UTILIZAR O PROGRAMA!\n")
-//             break;
-//         default:
-//             console.log("OPÇÃO INCORRETA! SIGA O MENU E DIGITE NOVAMENTE!\n")
-//             break;
-//     }
-//     printLine(40, 2)
-// } while (option != 10)
+do{
+    printMenu()
+    printLine(40, 1)
+    switch (option) {
+        case 1:
+            console.log("~~~~~~~~~~ADICIONAR GASTO~~~~~~~~~~\n")
+            account.addOutput(acc, idOutflow)
+            idOutflow++
+            break;
+        case 2:
+            console.log("~~~~~~~~~~REMOVER GASTO~~~~~~~~~~\n")
+            account.rmOutput(acc)
+            break;
+        case 3:
+            console.log("~~~~~~~~~~LISTAR GASTOS~~~~~~~~~~\n")
+            account.listOutput(acc)
+            break;
+        case 4:
+            console.log("~~~~~~~~~~EDITAR GASTOS~~~~~~~~~~\n")
+            account.editOutput(acc)
+            break;
+        case 5:
+            console.log("~~~~~~~~~~ADICIONAR GANHO~~~~~~~~~~\n")
+            account.addInput(acc, idInflow)
+            idInflow++
+            break;
+        case 6:
+            console.log("~~~~~~~~~~REMOVER GANHO~~~~~~~~~~\n")
+            account.rmInput(acc)
+            break;
+        case 7:
+            console.log("~~~~~~~~~~LISTAR GANHOS~~~~~~~~~~\n")
+            account.listInput(acc)
+            break;
+        case 8:
+            console.log("~~~~~~~~~~EDITAR GANHO~~~~~~~~~~\n")
+            account.editInput(acc)
+            break;
+        case 9:
+            console.log("~~~~~~~~~~GERAR EXTRATO~~~~~~~~~~\n")
+            //financialStats.generateStats(inflow, outflow)
+            break;
+        case 10:
+            console.log("OBRIGADO POR UTILIZAR O PROGRAMA!\n")
+            break;
+        default:
+            console.log("OPÇÃO INCORRETA! SIGA O MENU E DIGITE NOVAMENTE!\n")
+            break;
+    }
+    printLine(40, 2)
+} while (option != 10)

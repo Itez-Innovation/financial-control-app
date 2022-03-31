@@ -38,7 +38,7 @@ export class Output {
         do{
             entrada = true
 
-            console.log("\nSelecione a área do gasto: ")
+            console.log("Selecione a área do gasto: ")
             console.log("1 - Alimentação")
             console.log("2 - Educação")
             console.log("3 - Entretenimento")
@@ -91,7 +91,7 @@ export class Output {
     // Função para listar gastos
     static listarGastos(outflow: Array<Output>) {
         if (outflow.length === 0) {
-            console.log(`\nNão há gasto a ser listado!\n`)
+            console.log(`Não há gasto a ser listado!\n`)
         } else {
             outflow.forEach(element => {
                 console.log(`\nÁrea: ${element._area}`)
@@ -106,7 +106,7 @@ export class Output {
     // Função para remover gastos
     static removerGastos(outflow: Array<Output>){
         if (outflow.length === 0) {
-            console.log(`\nNão há gasto a ser removido!\n`)
+            console.log(`Não há gasto a ser removido!\n`)
         } else {
             console.log("Listando todos os gastos: ")
             this.listarGastos(outflow)
@@ -130,7 +130,7 @@ export class Output {
     // Função que edita os dados dos gastos
     static editarGastos(outflow: Array<Output>) {
         if (outflow.length === 0) {
-            console.log(`\nNão há gasto a ser editado!\n`)
+            console.log(`Não há gasto a ser editado!\n`)
         } else {
             console.log("Listando todos os gastos: ")
             this.listarGastos(outflow)

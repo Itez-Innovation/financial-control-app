@@ -37,9 +37,9 @@ export class Input {
     // Função para listar ganhos
     static listarGanhos(ganhos: Array<Input>){
         if (ganhos.length === 0 ) {
-            console.log("\nNão há ganho a ser listado!\n")
+            console.log("Não há ganho a ser listado!\n")
         } else {
-            console.log("\nListando todos os ganhos: ")
+            console.log("Listando todos os ganhos: ")
 
             for(let value of ganhos) {
                 console.log(`\nID: ${value._id}`)
@@ -53,7 +53,7 @@ export class Input {
     // Função para remover ganhos
     static removerGanhos(ganhos: Array<Input>) {
         if (ganhos.length === 0 ) {
-            console.log("\nNão há ganho a ser removido!\n")
+            console.log("Não há ganho a ser removido!\n")
         } else {
             let entrada = false
             do{
@@ -80,7 +80,7 @@ export class Input {
     // Função para editar ganhos
     static editarGanhos(ganhos: Array<Input>) {
         if (ganhos.length === 0 ) {
-            console.log("\nNão há ganho a ser editado!\n")
+            console.log("Não há ganho a ser editado!\n")
         } else {
             let entrada = false
             do{

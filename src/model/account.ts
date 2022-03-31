@@ -30,11 +30,13 @@ export class account {
     static createAccount(idAcc: number) {
         let acc = new account()
 
+        console.log("Olá!")
+
         acc._id = idAcc
 
         let check = false
         do{
-            acc._nome = String(prompt(`Olá! Insira seu nome completo: `))
+            acc._nome = String(prompt(`Insira seu nome completo: `))
             if(acc._nome.trim()){
                 check = true
             } else {
@@ -51,6 +53,8 @@ export class account {
                 console.log("Insira um CPF válido!\n")
             }
         } while (!check)
+
+        console.log("")
 
         acc._input = []
         acc._output = []
