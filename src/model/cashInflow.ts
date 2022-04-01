@@ -21,7 +21,7 @@ export class Input {
 
 
     // Função para adicionar ganho
-    static adicionarGanho(idGanho: number) {
+    adicionarGanho(idGanho: number) {
         let ganho = new Input()
 
         ganho._id = idGanho
@@ -35,7 +35,7 @@ export class Input {
     }
 
     // Função para listar ganhos
-    static listarGanhos(ganhos: Array<Input>){
+    listarGanhos(ganhos: Array<Input>){
         if (ganhos.length === 0 ) {
             console.log("Não há ganho a ser listado!\n")
         } else {
@@ -51,7 +51,7 @@ export class Input {
     }
 
     // Função para remover ganhos
-    static removerGanhos(ganhos: Array<Input>) {
+    removerGanhos(ganhos: Array<Input>) {
         if (ganhos.length === 0 ) {
             console.log("Não há ganho a ser removido!\n")
         } else {
@@ -78,7 +78,7 @@ export class Input {
     }
 
     // Função para editar ganhos
-    static editarGanhos(ganhos: Array<Input>) {
+    editarGanhos(ganhos: Array<Input>) {
         if (ganhos.length === 0 ) {
             console.log("Não há ganho a ser editado!\n")
         } else {

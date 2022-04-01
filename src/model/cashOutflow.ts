@@ -31,7 +31,7 @@ export class Output {
     }
 
     // Função para o usuário escolher uma área de gasto
-    static findArea() {
+    findArea() {
         let entrada: boolean
         let area: setores = setores.groceries
 
@@ -74,7 +74,7 @@ export class Output {
     }
 
     // Função para adicionar gastos
-    static adicionarGasto(id: number){
+    adicionarGasto(id: number){
         let gasto = new Output()
 
         gasto._area = this.findArea()
@@ -89,7 +89,7 @@ export class Output {
     }
 
     // Função para listar gastos
-    static listarGastos(outflow: Array<Output>) {
+    listarGastos(outflow: Array<Output>) {
         if (outflow.length === 0) {
             console.log(`Não há gasto a ser listado!\n`)
         } else {
@@ -104,7 +104,7 @@ export class Output {
     }
 
     // Função para remover gastos
-    static removerGastos(outflow: Array<Output>){
+    removerGastos(outflow: Array<Output>){
         if (outflow.length === 0) {
             console.log(`Não há gasto a ser removido!\n`)
         } else {
@@ -128,7 +128,7 @@ export class Output {
     }
 
     // Função que edita os dados dos gastos
-    static editarGastos(outflow: Array<Output>) {
+    editarGastos(outflow: Array<Output>) {
         if (outflow.length === 0) {
             console.log(`Não há gasto a ser editado!\n`)
         } else {

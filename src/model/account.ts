@@ -4,6 +4,9 @@ import { financialStats } from '../service/financialStatsService'
 
 // npm install prompt-sync
 const prompt = require("prompt-sync")()
+let inpt = new Input()
+let otpt = new Output()
+let fStat = new financialStats()
 export class account {
     _id: number
     _nome: string
@@ -76,49 +79,49 @@ export class account {
     // Adicionando ganho
     addInput(acc: account, idInflow: number) {
         let inp = new Input()
-        inp = Input.adicionarGanho(idInflow)
+        inp = inpt.adicionarGanho(idInflow)
         acc._input.push(inp)
     }
 
     // Editando ganho
     editInput(acc: account) {
-        Input.editarGanhos(acc._input)
+        inpt.editarGanhos(acc._input)
     }
 
     // Listando ganhos
     listInput(acc: account) {
-        Input.listarGanhos(acc._input)
+        inpt.listarGanhos(acc._input)
     }
 
     // Removendo ganho
     rmInput(acc: account) {
-        Input.removerGanhos(acc._input)
+        inpt.removerGanhos(acc._input)
     }
 
     // Adicionando gasto
     addOutput(acc: account, idOutflow: number) {
         let out = new Output()
-        out = Output.adicionarGasto(idOutflow)
+        out = otpt.adicionarGasto(idOutflow)
         acc._output.push(out)
     }
 
     // Editando gasto
     editOutput(acc: account) {
-        Output.editarGastos(acc._output)
+        otpt.editarGastos(acc._output)
     }
 
     // Listando gastos
     listOutput(acc: account) {
-        Output.listarGastos(acc._output)
+        otpt.listarGastos(acc._output)
     }
 
     // Removendo gastos
     rmOutput(acc: account) {
-        Output.removerGastos(acc._output)
+        otpt.removerGastos(acc._output)
     }
 
     genStats(acc: account) {
-        financialStats.generateStats(acc._input, acc._output)
+        fStat.generateStats(acc._input, acc._output)
     }
 
 }

@@ -29,8 +29,8 @@ function printLine(tamanho = 40, tipo = 1){
     }
 }
 
-function printMenuAccount(accounts: Array<account>) {
-    console.log("------------------CONTAS------------------")
+function printMenuAccount() {
+    console.log("-----------------CONTAS-----------------")
     console.log("1 - CADASTRO")
     console.log("2 - VER DADOS CADASTRADOS")
     console.log("3 - ACESSAR FUNCIONALIDADES")
@@ -63,7 +63,7 @@ let accounts: Array<account> = []
 let acc = new account
 
 do {
-    printMenuAccount(accounts)
+    printMenuAccount()
 
     switch (option) {
         case 1:
