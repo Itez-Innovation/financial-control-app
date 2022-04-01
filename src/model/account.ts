@@ -1,6 +1,6 @@
 import { Input } from './cashInflow'
 import { Output } from './cashOutflow'
-import { financialStats } from '../control/financialStats'
+import { financialStats } from '../service/financialStatsService'
 
 // npm install prompt-sync
 const prompt = require("prompt-sync")()
@@ -28,7 +28,7 @@ export class account {
     }
 
     // Criando a conta
-    static createAccount(idAcc: number) {
+    createAccount(idAcc: number) {
         let acc = new account()
 
         console.log("Olá!")
@@ -63,57 +63,60 @@ export class account {
         return acc
     }
 
-    static showDataAccount(acc: account){
-        console.log(`ID da conta: ${acc._id}`)
-        console.log(`Nome: ${acc._nome}`)
-        console.log(`CPF: ${acc._cpf}\n`)
+    showDataAccount(accounts: Array<account>){
+        accounts.forEach(element => {
+            console.log(`ID da conta: ${element._id}`)
+            console.log(`Nome: ${element._nome}`)
+            console.log(`CPF: ${element._cpf}\n`)
+        });
+        
     }
 
     // Adicionando ganho
-    static addInput(acc: account, idInflow: number) {
+    addInput(acc: account, idInflow: number) {
         let inp = new Input()
         inp = Input.adicionarGanho(idInflow)
         acc._input.push(inp)
     }
 
     // Editando ganho
-    static editInput(acc: account) {
+    editInput(acc: account) {
         Input.editarGanhos(acc._input)
     }
 
     // Listando ganhos
-    static listInput(acc: account) {
+    listInput(acc: account) {
         Input.listarGanhos(acc._input)
     }
 
     // Removendo ganho
-    static rmInput(acc: account) {
+    rmInput(acc: account) {
         Input.removerGanhos(acc._input)
     }
 
     // Adicionando gasto
-    static addOutput(acc: account, idOutflow: number) {
+    addOutput(acc: account, idOutflow: number) {
         let out = new Output()
         out = Output.adicionarGasto(idOutflow)
         acc._output.push(out)
     }
 
     // Editando gasto
-    static editOutput(acc: account) {
+    editOutput(acc: account) {
         Output.editarGastos(acc._output)
     }
 
     // Listando gastos
-    static listOutput(acc: account) {
+    listOutput(acc: account) {
         Output.listarGastos(acc._output)
     }
 
     // Removendo gastos
-    static rmOutput(acc: account) {
+    rmOutput(acc: account) {
         Output.removerGastos(acc._output)
     }
 
-    static genStats(acc: account) {
+    genStats(acc: account) {
         financialStats.generateStats(acc._input, acc._output)
     }
 
