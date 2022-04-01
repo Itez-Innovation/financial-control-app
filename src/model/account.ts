@@ -64,10 +64,11 @@ export class account {
     }
 
     showDataAccount(accounts: Array<account>){
+        console.log("\nListando contas cadastradas: ")
         accounts.forEach(element => {
-            console.log(`ID da conta: ${element._id}`)
+            console.log(`\nID da conta: ${element._id}`)
             console.log(`Nome: ${element._nome}`)
-            console.log(`CPF: ${element._cpf}\n`)
+            console.log(`CPF: ${element._cpf}`)
         });
         
     }
