@@ -64,8 +64,6 @@ export class financialStats {
                 somaAli += value
             }
         } 
-        
-
 
         console.log(`\nNo total, foram gastos R$ ${sumOutput.toFixed(2)}, sendo distribuídos nas seguintes áreas: `)
         console.log(`ALIMENTAÇÃO: R$ ${somaAli.toFixed(2)}`)
