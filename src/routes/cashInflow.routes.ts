@@ -3,9 +3,9 @@ import { getRepository, getCustomRepository } from 'typeorm';
 import CashInflow from '../entity/CashInflow';
 import CashInflowRepository from '../repositories/CashInflowRepository';
 
-const cashInflowRouter = Router()
+const cashInflowRoute = Router()
 
-cashInflowRouter.post('/', async (request, response) => {
+cashInflowRoute.post('/', async (request, response) => {
     try {
         const repo = getRepository(CashInflow)
         const res = await repo.save(request.body)
@@ -16,20 +16,20 @@ cashInflowRouter.post('/', async (request, response) => {
     }
 })
 
-cashInflowRouter.get('/',async (request, response) => {
+cashInflowRoute.get('/',async (request, response) => {
     response.json(await getRepository(CashInflow).find())    
 })
 
-cashInflowRouter.get('/:Titulo',async (request, response) => {
+cashInflowRoute.get('/:Titulo',async (request, response) => {
     const repository = getCustomRepository(CashInflowRepository)
     const res = await repository.findByTitulo(request.params.Titulo)
     response.json(res)    
 })
 
-cashInflowRouter.get('/:id',async (request, response) => {
+cashInflowRoute.get('/:id',async (request, response) => {
     const repository = getCustomRepository(CashInflowRepository)
     const posta = await repository.findById(Number(request.params.id))
     response.json(posta)    
 })
 
-export default cashInflowRouter
+export default cashInflowRoute

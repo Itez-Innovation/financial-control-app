@@ -4,9 +4,9 @@ import Account from '../entity/Account';
 import AccountRepository from '../repositories/AccountRepository';
 
 
-const accountRouter = Router()
+const accountRoute = Router()
 
-accountRouter.post('/', async (request, response) => {
+accountRoute.post('/', async (request, response) => {
     try {
         const repo = getRepository(Account)
         const res = await repo.save(request.body)
@@ -17,14 +17,14 @@ accountRouter.post('/', async (request, response) => {
     }
 })
 
-accountRouter.get('/',async (request, response) => {
+accountRoute.get('/',async (request, response) => {
     response.json(await getRepository(Account).find())    
 })
 
-accountRouter.get('/:name',async (request, response) => {
+accountRoute.get('/:name',async (request, response) => {
     const repository = getCustomRepository(AccountRepository)
     const res = await repository.findByName(request.params.name)
     response.json(res)    
 })
 
-export default accountRouter
+export default accountRoute

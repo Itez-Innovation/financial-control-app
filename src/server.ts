@@ -1,7 +1,7 @@
 import * as dotenv from 'dotenv';
 import app from './app';
 import 'reflect-metadata';
-import './database';
+import './migration';
 
 dotenv.config();
 
