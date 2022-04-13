@@ -1,6 +1,6 @@
 import { response, Router } from 'express';
 import { getRepository, getCustomRepository } from 'typeorm';
-import Account from '../entity/Account';
+import Account from '../entity/Account'
 import AccountRepository from '../repositories/AccountRepository';
 
 

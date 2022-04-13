@@ -105,4 +105,4 @@ class account {
     }
 }
 exports.account = account;
-//# sourceMappingURL=account.js.map
+//# sourceMappingURL=Account.js.map

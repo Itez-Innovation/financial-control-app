@@ -1,7 +1,7 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
 // Importações
-const account_1 = require("./model/account");
+const Account_1 = require("./model/Account");
 /*-----------------------------------------------------------------------------------------*/
 // Declarações
 let option = 0;
@@ -52,7 +52,7 @@ function printMenu() {
 // Começo do programa
 printLine(40, 2);
 let accounts = [];
-let acc = new account_1.account;
+let acc = new Account_1.account;
 do {
     printMenuAccount();
     switch (option) {

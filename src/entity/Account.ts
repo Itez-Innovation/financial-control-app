@@ -6,8 +6,8 @@ import {
     PrimaryGeneratedColumn,
     OneToMany,
   } from 'typeorm';
-  import { Input } from '../model/cashInflow'
-  import { Output } from '../model/cashOutflow'
+import { Input } from '../model/cashInflow'
+ import { Output } from '../model/cashOutflow'
 
 @Entity('account')
 export default class Account {
@@ -24,11 +24,11 @@ export default class Account {
     @Column()
     Name: string
 
-    @Column()
-    input: Array<Input>
+    // @Column()
+    // input: Input
 
-    @Column()
-    output: Array<Output>
+    // @Column()
+    // output: Output
 
     @CreateDateColumn({ name: 'created_At' })
     createdAt: Date;
