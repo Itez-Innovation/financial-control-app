@@ -1,29 +1,34 @@
 {
-  "name": "financial-control-app",
-  "version": "0.1.0",
-  "description": "<p style='align: center;'>Em geral, ter uma boa visão dos seus ganhos e gastos é um ótimo \"Primeiro Passo\" para alcançar uma melhor saúde financeira. Dessa forma, você deverá desenvolver uma aplicação de controle financeiro, para auxiliar aqueles que desejam melhorar o relacionamento com o seu \"bolso\". A seguir você encontrará todos os requisitos!</p>",
-  "main": "index.js",
-  "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "node main.js"
-  },
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/Itez-Innovation/financial-control-app.git"
-  },
-  "keywords": [],
-  "author": "",
-  "license": "ISC",
-  "bugs": {
-    "url": "https://github.com/Itez-Innovation/financial-control-app/issues"
-  },
-  "homepage": "https://github.com/Itez-Innovation/financial-control-app#readme",
-  "devDependencies": {
-    "@types/node": "^17.0.23",
-    "typescript": "^4.6.2"
-  },
-  "dependencies": {
-    "nodemon": "^2.0.15",
-    "prompt-sync": "^4.2.0"
-  }
+   "name": "financial-control-app",
+   "version": "0.1.0",
+   "description": "<p style='align: center;'>Em geral, ter uma boa visão dos seus ganhos e gastos é um ótimo \"Primeiro Passo\" para alcançar uma melhor saúde financeira. Dessa forma, você deverá desenvolver uma aplicação de controle financeiro, para auxiliar aqueles que desejam melhorar o relacionamento com o seu \"bolso\". A seguir você encontrará todos os requisitos!</p>",
+   "main": "index.js",
+   "scripts": {
+      "test": "echo \"Error: no test specified\" && exit 1",
+      "start": "ts-node src/index.ts",
+      "typeorm": "typeorm-ts-node-commonjs"
+   },
+   "repository": {
+      "type": "git",
+      "url": "git+https://github.com/Itez-Innovation/financial-control-app.git"
+   },
+   "keywords": [],
+   "author": "",
+   "license": "ISC",
+   "bugs": {
+      "url": "https://github.com/Itez-Innovation/financial-control-app/issues"
+   },
+   "homepage": "https://github.com/Itez-Innovation/financial-control-app#readme",
+   "devDependencies": {
+      "@types/node": "^16.11.10",
+      "ts-node": "10.7.0",
+      "typescript": "4.5.2"
+   },
+   "dependencies": {
+      "nodemon": "^2.0.15",
+      "pg": "^8.4.0",
+      "prompt-sync": "^4.2.0",
+      "reflect-metadata": "^0.1.13",
+      "typeorm": "0.3.5"
+   }
 }
