@@ -1,5 +1,5 @@
 // Importações
-import { account } from "./model/account"
+import { account } from "./model/Account"
 
 /*-----------------------------------------------------------------------------------------*/
 

@@ -135,3 +135,4 @@ do {
     }
     printLine(40, 2);
 } while (option != 10);
+//# sourceMappingURL=main.js.map

@@ -14,16 +14,16 @@ var setores;
 class Output {
     constructor(id, area, titulo, valor) {
         if (id && area && titulo && valor) {
-            this._id = id;
-            this._area = area;
-            this._titulo = titulo;
-            this._valor = valor;
+            this.id = id;
+            this.area = area;
+            this.titulo = titulo;
+            this.valor = valor;
         }
         else {
-            this._id = 0;
-            this._area = setores.groceries;
-            this._titulo = "";
-            this._valor = 0.0;
+            this.id = 0;
+            this.area = setores.groceries;
+            this.titulo = "";
+            this.valor = 0.0;
         }
     }
     // Função para o usuário escolher uma área de gasto
@@ -67,10 +67,10 @@ class Output {
     // Função para adicionar gastos
     adicionarGasto(id) {
         let gasto = new Output();
-        gasto._area = this.findArea();
-        gasto._id = id;
-        gasto._titulo = String(prompt("Insira uma breve descrição do gasto: "));
-        gasto._valor = Number(prompt("Insira o valor do gasto (apenas números): "));
+        gasto.area = this.findArea();
+        gasto.id = id;
+        gasto.titulo = String(prompt("Insira uma breve descrição do gasto: "));
+        gasto.valor = Number(prompt("Insira o valor do gasto (apenas números): "));
         return gasto;
     }
     // Função para listar gastos
@@ -80,10 +80,10 @@ class Output {
         }
         else {
             outflow.forEach(element => {
-                console.log(`\nÁrea: ${element._area}`);
-                console.log(`ID: ${element._id}`);
-                console.log(`Descrição: ${element._titulo}`);
-                console.log(`Valor: R$ ${element._valor}`);
+                console.log(`\nÁrea: ${element.area}`);
+                console.log(`ID: ${element.id}`);
+                console.log(`Descrição: ${element.titulo}`);
+                console.log(`Valor: R$ ${element.valor}`);
                 console.log("");
             });
         }
@@ -98,7 +98,7 @@ class Output {
             this.listarGastos(outflow);
             let idOpcao = Number(prompt("Digite o ID do gasto a ser removido: "));
             outflow.forEach(element => {
-                if (element._id == idOpcao) {
+                if (element.id == idOpcao) {
                     outflow.splice(outflow.indexOf(element), 1);
                     console.log("Gasto removido!");
                     idOpcao = -15;
@@ -120,15 +120,15 @@ class Output {
             let idOpcao = Number(prompt("Digite o ID do gasto a ser editado: "));
             let idCheck = false;
             outflow.forEach(element => {
-                if (idOpcao === element._id) {
+                if (idOpcao === element.id) {
                     idCheck = true;
                     // Alterando a área do gasto
                     let yesNo = prompt("Deseja alterar a área do gasto (S/N)? ");
                     if (yesNo == 'S' || yesNo == 's' || yesNo == 'Y' || yesNo == 'y') {
-                        element._area = this.findArea();
+                        element.area = this.findArea();
                     }
-                    element._titulo = prompt("Digite uma breve descrição do gasto: ");
-                    element._valor = Number(prompt("Insira o valor gasto (apenas números): "));
+                    element.titulo = prompt("Digite uma breve descrição do gasto: ");
+                    element.valor = Number(prompt("Insira o valor gasto (apenas números): "));
                 }
             });
             if (!idCheck) {
@@ -138,3 +138,4 @@ class Output {
     }
 }
 exports.Output = Output;
+//# sourceMappingURL=cashOutflow.js.map

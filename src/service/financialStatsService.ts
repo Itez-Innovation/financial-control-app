@@ -22,38 +22,38 @@ export class financialStats {
         
         // Somando gastos com o for(let ... of ...)
         // for (let value of outflow) {
-        //     sumOutput += value._valor
-        //     if (value._area == "Alimentação") {
-        //         gastoAli += value._valor
-        //     } else if (value._area == "Educação") {
-        //         gastoEdu += value._valor
-        //     } else if (value._area == "Entretenimento") {
-        //         gastoEnt += value._valor
-        //     } else if (value._area == "Saúde") {
-        //         gastoSau += value._valor
-        //     } else if (value._area == "Transporte") {
-        //         gastoTra += value._valor
+        //     sumOutput += value.valor
+        //     if (value.area == "Alimentação") {
+        //         gastoAli += value.valor
+        //     } else if (value.area == "Educação") {
+        //         gastoEdu += value.valor
+        //     } else if (value.area == "Entretenimento") {
+        //         gastoEnt += value.valor
+        //     } else if (value.area == "Saúde") {
+        //         gastoSau += value.valor
+        //     } else if (value.area == "Transporte") {
+        //         gastoTra += value.valor
         //     }
         // }
 
         // Somando gastos usando forEach
         outflow.forEach(element => {
-            sumOutput += element._valor
-            if (element._area == "Educação") {
-                gastoEdu += element._valor
-            } else if (element._area == "Entretenimento") {
-                gastoEnt += element._valor
-            } else if (element._area == "Saúde") {
-                gastoSau += element._valor
-            } else if (element._area == "Transporte") {
-                gastoTra += element._valor
+            sumOutput += element.valor
+            if (element.area == "Educação") {
+                gastoEdu += element.valor
+            } else if (element.area == "Entretenimento") {
+                gastoEnt += element.valor
+            } else if (element.area == "Saúde") {
+                gastoSau += element.valor
+            } else if (element.area == "Transporte") {
+                gastoTra += element.valor
             }
         });
 
         // Criando um vetor com todos os valores gastos em alimentação
         let gastoAli = outflow.map(function(outflow){
-            if(outflow._area == "Alimentação"){
-                return outflow._valor
+            if(outflow.area == "Alimentação"){
+                return outflow.valor
             }
         });
 
@@ -73,12 +73,12 @@ export class financialStats {
         console.log(`TRANSPORTE: R$ ${gastoTra.toFixed(2)}`)
 
         for (let value of inflow) {
-            sumInput += value._valor
+            sumInput += value.valor
         }
 
         console.log(`\nNo total, foram recebidos R$ ${sumInput.toFixed(2)}, sendo distribuídos em: `)
         for (let value of inflow) {
-            console.log(`- ${value._titulo}: R$ ${value._valor.toFixed(2)}`)
+            console.log(`- ${value.titulo}: R$ ${value.valor.toFixed(2)}`)
         }
         
         let balanco = Number(sumInput) - Number(sumOutput)

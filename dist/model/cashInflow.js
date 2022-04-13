@@ -6,23 +6,23 @@ const prompt = require("prompt-sync")();
 class Input {
     constructor(id, titulo, valor) {
         if (id && titulo && valor) {
-            this._id = id;
-            this._titulo = titulo;
-            this._valor = valor;
+            this.id = id;
+            this.titulo = titulo;
+            this.valor = valor;
         }
         else {
-            this._id = 0;
-            this._titulo = "";
-            this._valor = 0.0;
+            this.id = 0;
+            this.titulo = "";
+            this.valor = 0.0;
         }
     }
     // Função para adicionar ganho
     adicionarGanho(idGanho) {
         let ganho = new Input();
-        ganho._id = idGanho;
+        ganho.id = idGanho;
         console.log("");
-        ganho._titulo = String(prompt("Insira uma breve descrição do ganho: "));
-        ganho._valor = Number(prompt("Insira o valor do ganho (apenas números): "));
+        ganho.titulo = String(prompt("Insira uma breve descrição do ganho: "));
+        ganho.valor = Number(prompt("Insira o valor do ganho (apenas números): "));
         return ganho;
     }
     // Função para listar ganhos
@@ -33,9 +33,9 @@ class Input {
         else {
             console.log("Listando todos os ganhos: ");
             for (let value of ganhos) {
-                console.log(`\nID: ${value._id}`);
-                console.log(`Descrição: ${value._titulo}`);
-                console.log(`Valor: R$${value._valor}`);
+                console.log(`\nID: ${value.id}`);
+                console.log(`Descrição: ${value.titulo}`);
+                console.log(`Valor: R$${value.valor}`);
                 console.log("");
             }
         }
@@ -51,7 +51,7 @@ class Input {
                 this.listarGanhos(ganhos);
                 let idOpcao = Number(prompt("Digite o ID do ganho a ser removido: "));
                 for (let value of ganhos) {
-                    if (value._id == idOpcao) {
+                    if (value.id == idOpcao) {
                         ganhos.splice(ganhos.indexOf(value), 1);
                         console.log("Ganho removido!\n");
                         entrada = true;
@@ -75,9 +75,9 @@ class Input {
                 this.listarGanhos(ganhos);
                 let idOpcao = Number(prompt("Digite o ID do ganho a ser editado: "));
                 for (let value of ganhos) {
-                    if (value._id == idOpcao) {
-                        value._titulo = prompt("Digite uma breve descrição do ganho: ");
-                        value._valor = Number(prompt("Insira o valor ganho (apenas números): "));
+                    if (value.id == idOpcao) {
+                        value.titulo = prompt("Digite uma breve descrição do ganho: ");
+                        value.valor = Number(prompt("Insira o valor ganho (apenas números): "));
                         entrada = true;
                         break;
                     }
@@ -91,3 +91,4 @@ class Input {
     }
 }
 exports.Input = Input;
+//# sourceMappingURL=cashInflow.js.map
