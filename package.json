@@ -4,9 +4,11 @@
    "description": "<p style='align: center;'>Em geral, ter uma boa visão dos seus ganhos e gastos é um ótimo \"Primeiro Passo\" para alcançar uma melhor saúde financeira. Dessa forma, você deverá desenvolver uma aplicação de controle financeiro, para auxiliar aqueles que desejam melhorar o relacionamento com o seu \"bolso\". A seguir você encontrará todos os requisitos!</p>",
    "main": "index.js",
    "scripts": {
-      "test": "echo \"Error: no test specified\" && exit 1",
-      "start": "ts-node src/index.ts",
-      "typeorm": "typeorm-ts-node-commonjs"
+      "build": "tsc",
+      "dev": "ts-node-dev --inspect --transpile-only --ignore-watch node_modules src/server.ts",
+      "typeorm": "typeorm-ts-node-commonjs",
+      "start": "ts-node src/server.ts",
+      "migrate": "typeorm migrations:generate -- -n"
    },
    "repository": {
       "type": "git",
@@ -20,11 +22,26 @@
    },
    "homepage": "https://github.com/Itez-Innovation/financial-control-app#readme",
    "devDependencies": {
+      "@types/express": "^4.17.13",
       "@types/node": "^16.11.10",
+      "@typescript-eslint/eslint-plugin": "^2.27.0",
+      "@typescript-eslint/parser": "^2.27.0",
+      "eslint": "^6.8.0",
+      "eslint-config-airbnb-base": "^14.1.0",
+      "eslint-config-prettier": "^6.10.1",
+      "eslint-import-resolver-typescript": "^2.0.0",
+      "eslint-plugin-import": "^2.20.1",
+      "eslint-plugin-prettier": "^3.1.2",
+      "prettier": "^2.0.4",
       "ts-node": "10.7.0",
+      "ts-node-dev": "^1.0.0-pre.44",
       "typescript": "4.5.2"
    },
    "dependencies": {
+      "class-validator": "^0.13.2",
+      "dotenv": "^16.0.0",
+      "express": "^4.17.3",
+      "migrations": "^1.2.0",
       "nodemon": "^2.0.15",
       "pg": "^8.4.0",
       "prompt-sync": "^4.2.0",
