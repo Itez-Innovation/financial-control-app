@@ -5,7 +5,10 @@ import {
     UpdateDateColumn,
     PrimaryGeneratedColumn,
     OneToMany,
+    ManyToOne,
 } from 'typeorm';
+import { Output } from '../model/cashOutflow';
+import Account from './Account';
 
 @Entity('cashOutflow')
 export default class CashOutflow {
@@ -26,6 +29,9 @@ export default class CashOutflow {
 
     @Column()
     Valor: number
+
+    @ManyToOne(type => Account, outputs => Output)
+    account: Account
 
     @CreateDateColumn({ name: 'created_At' })
     createdAt: Date;

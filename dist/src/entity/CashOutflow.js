@@ -10,6 +10,8 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 const typeorm_1 = require("typeorm");
+const cashOutflow_1 = require("../model/cashOutflow");
+const Account_1 = require("./Account");
 let CashOutflow = class CashOutflow {
 };
 __decorate([
@@ -33,6 +35,10 @@ __decorate([
     (0, typeorm_1.Column)(),
     __metadata("design:type", Number)
 ], CashOutflow.prototype, "Valor", void 0);
+__decorate([
+    (0, typeorm_1.ManyToOne)(type => Account_1.default, outputs => cashOutflow_1.Output),
+    __metadata("design:type", Account_1.default)
+], CashOutflow.prototype, "account", void 0);
 __decorate([
     (0, typeorm_1.CreateDateColumn)({ name: 'created_At' }),
     __metadata("design:type", Date)

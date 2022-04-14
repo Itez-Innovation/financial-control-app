@@ -8,9 +8,12 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
 var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
+var Account_1;
 Object.defineProperty(exports, "__esModule", { value: true });
 const typeorm_1 = require("typeorm");
-let Account = class Account {
+const cashInflow_1 = require("../model/cashInflow");
+const cashOutflow_1 = require("../model/cashOutflow");
+let Account = Account_1 = class Account {
 };
 __decorate([
     (0, typeorm_1.PrimaryGeneratedColumn)('uuid'),
@@ -28,6 +31,14 @@ __decorate([
     __metadata("design:type", String)
 ], Account.prototype, "Name", void 0);
 __decorate([
+    (0, typeorm_1.OneToMany)(type => cashInflow_1.Input, accounts => Account_1),
+    __metadata("design:type", cashInflow_1.Input)
+], Account.prototype, "input", void 0);
+__decorate([
+    (0, typeorm_1.OneToMany)(type => cashOutflow_1.Output, accounts => Account_1),
+    __metadata("design:type", cashOutflow_1.Output)
+], Account.prototype, "output", void 0);
+__decorate([
     (0, typeorm_1.CreateDateColumn)({ name: 'created_At' }),
     __metadata("design:type", Date)
 ], Account.prototype, "createdAt", void 0);
@@ -35,7 +46,7 @@ __decorate([
     (0, typeorm_1.UpdateDateColumn)({ name: 'updated_At' }),
     __metadata("design:type", Date)
 ], Account.prototype, "updatedAt", void 0);
-Account = __decorate([
+Account = Account_1 = __decorate([
     (0, typeorm_1.Entity)('account')
 ], Account);
 exports.default = Account;

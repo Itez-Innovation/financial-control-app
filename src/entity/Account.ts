@@ -5,9 +5,11 @@ import {
     UpdateDateColumn,
     PrimaryGeneratedColumn,
     OneToMany,
+    JoinColumn,
   } from 'typeorm';
 import { Input } from '../model/cashInflow'
  import { Output } from '../model/cashOutflow'
+import CashOutflow from './CashOutflow';
 
 @Entity('account')
 export default class Account {
@@ -24,11 +26,11 @@ export default class Account {
     @Column()
     Name: string
 
-    // @Column()
-    // input: Input
+    @OneToMany(type => Input, accounts => Account)
+    input: Input
 
-    // @Column()
-    // output: Output
+    @OneToMany(type => Output, accounts => Account)
+    output: Output
 
     @CreateDateColumn({ name: 'created_At' })
     createdAt: Date;
