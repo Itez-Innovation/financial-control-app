@@ -8,10 +8,10 @@ import {
     ManyToOne,
 } from 'typeorm';
 import { Input } from '../model/cashInflow';
-import Account from './Account';
+import Account from './AccountEntity';
 
 @Entity('cashInflow')
-export default class CashInflow {
+export default class CashInflowEntity {
 
     @PrimaryGeneratedColumn('uuid')
     id: number
@@ -24,7 +24,7 @@ export default class CashInflow {
     @Column()
     Valor: number
 
-    @ManyToOne(type => Account, inputs => Input)
+    @ManyToOne(type => Account, account => account.inputs, {onDelete: "CASCADE"})
     account: Account
 
     @CreateDateColumn({ name: 'created_At' })

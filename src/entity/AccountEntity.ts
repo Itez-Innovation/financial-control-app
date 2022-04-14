@@ -7,12 +7,10 @@ import {
     OneToMany,
     JoinColumn,
   } from 'typeorm';
-import { Input } from '../model/cashInflow'
- import { Output } from '../model/cashOutflow'
-import CashOutflow from './CashOutflow';
+import CashInflow from './CashInflowEntity';
 
 @Entity('account')
-export default class Account {
+export default class AccountEntity {
 
     @PrimaryGeneratedColumn('uuid')
     id: number
@@ -26,10 +24,10 @@ export default class Account {
     @Column()
     Name: string
 
-    @OneToMany(type => Input, accounts => Account)
-    input: Input
+    @OneToMany(type => CashInflow, input => input.account)
+    inputs: CashInflow[]
 
-    @OneToMany(type => Output, accounts => Account)
+    @OneToMany(type => Output, accounts => AccountEntity)
     output: Output
 
     @CreateDateColumn({ name: 'created_At' })

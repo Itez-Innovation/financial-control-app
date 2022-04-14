@@ -1,6 +1,6 @@
 import { response, Router } from 'express';
 import { getRepository, getCustomRepository } from 'typeorm';
-import CashInflow from '../entity/CashInflow';
+import CashInflow from '../entity/CashInflowEntity';
 import CashInflowRepository from '../repositories/CashInflowRepository';
 
 const cashInflowRoute = Router()

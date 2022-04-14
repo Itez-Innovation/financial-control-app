@@ -6,9 +6,9 @@
    "scripts": {
       "build": "tsc",
       "dev": "ts-node-dev --inspect --transpile-only --ignore-watch node_modules src/server.ts",
-      "typeorm": "typeorm-ts-node-commonjs",
-      "start": "ts-node src/server.ts",
-      "migrate": "typeorm migrations:generate -- -n"
+      "typeorm": "ts-node-dev -r tsconfig-paths/register ./node_modules/typeorm/cli.js",
+      "start": "node dist/server.js",
+      "migrate": "typeorm migration:create"
    },
    "repository": {
       "type": "git",
@@ -46,6 +46,6 @@
       "pg": "^8.4.0",
       "prompt-sync": "^4.2.0",
       "reflect-metadata": "^0.1.13",
-      "typeorm": "0.3.5"
+      "typeorm": "0.2.32"
    }
 }

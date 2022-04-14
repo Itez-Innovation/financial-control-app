@@ -8,7 +8,7 @@ import {
     ManyToOne,
 } from 'typeorm';
 import { Output } from '../model/cashOutflow';
-import Account from './Account';
+import Account from './AccountEntity';
 
 @Entity('cashOutflow')
 export default class CashOutflow {
