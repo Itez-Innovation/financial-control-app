@@ -1,14 +1,14 @@
-import { MigrationInterface, QueryRunner, Table } from "typeorm";
+import { MigrationInterface, QueryRunner, Table, TableForeignKey } from "typeorm"
 
-export class EntityAccount1649939814885 implements MigrationInterface {
+export class EntityCashOutflow1649988311464 implements MigrationInterface {
 
     public async up(queryRunner: QueryRunner): Promise<void> {
         await queryRunner.query("CREATE EXTENSION IF NOT EXISTS 'uuid-ossp'")
-        
+
         await queryRunner.createTable(
             new Table(
                 {
-                    name: "accounts",
+                    name: "outputs",
                     columns: [
                         {
                             name: "id",
@@ -20,14 +20,21 @@ export class EntityAccount1649939814885 implements MigrationInterface {
                             default: "uuid_generate_v4()"
                         },
                         {
-                            name: "cpf",
+                            name: "area",
                             type: "varchar",
-                            length: "14",
-                            isUnique: true
+                            isUnique: false,
+                            isNullable: false,
+                            default: "Educação", 
                         },
                         {
-                            name: "name",
-                            type: "varchar"
+                            name: "titulo",
+                            type: "varchar",
+                            default: "Gasto",
+                        },
+                        {
+                            name: "valor",
+                            type: "float(4)",
+                            isNullable: false,
                         },
                         {
                             name: "createdAt",
@@ -39,25 +46,24 @@ export class EntityAccount1649939814885 implements MigrationInterface {
                             type: "timestamp",
                             default: "now()"
                         },
-                        {
-                            name: "inputs",
-                            type: "uuid",
-                            isNullable: true
-                        },
-                        {
-                            name: "outputs",
-                            type: "uuid",
-                            isNullable: true
-                        }
                     ]
                 }
             )
         )
+
+        await queryRunner.createForeignKey(
+            "accounts",
+            new TableForeignKey({
+                columnNames: ["outputs"],
+                referencedTableName: "cashOutflow",
+                referencedColumnNames: ["id"],
+                onDelete: "CASCADE"                
+            })
+        )
+    
     }
 
     public async down(queryRunner: QueryRunner): Promise<void> {
-        await queryRunner.dropTable("accounts")
-        await queryRunner.dropTable("inputs")
         await queryRunner.dropTable("outputs")
     }
 

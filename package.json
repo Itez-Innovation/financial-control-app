@@ -43,9 +43,9 @@
       "dotenv": "^16.0.0",
       "express": "^4.17.3",
       "migrations": "^1.2.0",
+      "npm": "^8.7.0",
       "pg": "^8.4.0",
       "prompt-sync": "^4.2.0",
-      "reflect-metadata": "^0.1.13",
-      "typeorm": "0.2.32"
+      "reflect-metadata": "^0.1.13"
    }
 }

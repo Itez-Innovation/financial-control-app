@@ -11,7 +11,7 @@ module.exports = {
   "migrationsDir": [
     "src/migration/"
   ],
-  "migrations": ['src/migration/*.ts'],
-  "entitiesDir": "src/entity/"
+  "migrations": ["dist/migration/*.js"],
+  "entitiesDir": ["dist/entity/*.js"]
   },
 }

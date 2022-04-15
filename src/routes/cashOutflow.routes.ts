@@ -1,6 +1,6 @@
 import { response, Router } from 'express';
 import { getRepository, getCustomRepository } from 'typeorm';
-import CashOutflow from '../entity/CashOutflow';
+import CashOutflow from '../entity/CashOutflowEntity';
 import CashOutflowRepository from '../repositories/CashOutflowRepository';
 
 
