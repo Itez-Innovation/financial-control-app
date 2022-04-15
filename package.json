@@ -23,7 +23,7 @@
    "homepage": "https://github.com/Itez-Innovation/financial-control-app#readme",
    "devDependencies": {
       "@types/express": "^4.17.5",
-      "@types/node": "^14.0.5",
+      "@types/node": "^14.18.13",
       "@typescript-eslint/eslint-plugin": "^2.27.0",
       "@typescript-eslint/parser": "^2.27.0",
       "eslint": "^6.8.0",
@@ -40,7 +40,7 @@
       "class-validator": "^0.12.2",
       "dotenv": "^8.2.0",
       "express": "^4.17.1",
-      "pg": "^8.2.1",
+      "pg": "^8.7.3",
       "postinstall": "^0.7.0",
       "reflect-metadata": "^0.1.13",
       "typeorm": "^0.2.25",
