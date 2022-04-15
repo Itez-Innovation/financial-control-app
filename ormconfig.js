@@ -6,12 +6,13 @@ module.exports = {
   "logging": true,
   "cache": true,
   "synchronize": true,
-  //"migrationsRun": false,
+  //"migrationsRun": false,,
+  "entities": ["src/entity/**/*.ts"],
+  "migrations": ["src/migration/**/*.ts"],
  "cli":{
   "migrationsDir": [
     "src/migration/"
   ],
-  "migrations": ["dist/migration/*.js"],
   "entitiesDir": ["dist/entity/*.js"]
   },
 }
