@@ -7,8 +7,6 @@ import {
     OneToMany,
     ManyToOne,
 } from 'typeorm';
-import { account } from '../model/Account';
-import { Output } from '../model/cashOutflow';
 import Account from './AccountEntity';
 
 @Entity('cashOutflow')

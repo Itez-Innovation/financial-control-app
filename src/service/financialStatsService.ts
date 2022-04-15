@@ -1,6 +1,6 @@
 // Importações
-import { Input } from '../model/cashInflow'
-import { Output } from '../model/cashOutflow'
+import { Input } from '../model/CashInflow'
+import { Output } from '../model/CashOutflow'
 
 
 // npm install prompt-sync

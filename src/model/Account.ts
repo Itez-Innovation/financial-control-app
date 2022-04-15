@@ -1,5 +1,5 @@
-import { Input } from './cashInflow'
-import { Output } from './cashOutflow'
+import { Input } from './CashInflow'
+import { Output } from './CashOutflow'
 import { financialStats } from '../service/financialStatsService'
 
 // npm install prompt-sync
@@ -7,7 +7,7 @@ const prompt = require("prompt-sync")()
 let inpt = new Input()
 let otpt = new Output()
 let fStat = new financialStats()
-export class account {
+export class Account {
     id: number
     nome: string
     cpf: string
@@ -32,7 +32,7 @@ export class account {
 
     // Criando a conta
     createAccount(idAcc: number) {
-        let acc = new account()
+        let acc = new Account()
 
         console.log("Olá!")
 
@@ -66,7 +66,7 @@ export class account {
         return acc
     }
 
-    showDataAccount(accounts: Array<account>){
+    showDataAccount(accounts: Array<Account>){
         console.log("\nListando contas cadastradas: ")
         accounts.forEach(element => {
             console.log(`\nID da conta: ${element.id}`)
@@ -77,50 +77,50 @@ export class account {
     }
 
     // Adicionando ganho
-    addInput(acc: account, idInflow: number) {
+    addInput(acc: Account, idInflow: number) {
         let inp = new Input()
         inp = inpt.adicionarGanho(idInflow)
         acc.input.push(inp)
     }
 
     // Editando ganho
-    editInput(acc: account) {
+    editInput(acc: Account) {
         inpt.editarGanhos(acc.input)
     }
 
     // Listando ganhos
-    listInput(acc: account) {
+    listInput(acc: Account) {
         inpt.listarGanhos(acc.input)
     }
 
     // Removendo ganho
-    rmInput(acc: account) {
+    rmInput(acc: Account) {
         inpt.removerGanhos(acc.input)
     }
 
     // Adicionando gasto
-    addOutput(acc: account, idOutflow: number) {
+    addOutput(acc: Account, idOutflow: number) {
         let out = new Output()
         out = otpt.adicionarGasto(idOutflow)
         acc.output.push(out)
     }
 
     // Editando gasto
-    editOutput(acc: account) {
+    editOutput(acc: Account) {
         otpt.editarGastos(acc.output)
     }
 
     // Listando gastos
-    listOutput(acc: account) {
+    listOutput(acc: Account) {
         otpt.listarGastos(acc.output)
     }
 
     // Removendo gastos
-    rmOutput(acc: account) {
+    rmOutput(acc: Account) {
         otpt.removerGastos(acc.output)
     }
 
-    genStats(acc: account) {
+    genStats(acc: Account) {
         fStat.generateStats(acc.input, acc.output)
     }
 

@@ -2,12 +2,12 @@
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.financialStats = void 0;
 // Importações
-const cashInflow_1 = require("../model/cashInflow");
-const cashOutflow_1 = require("../model/cashOutflow");
+const CashInflow_1 = require("../model/CashInflow");
+const CashOutflow_1 = require("../model/CashOutflow");
 // npm install prompt-sync
 const prompt = require("prompt-sync")();
-let inpt = new cashInflow_1.Input();
-let otpt = new cashOutflow_1.Output();
+let inpt = new CashInflow_1.Input();
+let otpt = new CashOutflow_1.Output();
 class financialStats {
     constructor() { }
     // Função que gera um extrato com gastos e ganhos

@@ -1,15 +1,15 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.account = void 0;
-const cashInflow_1 = require("./cashInflow");
-const cashOutflow_1 = require("./cashOutflow");
+exports.Account = void 0;
+const CashInflow_1 = require("./CashInflow");
+const CashOutflow_1 = require("./CashOutflow");
 const financialStatsService_1 = require("../service/financialStatsService");
 // npm install prompt-sync
 const prompt = require("prompt-sync")();
-let inpt = new cashInflow_1.Input();
-let otpt = new cashOutflow_1.Output();
+let inpt = new CashInflow_1.Input();
+let otpt = new CashOutflow_1.Output();
 let fStat = new financialStatsService_1.financialStats();
-class account {
+class Account {
     constructor(id, nome, cpf, input, output) {
         if (id && nome && cpf && input && output) {
             this.id = id;
@@ -28,7 +28,7 @@ class account {
     }
     // Criando a conta
     createAccount(idAcc) {
-        let acc = new account();
+        let acc = new Account();
         console.log("Olá!");
         acc.id = idAcc;
         let check = false;
@@ -66,7 +66,7 @@ class account {
     }
     // Adicionando ganho
     addInput(acc, idInflow) {
-        let inp = new cashInflow_1.Input();
+        let inp = new CashInflow_1.Input();
         inp = inpt.adicionarGanho(idInflow);
         acc.input.push(inp);
     }
@@ -84,7 +84,7 @@ class account {
     }
     // Adicionando gasto
     addOutput(acc, idOutflow) {
-        let out = new cashOutflow_1.Output();
+        let out = new CashOutflow_1.Output();
         out = otpt.adicionarGasto(idOutflow);
         acc.output.push(out);
     }
@@ -104,5 +104,5 @@ class account {
         fStat.generateStats(acc.input, acc.output);
     }
 }
-exports.account = account;
+exports.Account = Account;
 //# sourceMappingURL=Account.js.map

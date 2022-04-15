@@ -1,5 +1,5 @@
 // Importações
-import { account } from "./model/Account"
+import { Account } from "./model/Account"
 
 /*-----------------------------------------------------------------------------------------*/
 
@@ -59,8 +59,8 @@ function printMenu() {
 
 // Começo do programa
 printLine(40,2)
-let accounts: Array<account> = []
-let acc = new account
+let accounts: Array<Account> = []
+let acc = new Account
 
 do {
     printMenuAccount()
