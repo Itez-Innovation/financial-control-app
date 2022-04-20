@@ -1,11 +1,8 @@
-import { response, Router } from 'express';
-import { getRepository, getCustomRepository } from 'typeorm';
+import { Router } from 'express';
 import { CreateAccountController } from '../controller/CreateAccountController';
 import { GetAllAccountsController } from '../controller/GetAllAccountsController';
 import { DeleteAccountController } from '../controller/DeleteAccountController';
 import { UpdateAccountController } from '../controller/UpdateAccountController';
-import Account from '../entity/AccountEntity'
-import AccountRepository from '../repositories/AccountRepository';
 import { GetAllFinancialStatsController } from '../controller/GetAllFinancialStatsController';
 
 const accountRoute = Router();

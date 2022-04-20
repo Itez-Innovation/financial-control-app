@@ -34,6 +34,8 @@ export default class Account {
     createAccount(idAcc: number) {
         let acc = new Account()
 
+        
+
         console.log("Olá!")
 
         acc.id = idAcc

@@ -1,7 +1,7 @@
 import { getRepository } from "typeorm";
 import AccountEntity from "../entity/AccountEntity";
 
-type AccountRequest = {
+export type AccountRequest = {
     CPF: string;
     Name: string;
 }
