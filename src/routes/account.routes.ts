@@ -1,30 +1,46 @@
 import { response, Router } from 'express';
 import { getRepository, getCustomRepository } from 'typeorm';
+import { CreateAccountController } from '../controller/CreateAccountController';
+import { GetAllAccountsController } from '../controller/GetAllAccountsController';
+import { DeleteAccountController } from '../controller/DeleteAccountController';
+import { UpdateAccountController } from '../controller/UpdateAccountController';
 import Account from '../entity/AccountEntity'
 import AccountRepository from '../repositories/AccountRepository';
+import { GetAllFinancialStatsController } from '../controller/GetAllFinancialStatsController';
 
+const accountRoute = Router();
 
-const accountRoute = Router()
+accountRoute.post("/accounts", new CreateAccountController().handle);
 
-accountRoute.post('/', async (request, response) => {
-    try {
-        const repo = getRepository(Account)
-        const res = await repo.save(request.body)
-        return response.status(201).json(res)
-    } catch (err) {
-        console.log('err.message :>> ', err)
-        return response.status(400).send()
-    }
-})
+accountRoute.get("/accounts", new GetAllAccountsController().handle);
 
-accountRoute.get('/',async (request, response) => {
-    response.json(await getRepository(Account).find())    
-})
+accountRoute.delete("/accounts/:id", new DeleteAccountController().handle);
 
-accountRoute.get('/:name',async (request, response) => {
-    const repository = getCustomRepository(AccountRepository)
-    const res = await repository.findByName(request.params.name)
-    response.json(res)    
-})
+accountRoute.put("/accounts/:id", new UpdateAccountController().handle);
+
+accountRoute.get("/stats", new GetAllFinancialStatsController().handle);
+
+// const accountRoute = Router()
+
+// accountRoute.post('/accounts', async (request, response) => {
+//     try {
+//         const repo = getRepository(AccountRepository)
+//         const res = await repo.save(request.body)
+//         return response.status(201).json(res)
+//     } catch (err) {
+//         console.log('err.message :>> ', err)
+//         return response.status(400).send()
+//     }
+// })
+
+// accountRoute.get('/',async (request, response) => {
+//     response.json(await getRepository(AccountRepository).find())    
+// })
+
+// accountRoute.get('/:name',async (request, response) => {
+//     const repository = getCustomRepository(AccountRepository)
+//     const res = await repository.findByName(request.params.name)
+//     response.json(res)    
+// })
 
 export default accountRoute

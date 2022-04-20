@@ -7,7 +7,7 @@ const prompt = require("prompt-sync")()
 let inpt = new Input()
 let otpt = new Output()
 let fStat = new financialStats()
-export class Account {
+export default class Account {
     id: number
     nome: string
     cpf: string

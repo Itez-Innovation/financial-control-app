@@ -6,6 +6,7 @@ import {
     PrimaryGeneratedColumn,
     OneToMany,
     ManyToOne,
+    JoinColumn,
 } from 'typeorm';
 import Account from './AccountEntity';
 
@@ -13,7 +14,7 @@ import Account from './AccountEntity';
 export default class CashInflowEntity {
 
     @PrimaryGeneratedColumn('uuid')
-    id: number
+    id: string
 
     @Column()
     Titulo: string;
@@ -21,7 +22,11 @@ export default class CashInflowEntity {
     @Column()
     Valor: number
 
+    @Column()
+    account_id: string;
+
     @ManyToOne(type => Account, account => account.inputs, {onDelete: "CASCADE"})
+    @JoinColumn({name: "account_id"})
     account: Account
 
     @CreateDateColumn({ name: 'created_At' })

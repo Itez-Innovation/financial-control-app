@@ -6,6 +6,7 @@ import {
     PrimaryGeneratedColumn,
     OneToMany,
     ManyToOne,
+    JoinColumn
 } from 'typeorm';
 import Account from './AccountEntity';
 
@@ -13,7 +14,7 @@ import Account from './AccountEntity';
 export default class CashOutflow {
 
     @PrimaryGeneratedColumn('uuid')
-    id: number
+    id: string
 
     @Column({
         unique: false,
@@ -29,7 +30,11 @@ export default class CashOutflow {
     })
     Valor: number
 
+    @Column()
+    account_id: string;
+
     @ManyToOne(type => Account, account => account.outputs, {onDelete: "CASCADE"})
+    @JoinColumn({name: "account_id"})
     account: Account
 
     @CreateDateColumn({ name: 'created_At' })

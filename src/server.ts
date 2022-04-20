@@ -1,12 +1,19 @@
-import * as dotenv from 'dotenv';
-import app from './app';
 import 'reflect-metadata';
-import './migration';
-import { createConnection } from 'typeorm';
+import * as express from "express";
+import './database';
+import accountRoute from './routes/account.routes';
+import cashInflowRoute from './routes/cashInflow.routes';
+import cashOutflowRoute from './routes/cashInflow.routes';
 
-app.listen(process.env.PORT || 3000, () => {
+const app = express();
+app.use(express.json());
+
+app.use(accountRoute)
+app.use(cashInflowRoute)
+app.use(cashOutflowRoute)
+
+app.listen(process.env.API_PORT || 3000, () => {
   console.log('🏃 Running Server');
 })
 
-dotenv.config();
 

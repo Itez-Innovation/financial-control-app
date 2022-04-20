@@ -14,7 +14,7 @@ import CashOutflow from './CashOutflowEntity';
 export default class AccountEntity {
 
     @PrimaryGeneratedColumn('uuid')
-    id: number
+    id: string
 
     @Column({
         length: 14,

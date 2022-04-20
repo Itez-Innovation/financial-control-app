@@ -57,8 +57,6 @@
 
 //     public async down(queryRunner: QueryRunner): Promise<void> {
 //         await queryRunner.dropTable("accounts")
-//         await queryRunner.dropTable("inputs")
-//         await queryRunner.dropTable("outputs")
 //     }
 
 // }
