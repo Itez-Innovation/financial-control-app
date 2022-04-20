@@ -7,12 +7,12 @@ module.exports = {
   "cache": true,
   "synchronize": true,
   //"migrationsRun": false,,
-  "entities": ["src/entity/**/*.ts"],
-  "migrations": ["src/migration/**/*.ts"],
+  "entities": ["src/entity/*.ts"],
+  "migrations": ["src/database/migration/*.ts"],
  "cli":{
   "migrationsDir": [
-    "src/migration/"
+    "src/database/migration"
   ],
-  "entitiesDir": ["dist/entity/*.js"]
+  "entitiesDir": ["src/entity"]
   },
 }

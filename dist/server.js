@@ -1,11 +1,17 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-const dotenv = require("dotenv");
-const app_1 = require("./app");
 require("reflect-metadata");
-require("./migration");
-app_1.default.listen(process.env.PORT || 3000, () => {
+const express = require("express");
+require("./database");
+const account_routes_1 = require("./routes/account.routes");
+const cashInflow_routes_1 = require("./routes/cashInflow.routes");
+const cashOutflow_routes_1 = require("./routes/cashOutflow.routes");
+const app = express();
+app.use(express.json());
+app.use(account_routes_1.default);
+app.use(cashInflow_routes_1.default);
+app.use(cashOutflow_routes_1.default);
+app.listen(process.env.API_PORT || 3000, () => {
     console.log('🏃 Running Server');
 });
-dotenv.config();
 //# sourceMappingURL=server.js.map

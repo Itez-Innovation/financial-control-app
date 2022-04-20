@@ -15,7 +15,7 @@ let CashInflowEntity = class CashInflowEntity {
 };
 __decorate([
     (0, typeorm_1.PrimaryGeneratedColumn)('uuid'),
-    __metadata("design:type", Number)
+    __metadata("design:type", String)
 ], CashInflowEntity.prototype, "id", void 0);
 __decorate([
     (0, typeorm_1.Column)(),
@@ -26,7 +26,12 @@ __decorate([
     __metadata("design:type", Number)
 ], CashInflowEntity.prototype, "Valor", void 0);
 __decorate([
+    (0, typeorm_1.Column)(),
+    __metadata("design:type", String)
+], CashInflowEntity.prototype, "account_id", void 0);
+__decorate([
     (0, typeorm_1.ManyToOne)(type => AccountEntity_1.default, account => account.inputs, { onDelete: "CASCADE" }),
+    (0, typeorm_1.JoinColumn)({ name: "account_id" }),
     __metadata("design:type", AccountEntity_1.default)
 ], CashInflowEntity.prototype, "account", void 0);
 __decorate([

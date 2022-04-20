@@ -52,7 +52,7 @@ function printMenu() {
 // Começo do programa
 printLine(40, 2);
 let accounts = [];
-let acc = new Account_1.Account;
+let acc = new Account_1.default;
 do {
     printMenuAccount();
     switch (option) {

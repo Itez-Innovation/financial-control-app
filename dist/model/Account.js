@@ -1,6 +1,5 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.Account = void 0;
 const CashInflow_1 = require("./CashInflow");
 const CashOutflow_1 = require("./CashOutflow");
 const financialStatsService_1 = require("../service/financialStatsService");
@@ -104,5 +103,5 @@ class Account {
         fStat.generateStats(acc.input, acc.output);
     }
 }
-exports.Account = Account;
+exports.default = Account;
 //# sourceMappingURL=Account.js.map

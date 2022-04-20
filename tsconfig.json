@@ -3,14 +3,17 @@
       "lib": [
          "es5",
          "es6",
-         "es2019"
+         "es2019",
+         "esnext"
       ],
       "target": "es2019",
       "module": "commonjs",
+      "strict": false,
       "moduleResolution": "node",
       "outDir": "./dist",
       "emitDecoratorMetadata": true,
       "experimentalDecorators": true,
-      "sourceMap": true
+      "sourceMap": true,
+      "skipLibCheck": true,
    }
 }

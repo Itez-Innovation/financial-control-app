@@ -15,7 +15,7 @@ let CashOutflow = class CashOutflow {
 };
 __decorate([
     (0, typeorm_1.PrimaryGeneratedColumn)('uuid'),
-    __metadata("design:type", Number)
+    __metadata("design:type", String)
 ], CashOutflow.prototype, "id", void 0);
 __decorate([
     (0, typeorm_1.Column)({
@@ -35,7 +35,12 @@ __decorate([
     __metadata("design:type", Number)
 ], CashOutflow.prototype, "Valor", void 0);
 __decorate([
+    (0, typeorm_1.Column)(),
+    __metadata("design:type", String)
+], CashOutflow.prototype, "account_id", void 0);
+__decorate([
     (0, typeorm_1.ManyToOne)(type => AccountEntity_1.default, account => account.outputs, { onDelete: "CASCADE" }),
+    (0, typeorm_1.JoinColumn)({ name: "account_id" }),
     __metadata("design:type", AccountEntity_1.default)
 ], CashOutflow.prototype, "account", void 0);
 __decorate([

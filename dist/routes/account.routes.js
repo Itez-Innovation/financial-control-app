@@ -1,28 +1,35 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
 const express_1 = require("express");
-const typeorm_1 = require("typeorm");
-const AccountEntity_1 = require("../entity/AccountEntity");
-const AccountRepository_1 = require("../repositories/AccountRepository");
+const CreateAccountController_1 = require("../controller/CreateAccountController");
+const GetAllAccountsController_1 = require("../controller/GetAllAccountsController");
+const DeleteAccountController_1 = require("../controller/DeleteAccountController");
+const UpdateAccountController_1 = require("../controller/UpdateAccountController");
+const GetAllFinancialStatsController_1 = require("../controller/GetAllFinancialStatsController");
 const accountRoute = (0, express_1.Router)();
-accountRoute.post('/', async (request, response) => {
-    try {
-        const repo = (0, typeorm_1.getRepository)(AccountEntity_1.default);
-        const res = await repo.save(request.body);
-        return response.status(201).json(res);
-    }
-    catch (err) {
-        console.log('err.message :>> ', err);
-        return response.status(400).send();
-    }
-});
-accountRoute.get('/', async (request, response) => {
-    response.json(await (0, typeorm_1.getRepository)(AccountEntity_1.default).find());
-});
-accountRoute.get('/:name', async (request, response) => {
-    const repository = (0, typeorm_1.getCustomRepository)(AccountRepository_1.default);
-    const res = await repository.findByName(request.params.name);
-    response.json(res);
-});
+accountRoute.post("/accounts", new CreateAccountController_1.CreateAccountController().handle);
+accountRoute.get("/accounts", new GetAllAccountsController_1.GetAllAccountsController().handle);
+accountRoute.delete("/accounts/:id", new DeleteAccountController_1.DeleteAccountController().handle);
+accountRoute.put("/accounts/:id", new UpdateAccountController_1.UpdateAccountController().handle);
+accountRoute.get("/stats", new GetAllFinancialStatsController_1.GetAllFinancialStatsController().handle);
+// const accountRoute = Router()
+// accountRoute.post('/accounts', async (request, response) => {
+//     try {
+//         const repo = getRepository(AccountRepository)
+//         const res = await repo.save(request.body)
+//         return response.status(201).json(res)
+//     } catch (err) {
+//         console.log('err.message :>> ', err)
+//         return response.status(400).send()
+//     }
+// })
+// accountRoute.get('/',async (request, response) => {
+//     response.json(await getRepository(AccountRepository).find())    
+// })
+// accountRoute.get('/:name',async (request, response) => {
+//     const repository = getCustomRepository(AccountRepository)
+//     const res = await repository.findByName(request.params.name)
+//     response.json(res)    
+// })
 exports.default = accountRoute;
 //# sourceMappingURL=account.routes.js.map

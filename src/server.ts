@@ -3,7 +3,7 @@ import * as express from "express";
 import './database';
 import accountRoute from './routes/account.routes';
 import cashInflowRoute from './routes/cashInflow.routes';
-import cashOutflowRoute from './routes/cashInflow.routes';
+import cashOutflowRoute from './routes/cashOutflow.routes';
 
 const app = express();
 app.use(express.json());
