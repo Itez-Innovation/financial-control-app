@@ -103,13 +103,30 @@ const app = async () => {
                         }
                     }
                     printLine(40, 1);
-                case 3:
                     break;
+                case 3:
+                    printLine(40, 1);
+                    console.log("Obrigado por acessar!");
+                    printLine(40, 2);
+                    break;
+                case 4:
+                    if (act == null) {
+                        printLine(40, 1);
+                        console.log("Opção Inválida! Siga o menu!");
+                        printLine(40, 1);
+                        break;
+                    }
+                    else {
+                        option = 3;
+                        printLine(40, 2);
+                        break;
+                    }
                 default:
                     console.log("Opção Inválida! Siga o menu!");
                     break;
             }
         } while (option != 3);
+        console.log("Aê!");
     }
     main();
 };

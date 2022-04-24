@@ -1,3 +1,4 @@
+import { isNotEmpty } from 'class-validator';
 import AccountEntity from './entity/AccountEntity';
 import Account from './model/Account';
 import AccountRepository from './repositories/AccountRepository';
@@ -105,22 +106,38 @@ const app = async () =>{
                             });
 
                             act = await accountRepository.findByCpf(prompt("Digite o CPF da conta que deseja acessar (apenas números): "))
-                            
+
                             if(act instanceof AccountEntity){
                                 console.log("Conta acessada! Seja bem vind@ "+ act.Name + "!")
-                                option = 3;
+                                option = 3
                             } else {
                                 console.log("CPF inválido!");
                             }
                         }
                         printLine(40, 1)
-                    case 3:
                         break;
+                    case 3:
+                        printLine(40, 1)
+                        console.log("Obrigado por acessar!")
+                        printLine(40, 2)
+                        break;
+                    case 4:
+                        if(act == null){
+                            printLine(40, 1)
+                            console.log("Opção Inválida! Siga o menu!")
+                            printLine(40, 1)
+                            break;
+                        } else {
+                            option = 3;
+                            printLine(40, 2)
+                            break;
+                        }
                     default:
                         console.log("Opção Inválida! Siga o menu!")
                         break;
                 }
             }while(option != 3);
+            console.log("Aê!")
         }
 
         main();
