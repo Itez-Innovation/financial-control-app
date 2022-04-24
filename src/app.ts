@@ -140,7 +140,8 @@ const app = async () =>{
             console.log("Aê!")
         }
 
-        main();
+
+        
 }
 
 export default app
