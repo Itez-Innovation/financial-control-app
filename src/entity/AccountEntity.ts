@@ -4,8 +4,7 @@ import {
     CreateDateColumn,
     UpdateDateColumn,
     PrimaryGeneratedColumn,
-    OneToMany,
-    JoinColumn,
+    OneToMany
   } from 'typeorm';
 import CashInflow from './CashInflowEntity';
 import CashOutflow from './CashOutflowEntity';

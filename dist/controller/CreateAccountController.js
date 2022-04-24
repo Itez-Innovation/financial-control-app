@@ -3,6 +3,9 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.CreateAccountController = void 0;
 const CreateAccountService_1 = require("../service/CreateAccountService");
 class CreateAccountController {
+    static create(arg0, create) {
+        throw new Error("Method not implemented.");
+    }
     async handle(request, response) {
         const { CPF, Name } = request.body;
         const service = new CreateAccountService_1.CreateAccountService();

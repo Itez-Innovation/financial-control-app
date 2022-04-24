@@ -3,6 +3,9 @@ import { CreateAccountService } from "../service/CreateAccountService";
 
 
 export class CreateAccountController {
+    static create(arg0: string, create: any) {
+        throw new Error("Method not implemented.");
+    }
     async handle(request: Request, response: Response) {
         const { CPF, Name } = request.body
 

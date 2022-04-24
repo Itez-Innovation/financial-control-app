@@ -11,16 +11,14 @@ let fStat = new financialStatsService_1.financialStats();
 class Account {
     constructor(id, nome, cpf, input, output) {
         if (id && nome && cpf && input && output) {
-            this.id = id;
-            this.nome = nome;
-            this.cpf = cpf;
+            this.Name = nome;
+            this.CPF = cpf;
             this.input = [input];
             this.output = [output];
         }
         else {
-            this.id = 0;
-            this.nome = "";
-            this.cpf = "";
+            this.CPF = "6846884";
+            this.Name = "Zé";
             this.input = [];
             this.output = [];
         }
@@ -32,8 +30,8 @@ class Account {
         acc.id = idAcc;
         let check = false;
         do {
-            acc.nome = String(prompt(`Insira seu nome completo: `));
-            if (acc.nome.trim()) {
+            acc.Name = String(prompt(`Insira seu nome completo: `));
+            if (acc.Name.trim()) {
                 check = true;
             }
             else {
@@ -42,8 +40,8 @@ class Account {
         } while (!check);
         check = false;
         do {
-            acc.cpf = String(prompt(`Insira seu CPF: `));
-            if (acc.cpf.trim()) {
+            acc.CPF = String(prompt(`Insira seu CPF: `));
+            if (acc.CPF.trim()) {
                 check = true;
             }
             else {
@@ -59,8 +57,8 @@ class Account {
         console.log("\nListando contas cadastradas: ");
         accounts.forEach(element => {
             console.log(`\nID da conta: ${element.id}`);
-            console.log(`Nome: ${element.nome}`);
-            console.log(`CPF: ${element.cpf}`);
+            console.log(`Nome: ${element.Name}`);
+            console.log(`CPF: ${element.CPF}`);
         });
     }
     // Adicionando ganho
