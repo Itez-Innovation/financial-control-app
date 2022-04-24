@@ -8,6 +8,7 @@ const app = async () =>{
 
         const accountRepository = new AccountRepository()
         let ac = new AccountEntity()
+        let acc = new Account
 
         // npm install prompt-sync
         const prompt = require("prompt-sync")()
@@ -72,11 +73,57 @@ const app = async () =>{
 
         /*-----------------------------------------------------------------------------------------*/
 
-        // Começo do programa
-        printLine(40,2)
-        let acc = new Account // não fica mais aqui
+        // Função principal
+        async function main(){
+            let act: AccountEntity | Error // Conta que será usada!
+            printLine(40,2)
+            do{
+                printMenuAccount();
+                switch(option){
+                    case 1:
+                        printLine(40, 1)
+                        console.log("----------------CADASTRO----------------")
+                        acc.CPF = prompt("Primeiramente, digite seu CPF (apenas números): ")
+                        acc.Name = prompt("Agora, digite seu nome: ")
+                        await accountRepository.create(acc)
+                        console.log("Pronto! Conta criada!")
+                        printLine(40, 1)
+                        break;
+                    case 2:
+                        printLine(40, 1)
+                        console.log("--------------ACESSAR CONTA-------------")
+                        const a = await accountRepository.get_all()
+                        if(a.length == 0){
+                            console.log("Não há contas cadastradas!")
+                            console.log("Cadastre uma e tente novamente!")
+                        } else {
+                            let i = 1
+                            a.forEach(element => {
+                                console.log(i + "º conta: " + element.Name);
+                                //console.log("CPF: " + element.CPF + "\n")
+                                i++;
+                            });
 
-        // 
+                            act = await accountRepository.findByCpf(prompt("Digite o CPF da conta que deseja acessar (apenas números): "))
+                            
+                            if(act instanceof AccountEntity){
+                                console.log("Conta acessada! Seja bem vind@ "+ act.Name + "!")
+                                option = 3;
+                            } else {
+                                console.log("CPF inválido!");
+                            }
+                        }
+                        printLine(40, 1)
+                    case 3:
+                        break;
+                    default:
+                        console.log("Opção Inválida! Siga o menu!")
+                        break;
+                }
+            }while(option != 3);
+        }
+
+        main();
 }
 
 export default app

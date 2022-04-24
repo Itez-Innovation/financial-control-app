@@ -25,17 +25,17 @@ let AccountRepository = class AccountRepository {
     async create(account) {
         return this.repository.save(account);
     }
-    async delete(id) {
-        if (!await this.repository.findOne({ id })) {
-            return new Error("This account doesn't exists!");
+    async delete(CPF) {
+        if (!await this.repository.findOne({ CPF })) {
+            return new Error("Essa conta não existe!");
         }
-        await this.repository.delete(id);
+        await this.repository.delete(CPF);
     }
     async update(id, CPF, Name) {
-        if (!await this.repository.findOne({ id })) {
-            return new Error("This account doesn't exists!");
+        if (!await this.repository.findOne({ CPF })) {
+            return new Error("Essa conta não existe!");
         }
-        const acc = await this.repository.findOne({ id });
+        const acc = await this.repository.findOne({ CPF });
         acc.CPF = CPF ? CPF : acc.CPF;
         acc.Name = Name ? Name : acc.Name;
         await this.repository.save(acc);
@@ -43,8 +43,14 @@ let AccountRepository = class AccountRepository {
     }
     async get_all() {
         const accounts = await this.repository.find();
-        console.log(accounts);
         return accounts;
+    }
+    async findByCpf(CPF) {
+        if (!await this.repository.findOne({ CPF })) {
+            return new Error("Essa conta não existe!");
+        }
+        const acct = await this.repository.findOne({ CPF });
+        return acct;
     }
 };
 AccountRepository = __decorate([

@@ -20,22 +20,22 @@ export default class AccountRepository{
         return this.repository.save(account)
     }
 
-    async delete(id: string){
+    async delete(CPF: string){
 
-        if(!await this.repository.findOne({id})) {
-            return new Error("This account doesn't exists!");
+        if(!await this.repository.findOne({CPF})) {
+            return new Error("Essa conta não existe!");
         }
 
-        await this.repository.delete(id);
+        await this.repository.delete(CPF);
     }
 
-    async update(id: string, CPF?: string, Name?:string){
+    async update(id: string, CPF: string, Name?:string){
 
-        if(!await this.repository.findOne({id})) {
-            return new Error("This account doesn't exists!");
+        if(!await this.repository.findOne({CPF})) {
+            return new Error("Essa conta não existe!");
         }
 
-        const acc = await this.repository.findOne({id})
+        const acc = await this.repository.findOne({CPF})
         acc.CPF = CPF ? CPF : acc.CPF;
         acc.Name = Name ? Name : acc.Name;
 
@@ -46,8 +46,16 @@ export default class AccountRepository{
 
     async get_all(){
         const accounts = await this.repository.find();
-        console.log(accounts)
-
         return accounts;
+    }
+
+    async findByCpf(CPF: string){
+
+        if(!await this.repository.findOne({CPF})) {
+            return new Error("Essa conta não existe!");
+        }
+
+        const acct = await this.repository.findOne({CPF})
+        return acct
     }
 }

@@ -1,30 +1,16 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-// import * as express from 'express';
-// import { Router } from 'express';
-// import 'reflect-metadata';
-// import { CreateAccountController } from './controller/CreateAccountController';
 const AccountEntity_1 = require("./entity/AccountEntity");
 const Account_1 = require("./model/Account");
 const AccountRepository_1 = require("./repositories/AccountRepository");
-// import accountRoute from './routes/account.routes';
-// import cashInflowRoute from './routes/cashInflow.routes';
-// import cashOutflowRoute from './routes/cashOutflow.routes';
-// const app = express();
-// app.use(express.json());
-// app.use(accountRoute)
-// app.use(cashInflowRoute)
-// app.use(cashOutflowRoute)
 const app = async () => {
     // Declarações
     let option = 0;
-    let idAcc = 0;
-    let idOutflow = 0;
-    let idInflow = 0;
     const accountRepository = new AccountRepository_1.default();
+    let ac = new AccountEntity_1.default();
+    let acc = new Account_1.default;
     // npm install prompt-sync
     const prompt = require("prompt-sync")();
-    let ac = new AccountEntity_1.default();
     /*-----------------------------------------------------------------------------------------*/
     // Função para imprimir uma linha do tamanho desejado
     function printLine(tamanho = 40, tipo = 1) {
@@ -41,18 +27,26 @@ const app = async () => {
             console.log("=");
         }
     }
+    /*-----------------------------------------------------------------------------------------*/
+    //Função para imprimir o Menu de acesso à conta
     function printMenuAccount() {
         console.log("-----------------CONTAS-----------------");
         console.log("1 - CADASTRO");
-        console.log("2 - VER DADOS CADASTRADOS");
-        console.log("3 - ACESSAR FUNCIONALIDADES");
-        console.log("4 - REMOVER CONTA CADASTRADA");
-        console.log("5 - EDITAR DADOS CADASTRADOS");
-        console.log("6 - VER CONTAS CADASTRADAS");
-        console.log("7 - SAIR");
+        console.log("2 - ACESSAR CONTA");
+        console.log("3 - SAIR");
         option = Number(prompt("Opção escolhida: "));
     }
-    // Função para imprimir o menu e pegar a opção escolhida
+    // Função para imprimir o menu com as opções da conta em uso
+    function printMenuUser() {
+        console.log("------------------OLÁ------------------");
+        console.log("1 - ACESSAR FUNCIONALIDADES");
+        console.log("2 - VER DADOS CADASTRADOS");
+        console.log("3 - REMOVER CONTA CADASTRADA");
+        console.log("4 - EDITAR DADOS CADASTRADOS");
+        console.log("5 - SAIR");
+        option = Number(prompt("Opção escolhida: "));
+    }
+    // Função para imprimir o menu de funcionalidades
     function printMenu() {
         console.log("------------------MENU------------------");
         console.log("1 - ADICIONAR GASTO");
@@ -68,124 +62,169 @@ const app = async () => {
         option = Number(prompt("Opção escolhida: "));
     }
     /*-----------------------------------------------------------------------------------------*/
-    // Começo do programa
-    printLine(40, 2);
-    let accounts = []; // NÃO É NECESSÁRIO
-    let acc = new Account_1.default; // não fica mais aqui
-    do {
-        printMenuAccount();
-        switch (option) {
-            case 1:
-                console.log("\n~~~~~~~~~~ADICIONAR CONTA~~~~~~~~~~\n");
-                accounts.push(acc.createAccount("idAcc"));
-                console.log(acc);
-                acc.CPF = prompt("CPF: ");
-                acc.Name = prompt("Nome: ");
-                const a = await accountRepository.create(acc);
-                console.log(a);
-                idAcc++;
-                break;
-            case 2:
-                if (accounts.length === 0) {
-                    console.log(`\nPor favor, crie uma conta primeiro!`);
-                }
-                else {
-                    printLine(40, 1);
-                    acc.showDataAccount(accounts);
-                    printLine(40, 1);
-                }
-                break;
-            case 3:
-                if (accounts.length === 0) {
-                    console.log(`\nPor favor, crie uma conta primeiro!`);
-                    option = 0;
-                }
-                break;
-            case 4:
-                if (accounts.length === 0) {
-                    console.log(`\nPor favor, crie uma conta primeiro!`);
-                    option = 0;
-                }
-                let id = prompt("ID da Conta: ");
-                const b = await accountRepository.delete(id);
-                console.log(b);
-                break;
-            case 5:
-                if (accounts.length === 0) {
-                    console.log(`\nPor favor, crie uma conta primeiro!`);
-                    option = 0;
-                }
-                let identifier = prompt("ID da Conta: ");
-                let CPF = prompt("Novo CPF da conta: ");
-                let Nome = prompt("Novo NOME da conta: ");
-                const c = await accountRepository.update(identifier, CPF, Nome);
-                console.log(c);
-                break;
-            case 6:
-                if (accounts.length === 0) {
-                    console.log(`\nPor favor, crie uma conta primeiro!`);
-                    option = 0;
-                }
-                const d = await accountRepository.get_all();
-                break;
-            default:
-                console.log("\nOpção incorreta! Siga o menu!");
-                break;
-        }
-    } while (option != 7);
-    printLine(40, 2);
-    option = 0;
-    do {
-        printMenu();
-        printLine(40, 1);
-        switch (option) {
-            case 1:
-                console.log("~~~~~~~~~~ADICIONAR GASTO~~~~~~~~~~\n");
-                acc.addOutput(accounts[0], idOutflow);
-                idOutflow++;
-                break;
-            case 2:
-                console.log("~~~~~~~~~~REMOVER GASTO~~~~~~~~~~\n");
-                acc.rmOutput(accounts[0]);
-                break;
-            case 3:
-                console.log("~~~~~~~~~~LISTAR GASTOS~~~~~~~~~~\n");
-                acc.listOutput(accounts[0]);
-                break;
-            case 4:
-                console.log("~~~~~~~~~~EDITAR GASTOS~~~~~~~~~~\n");
-                acc.editOutput(accounts[0]);
-                break;
-            case 5:
-                console.log("~~~~~~~~~~ADICIONAR GANHO~~~~~~~~~~\n");
-                acc.addInput(accounts[0], idInflow);
-                idInflow++;
-                break;
-            case 6:
-                console.log("~~~~~~~~~~REMOVER GANHO~~~~~~~~~~\n");
-                acc.rmInput(accounts[0]);
-                break;
-            case 7:
-                console.log("~~~~~~~~~~LISTAR GANHOS~~~~~~~~~~\n");
-                acc.listInput(accounts[0]);
-                break;
-            case 8:
-                console.log("~~~~~~~~~~EDITAR GANHO~~~~~~~~~~\n");
-                acc.editInput(accounts[0]);
-                break;
-            case 9:
-                console.log("~~~~~~~~~~GERAR EXTRATO~~~~~~~~~~\n");
-                acc.genStats(accounts[0]);
-                break;
-            case 10:
-                console.log("OBRIGADO POR UTILIZAR O PROGRAMA!\n");
-                break;
-            default:
-                console.log("OPÇÃO INCORRETA! SIGA O MENU E DIGITE NOVAMENTE!\n");
-                break;
-        }
+    // Função principal
+    async function main() {
+        let act; // Conta que será usada!
         printLine(40, 2);
-    } while (option != 10);
+        do {
+            printMenuAccount();
+            switch (option) {
+                case 1:
+                    printLine(40, 1);
+                    console.log("----------------CADASTRO----------------");
+                    acc.CPF = prompt("Primeiramente, digite seu CPF (apenas números): ");
+                    acc.Name = prompt("Agora, digite seu nome: ");
+                    await accountRepository.create(acc);
+                    console.log("Pronto! Conta criada!");
+                    printLine(40, 1);
+                    break;
+                case 2:
+                    printLine(40, 1);
+                    console.log("--------------ACESSAR CONTA-------------");
+                    const a = await accountRepository.get_all();
+                    if (a.length == 0) {
+                        console.log("Não há contas cadastradas!");
+                        console.log("Cadastre uma e tente novamente!");
+                    }
+                    else {
+                        let i = 1;
+                        a.forEach(element => {
+                            console.log(i + "º conta: " + element.Name);
+                            //console.log("CPF: " + element.CPF + "\n")
+                            i++;
+                        });
+                        act = await accountRepository.findByCpf(prompt("Digite o CPF da conta que deseja acessar (apenas números): "));
+                        if (act instanceof AccountEntity_1.default) {
+                            console.log("Conta acessada! Seja bem vind@ " + act.Name + "!");
+                            option = 3;
+                        }
+                        else {
+                            console.log("CPF inválido!");
+                        }
+                    }
+                    printLine(40, 1);
+                case 3:
+                    break;
+                default:
+                    console.log("Opção Inválida! Siga o menu!");
+                    break;
+            }
+        } while (option != 3);
+    }
+    main();
 };
 exports.default = app;
+// do {
+//     printMenuAccount()
+//     switch (option) {
+//         case 1:
+//             console.log("\n~~~~~~~~~~ADICIONAR CONTA~~~~~~~~~~\n")
+//             accounts.push(acc.createAccount("idAcc"))
+//             console.log(acc)
+//             acc.CPF = prompt("CPF: ")
+//             acc.Name = prompt("Nome: ")
+//             const a = await accountRepository.create(acc)
+//             console.log(a)
+//             idAcc++
+//             break;
+//         case 2:
+//             if (accounts.length === 0){
+//                 console.log(`\nPor favor, crie uma conta primeiro!`)
+//             } else {
+//                 printLine(40, 1)
+//                 acc.showDataAccount(accounts)
+//                 printLine(40, 1)
+//             }
+//             break;
+//         case 3:
+//             if (accounts.length === 0){
+//                 console.log(`\nPor favor, crie uma conta primeiro!`)
+//                 option = 0
+//             }
+//             break;
+//         case 4:
+//             if (accounts.length === 0){
+//                 console.log(`\nPor favor, crie uma conta primeiro!`)
+//                 option = 0
+//             }
+//             let id = prompt("ID da Conta: ")
+//             const b = await accountRepository.delete(id)
+//             console.log(b)
+//             break;
+//         case 5:
+//             if (accounts.length === 0){
+//                 console.log(`\nPor favor, crie uma conta primeiro!`)
+//                 option = 0
+//             }
+//             let identifier = prompt("ID da Conta: ")
+//             let CPF = prompt("Novo CPF da conta: ")
+//             let Nome = prompt("Novo NOME da conta: ")
+//             const c = await accountRepository.update(identifier, CPF, Nome)
+//             console.log(c)
+//             break;
+//         case 6:
+//             if (accounts.length === 0){
+//                 console.log(`\nPor favor, crie uma conta primeiro!`)
+//                 option = 0
+//             }
+//             const d = await accountRepository.get_all()
+//             break;
+//         default:
+//             console.log("\nOpção incorreta! Siga o menu!")
+//             break;
+//     }
+// } while (option != 7)
+// printLine(40,2)
+// option = 0
+// do{
+//     printMenu()
+//     printLine(40, 1)
+//     switch (option) {
+//         case 1:
+//             console.log("~~~~~~~~~~ADICIONAR GASTO~~~~~~~~~~\n")
+//             acc.addOutput(accounts[0], idOutflow)
+//             idOutflow++
+//             break;
+//         case 2:
+//             console.log("~~~~~~~~~~REMOVER GASTO~~~~~~~~~~\n")
+//             acc.rmOutput(accounts[0])
+//             break;
+//         case 3:
+//             console.log("~~~~~~~~~~LISTAR GASTOS~~~~~~~~~~\n")
+//             acc.listOutput(accounts[0])
+//             break;
+//         case 4:
+//             console.log("~~~~~~~~~~EDITAR GASTOS~~~~~~~~~~\n")
+//             acc.editOutput(accounts[0])
+//             break;
+//         case 5:
+//             console.log("~~~~~~~~~~ADICIONAR GANHO~~~~~~~~~~\n")
+//             acc.addInput(accounts[0], idInflow)
+//             idInflow++
+//             break;
+//         case 6:
+//             console.log("~~~~~~~~~~REMOVER GANHO~~~~~~~~~~\n")
+//             acc.rmInput(accounts[0])
+//             break;
+//         case 7:
+//             console.log("~~~~~~~~~~LISTAR GANHOS~~~~~~~~~~\n")
+//             acc.listInput(accounts[0])
+//             break;
+//         case 8:
+//             console.log("~~~~~~~~~~EDITAR GANHO~~~~~~~~~~\n")
+//             acc.editInput(accounts[0])
+//             break;
+//         case 9:
+//             console.log("~~~~~~~~~~GERAR EXTRATO~~~~~~~~~~\n")
+//             acc.genStats(accounts[0])
+//             break;
+//         case 10:
+//             console.log("OBRIGADO POR UTILIZAR O PROGRAMA!\n")
+//             break;
+//         default:
+//             console.log("OPÇÃO INCORRETA! SIGA O MENU E DIGITE NOVAMENTE!\n")
+//             break;
+//     }
+//     printLine(40, 2)
+// } while (option != 10)
 //# sourceMappingURL=app.js.map
