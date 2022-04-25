@@ -18,6 +18,10 @@ let CashInflowRepository = class CashInflowRepository {
     async create(input) {
         await this.repository.save(input);
     }
+    async get_all() {
+        const inputs = await this.repository.find();
+        return inputs;
+    }
 };
 CashInflowRepository = __decorate([
     (0, typeorm_1.EntityRepository)(CashInflowEntity_1.default),

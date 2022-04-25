@@ -13,6 +13,11 @@ export default class CashInflowRepository{
         await this.repository.save(input)
     }
 
+    async get_all(){
+        const inputs = await this.repository.find();
+        return inputs;
+    }
+
     
 
     // public async findByTitulo(Titulo: string): Promise<CashInflowEntity[]> {

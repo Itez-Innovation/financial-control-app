@@ -229,26 +229,37 @@ const app = async () =>{
 
                             break;
                         case 5:
-                            console.log("~~~~~~~~~~ADICIONAR GANHO~~~~~~~~~~\n")
+                            console.log("~~~~~~~~~~ADICIONAR GANHO~~~~~~~~~~")
                             inf.Titulo = prompt("Insira a descrição do ganho: ")
                             inf.Valor = Number(prompt("Insira o valor do ganho (apenas valor): "))
                             inf.account_id = act.id;
                             await inputRepository.create(inf);
                             break;
                         case 6:
-                            console.log("~~~~~~~~~~REMOVER GANHO~~~~~~~~~~\n")
+                            console.log("~~~~~~~~~~REMOVER GANHO~~~~~~~~~~")
 
                             break;
                         case 7:
-                            console.log("~~~~~~~~~~LISTAR GANHOS~~~~~~~~~~\n")
-
+                            console.log("~~~~~~~~~~LISTAR GANHOS~~~~~~~~~~")
+                            let a = await inputRepository.get_all();
+                            let i = 1;
+                            if(a.length == 0){
+                                console.log("Não há entradas cadastradas!")
+                                console.log("Cadastre uma e tente novamente!")
+                            } else {
+                                a.forEach(element => {
+                                    console.log(i + "º ganho: ")
+                                    console.log(element.Titulo + ", no valor de R$ " + element.Valor + ";")
+                                    i++;
+                                });
+                            }
                             break;
                         case 8:
-                            console.log("~~~~~~~~~~EDITAR GANHO~~~~~~~~~~\n")
+                            console.log("~~~~~~~~~~EDITAR GANHO~~~~~~~~~~")
 
                             break;
                         case 9:
-                            console.log("~~~~~~~~~~GERAR EXTRATO~~~~~~~~~~\n")
+                            console.log("~~~~~~~~~~GERAR EXTRATO~~~~~~~~~~")
 
                             break;
                         case 10:

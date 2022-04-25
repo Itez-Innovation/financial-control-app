@@ -217,6 +217,18 @@ const app = async () => {
                         break;
                     case 7:
                         console.log("~~~~~~~~~~LISTAR GANHOS~~~~~~~~~~\n");
+                        let a = await inputRepository.get_all();
+                        let i = 1;
+                        if (a.length == 0) {
+                            console.log("Não há entradas cadastradas!");
+                            console.log("Cadastre uma e tente novamente!");
+                        }
+                        else {
+                            a.forEach(element => {
+                                console.log(i + "º ganho: ");
+                                console.log(element.Titulo + ", no valor de R$ " + element.Valor + ";");
+                            });
+                        }
                         break;
                     case 8:
                         console.log("~~~~~~~~~~EDITAR GANHO~~~~~~~~~~\n");
