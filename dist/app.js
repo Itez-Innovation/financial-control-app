@@ -1,14 +1,20 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
 const AccountEntity_1 = require("./entity/AccountEntity");
+const CashInflowEntity_1 = require("./entity/CashInflowEntity");
 const Account_1 = require("./model/Account");
+const CashInflow_1 = require("./model/CashInflow");
 const AccountRepository_1 = require("./repositories/AccountRepository");
+const CashInflowRepository_1 = require("./repositories/CashInflowRepository");
 const app = async () => {
     // Declarações
     let option = 0;
     const accountRepository = new AccountRepository_1.default();
+    const inputRepository = new CashInflowRepository_1.default();
     let ac = new AccountEntity_1.default();
     let acc = new Account_1.default;
+    let inn = new CashInflowEntity_1.default();
+    let inf = new CashInflow_1.default;
     // npm install prompt-sync
     const prompt = require("prompt-sync")();
     /*-----------------------------------------------------------------------------------------*/
@@ -50,14 +56,14 @@ const app = async () => {
     function printMenu() {
         console.log("------------------MENU------------------");
         console.log("1 - ADICIONAR GASTO");
-        console.log("2 - REMOVER GASTO");
+        // console.log("2 - REMOVER GASTO")
         console.log("3 - LISTAR GASTOS");
-        console.log("4 - EDITAR GASTO");
+        // console.log("4 - EDITAR GASTO")
         console.log("5 - ADICIONAR GANHO");
-        console.log("6 - REMOVER GANHO");
+        // console.log("6 - REMOVER GANHO")
         console.log("7 - LISTAR GANHOS");
-        console.log("8 - EDITAR GANHO");
-        console.log("9 - GERAR EXTRATO");
+        // console.log("8 - EDITAR GANHO")
+        // console.log("9 - GERAR EXTRATO")
         console.log("10 - ENCERRAR");
         option = Number(prompt("Opção escolhida: "));
     }
@@ -107,8 +113,8 @@ const app = async () => {
                 case 3:
                     printLine(40, 1);
                     console.log("Obrigado por acessar!");
-                    return 0;
                     printLine(40, 2);
+                    return 0;
                     break;
                 case 4:
                     if (act == null) {
@@ -150,6 +156,7 @@ const app = async () => {
                         }
                         console.log("Conta deletada!");
                         printLine(40, 1);
+                        return 0;
                         break;
                     case 4:
                         printLine(40, 1);
@@ -168,16 +175,69 @@ const app = async () => {
                     case 5:
                         printLine(40, 1);
                         console.log("Obrigado por acessar!");
+                        printLine(40, 2);
                         return 0;
-                        printLine(40, 1);
                         break;
                     default:
                         printLine(40, 1);
                         console.log("Opção Inválida! Siga o menu!");
-                        printLine(40, 1);
+                        printLine(40, 2);
                         break;
                 }
             } while (option != 5);
+        }
+        printLine(40, 2);
+        if (act instanceof AccountEntity_1.default) {
+            option = 0;
+            do {
+                printMenu();
+                printLine(40, 1);
+                switch (option) {
+                    case 1:
+                        console.log("~~~~~~~~~~ADICIONAR GASTO~~~~~~~~~~\n");
+                        break;
+                    case 2:
+                        console.log("~~~~~~~~~~REMOVER GASTO~~~~~~~~~~\n");
+                        break;
+                    case 3:
+                        console.log("~~~~~~~~~~LISTAR GASTOS~~~~~~~~~~\n");
+                        break;
+                    case 4:
+                        console.log("~~~~~~~~~~EDITAR GASTOS~~~~~~~~~~\n");
+                        break;
+                    case 5:
+                        console.log("~~~~~~~~~~ADICIONAR GANHO~~~~~~~~~~\n");
+                        inf.Titulo = prompt("Insira a descrição do ganho: ");
+                        inf.Valor = Number(prompt("Insira o valor do ganho (apenas valor): "));
+                        inf.account_id = act.id;
+                        await inputRepository.create(inf);
+                        break;
+                    case 6:
+                        console.log("~~~~~~~~~~REMOVER GANHO~~~~~~~~~~\n");
+                        break;
+                    case 7:
+                        console.log("~~~~~~~~~~LISTAR GANHOS~~~~~~~~~~\n");
+                        break;
+                    case 8:
+                        console.log("~~~~~~~~~~EDITAR GANHO~~~~~~~~~~\n");
+                        break;
+                    case 9:
+                        console.log("~~~~~~~~~~GERAR EXTRATO~~~~~~~~~~\n");
+                        break;
+                    case 10:
+                        printLine(40, 1);
+                        console.log("Obrigado por acessar!");
+                        printLine(40, 2);
+                        return 0;
+                        break;
+                    default:
+                        printLine(40, 1);
+                        console.log("Opção inválida!");
+                        console.log("Siga o menu!");
+                        printLine(40, 1);
+                        break;
+                }
+            } while (option != 10);
         }
     }
     main();

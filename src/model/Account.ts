@@ -1,5 +1,5 @@
-import { Input } from './CashInflow'
-import { Output } from './CashOutflow'
+import Input from './CashInflow'
+import Output from './CashOutflow'
 // import { financialStats } from '../service/financialStatsService'
 
 // npm install prompt-sync

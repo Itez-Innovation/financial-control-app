@@ -1,7 +1,9 @@
 import { DeepPartial, EntityRepository, getRepository, Repository } from 'typeorm';
 import AccountEntity from '../entity/AccountEntity';
+import CashInflowEntity from '../entity/CashInflowEntity';
 import Account from '../model/Account';
-
+import Input from '../model/CashInflow';
+import Output from '../model/CashOutflow';
 @EntityRepository(AccountEntity)
 export default class AccountRepository{
     private repository: Repository<AccountEntity>
@@ -26,7 +28,7 @@ export default class AccountRepository{
             return new Error("Essa conta não existe!");
         }
 
-        await this.repository.delete(CPF);
+        await this.repository.delete({CPF});
     }
 
     async update(id: string, CPF: string, Name?:string){
@@ -58,4 +60,5 @@ export default class AccountRepository{
         const acct = await this.repository.findOne({CPF})
         return acct
     }
+
 }

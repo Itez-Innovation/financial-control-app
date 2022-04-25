@@ -29,7 +29,7 @@ let AccountRepository = class AccountRepository {
         if (!await this.repository.findOne({ CPF })) {
             return new Error("Essa conta não existe!");
         }
-        await this.repository.delete(CPF);
+        await this.repository.delete({ CPF });
     }
     async update(id, CPF, Name) {
         if (!await this.repository.findOne({ CPF })) {

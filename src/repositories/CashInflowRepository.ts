@@ -1,21 +1,34 @@
-import { EntityRepository, Repository } from 'typeorm';
-import CashInflow from '../entity/CashInflowEntity';
+import { EntityRepository, getRepository, Repository } from 'typeorm';
+import CashInflowEntity from '../entity/CashInflowEntity';
+import Input from '../model/CashInflow';
 
-@EntityRepository(CashInflow)
-export default class CashInflowRepository extends Repository<CashInflow>{
-    public async findByTitulo(Titulo: string): Promise<CashInflow[]> {
-        return this.find({
-            where: {
-                Titulo,
-            }
-        })
+@EntityRepository(CashInflowEntity)
+export default class CashInflowRepository{
+    private repository: Repository<CashInflowEntity>
+    constructor(){
+        this.repository = getRepository(CashInflowEntity)
     }
 
-    public async findById(id: number): Promise<CashInflow[]> {
-        return this.find({
-            where: {
-                id,
-            }
-        })
+    async create(input: Input){
+        await this.repository.save(input)
     }
+
+    
+
+    // public async findByTitulo(Titulo: string): Promise<CashInflowEntity[]> {
+    //     return this.find({
+    //         where: {
+    //             Titulo,
+    //         }
+    //     })
+    // }
+
+    // public async findById(id: number): Promise<CashInflowEntity[]> {
+    //     return this.find({
+    //         where: {
+    //             id,
+    //         }
+    //     })
+    // }
+    
 }
