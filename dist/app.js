@@ -107,6 +107,7 @@ const app = async () => {
                 case 3:
                     printLine(40, 1);
                     console.log("Obrigado por acessar!");
+                    return 0;
                     printLine(40, 2);
                     break;
                 case 4:
@@ -126,7 +127,58 @@ const app = async () => {
                     break;
             }
         } while (option != 3);
-        console.log("Aê!");
+        if (act instanceof AccountEntity_1.default) {
+            option = 0;
+            do {
+                printMenuUser();
+                switch (option) {
+                    case 1:
+                        option = 5;
+                        break;
+                    case 2:
+                        printLine(40, 1);
+                        console.log("Dados cadastrados: ");
+                        console.log("Nome: " + act.Name);
+                        console.log("CPF: " + act.CPF);
+                        printLine(40, 1);
+                        break;
+                    case 3:
+                        printLine(40, 1);
+                        let inf = await accountRepository.delete(act.CPF);
+                        if (inf instanceof Error) {
+                            console.log("Erro!");
+                        }
+                        console.log("Conta deletada!");
+                        printLine(40, 1);
+                        break;
+                    case 4:
+                        printLine(40, 1);
+                        console.log("--------------EDITAR DADOS-------------");
+                        let n = prompt("Insira o novo nome: ");
+                        let c = prompt("Insira o novo CPF (apenas números): ");
+                        let ac = await accountRepository.update(act.id, c, n);
+                        if (ac instanceof AccountEntity_1.default) {
+                            act = ac;
+                        }
+                        else {
+                            console.log("Erro! Tente outra vez!");
+                        }
+                        printLine(40, 1);
+                        break;
+                    case 5:
+                        printLine(40, 1);
+                        console.log("Obrigado por acessar!");
+                        return 0;
+                        printLine(40, 1);
+                        break;
+                    default:
+                        printLine(40, 1);
+                        console.log("Opção Inválida! Siga o menu!");
+                        printLine(40, 1);
+                        break;
+                }
+            } while (option != 5);
+        }
     }
     main();
 };

@@ -17,4 +17,6 @@ createConnection({
         
 })
 
+// database on docker
+// docker run --name finance -e POSTGRES_PASSWORD=finance -e POSTGRES_USER=finance -p 5433:5432 -d postgres
 

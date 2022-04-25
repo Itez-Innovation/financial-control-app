@@ -15,4 +15,6 @@ const app_1 = require("./app");
 }).then(async (conn) => {
     await (0, app_1.default)();
 });
+// database on docker
+// docker run --name finance -e POSTGRES_PASSWORD=finance -e POSTGRES_USER=finance -p 5433:5432 -d postgres
 //# sourceMappingURL=main.js.map
