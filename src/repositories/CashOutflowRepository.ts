@@ -1,37 +1,52 @@
-import { EntityRepository, Repository } from 'typeorm';
-import CashOutflow from '../entity/CashOutflowEntity';
+import { EntityRepository, getRepository, Repository } from 'typeorm';
+import CashOutflowEntity from '../entity/CashOutflowEntity';
+import Output from '../model/CashOutflow';
 
-@EntityRepository(CashOutflow)
-export default class CashOutflowRepository extends Repository<CashOutflow>{
-    public async findByTitulo(Titulo: string): Promise<CashOutflow[]> {
-        return this.find({
-            where: {
-                Titulo,
-            }
-        })
+@EntityRepository(CashOutflowEntity)
+export default class CashOutflowRepository{
+    private repository: Repository<CashOutflowEntity>
+    constructor(){
+        this.repository = getRepository(CashOutflowEntity)
     }
 
-    public async findByArea(Area: string): Promise<CashOutflow[]> {
-        return this.find({
-            where: {
-                Area,
-            }
-        })
+    async create(output: Output){
+        await this.repository.save(output);
     }
 
-    public async findById(id: number): Promise<CashOutflow[]> {
-        return this.find({
-            where: {
-                id,
-            }
-        })
+    async get_all(){
+        const outputs = await this.repository.find();
+        return outputs;
     }
 
-    public async findByValor(Valor: number): Promise<CashOutflow[]> {
-        return this.find({
-            where: {
-                Valor,
-            }
-        })
-    }
+    // public async findByTitulo(Titulo: string): Promise<CashOutflow[]> {
+    //     return this.find({
+    //         where: {
+    //             Titulo,
+    //         }
+    //     })
+    // }
+
+    // public async findByArea(Area: string): Promise<CashOutflow[]> {
+    //     return this.find({
+    //         where: {
+    //             Area,
+    //         }
+    //     })
+    // }
+
+    // public async findById(id: number): Promise<CashOutflow[]> {
+    //     return this.find({
+    //         where: {
+    //             id,
+    //         }
+    //     })
+    // }
+
+    // public async findByValor(Valor: number): Promise<CashOutflow[]> {
+    //     return this.find({
+    //         where: {
+    //             Valor,
+    //         }
+    //     })
+    // }
 }
