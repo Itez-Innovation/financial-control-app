@@ -63,9 +63,9 @@ const app = async () => {
     function printMenu() {
         console.log("------------------MENU------------------");
         console.log("1 - ADICIONAR GASTO");
-        // console.log("2 - REMOVER GASTO")
+        console.log("2 - REMOVER GASTO");
         console.log("3 - LISTAR GASTOS");
-        // console.log("4 - EDITAR GASTO")
+        console.log("4 - EDITAR GASTO");
         console.log("5 - ADICIONAR GANHO");
         // console.log("6 - REMOVER GANHO")
         console.log("7 - LISTAR GANHOS");
@@ -272,6 +272,23 @@ const app = async () => {
                         break;
                     case 4:
                         console.log("~~~~~~~~~~EDITAR GASTOS~~~~~~~~~~");
+                        let d = await outputRepository.get_all();
+                        let t = 1;
+                        if (d.length == 0) {
+                            console.log("Não há saídas cadastradas!");
+                            console.log("Cadastre uma e tente novamente!");
+                        }
+                        else {
+                            d.forEach(element => {
+                                console.log("ID do " + t + "º gasto: " + element.id);
+                                t++;
+                            });
+                        }
+                        let id_gasto = prompt("Digite o ID do gasto a ser editado: ");
+                        let ar = prompt("Digite a área do gasto a ser editado: ");
+                        let ti = prompt("Digite o título do gasto a ser editado: ");
+                        let val = Number(prompt("Digite o valor do gasto a ser editado: "));
+                        await outputRepository.update(id_gasto, ar, ti, val);
                         break;
                     case 5:
                         console.log("~~~~~~~~~~ADICIONAR GANHO~~~~~~~~~~");
