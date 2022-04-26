@@ -80,10 +80,10 @@ const app = async () =>{
             console.log("3 - LISTAR GASTOS")
             console.log("4 - EDITAR GASTO")
             console.log("5 - ADICIONAR GANHO")
-            // console.log("6 - REMOVER GANHO")
+            console.log("6 - REMOVER GANHO")
             console.log("7 - LISTAR GANHOS")
-            // console.log("8 - EDITAR GANHO")
-            // console.log("9 - GERAR EXTRATO")
+            console.log("8 - EDITAR GANHO")
+            console.log("9 - GERAR EXTRATO")
             console.log("10 - ENCERRAR")
 
             option = Number(prompt("Opção escolhida: "))
@@ -320,7 +320,19 @@ const app = async () =>{
                             break;
                         case 6:
                             console.log("~~~~~~~~~~REMOVER GANHO~~~~~~~~~~")
-
+                            let q = await inputRepository.get_all();
+                            let w = 1;
+                            if(q.length == 0){
+                                console.log("Não há entradas cadastradas!")
+                                console.log("Cadastre uma e tente novamente!")
+                            } else {
+                                q.forEach(element => {
+                                    console.log("ID do " + w + "º ganho: " + element.id);
+                                    w++;
+                                });
+                            }
+                            let idGanho = prompt("Digite o ID do ganho a ser removido: ");
+                            await inputRepository.delete(idGanho);
                             break;
                         case 7:
                             console.log("~~~~~~~~~~LISTAR GANHOS~~~~~~~~~~")
