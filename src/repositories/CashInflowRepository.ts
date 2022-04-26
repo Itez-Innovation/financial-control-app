@@ -20,24 +20,26 @@ export default class CashInflowRepository{
 
     async delete(id: string){
         if(!await this.repository.findOne({id})){
-            console.log("Esse gasto não existe!")
+            console.log("Esse ganho não existe!")
         } else {
             await this.repository.delete({id})
+            console.log("Ganho removido!")
         }
     }
 
     async update(id: string, titulo: string, valor: number){
         if(!await this.repository.findOne({id})){
-            console.log("Esse gasto não existe!")
+            console.log("Esse ganho não existe!")
         } else {
-            await this.repository.delete({id})
+            const inflow = await this.repository.findOne({id})
+            inflow.Titulo = titulo ? titulo : inflow.Titulo;
+            inflow.Valor = valor ? valor : inflow.Valor;
+
+            await this.repository.save(inflow);
+            console.log("Ganho atualizado!")
         }
 
-        const inflow = await this.repository.findOne({id})
-        inflow.Titulo = titulo ? titulo : inflow.Titulo;
-        inflow.Valor = valor ? valor : inflow.Valor;
-
-        await this.repository.save(inflow);
+        
     }
 
     

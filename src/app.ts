@@ -263,7 +263,19 @@ const app = async () =>{
                             break;
                         case 2:
                             console.log("~~~~~~~~~~REMOVER GASTO~~~~~~~~~~")
-
+                            let c = await outputRepository.get_all();
+                            let r = 1;
+                            if(c.length == 0){
+                                console.log("Não há saídas cadastradas!")
+                                console.log("Cadastre uma e tente novamente!")
+                            } else {
+                                c.forEach(element => {
+                                    console.log("ID do " + r + "º gasto: " + element.id);
+                                    r++;
+                                });
+                            }
+                            let idGasto = prompt("Digite o ID do gasto a ser removido: ");
+                            await outputRepository.delete(idGasto);
                             break;
                         case 3:
                             console.log("~~~~~~~~~~LISTAR GASTOS~~~~~~~~~~")

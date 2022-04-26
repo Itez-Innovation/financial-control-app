@@ -22,6 +22,27 @@ let CashInflowRepository = class CashInflowRepository {
         const inputs = await this.repository.find();
         return inputs;
     }
+    async delete(id) {
+        if (!await this.repository.findOne({ id })) {
+            console.log("Esse ganho não existe!");
+        }
+        else {
+            await this.repository.delete({ id });
+            console.log("Ganho removido!");
+        }
+    }
+    async update(id, titulo, valor) {
+        if (!await this.repository.findOne({ id })) {
+            console.log("Esse ganho não existe!");
+        }
+        else {
+            const inflow = await this.repository.findOne({ id });
+            inflow.Titulo = titulo ? titulo : inflow.Titulo;
+            inflow.Valor = valor ? valor : inflow.Valor;
+            await this.repository.save(inflow);
+            console.log("Ganho atualizado!");
+        }
+    }
 };
 CashInflowRepository = __decorate([
     (0, typeorm_1.EntityRepository)(CashInflowEntity_1.default),

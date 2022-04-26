@@ -22,6 +22,28 @@ let CashOutflowRepository = class CashOutflowRepository {
         const outputs = await this.repository.find();
         return outputs;
     }
+    async delete(id) {
+        if (!await this.repository.findOne({ id })) {
+            console.log("Esse gasto não existe!");
+        }
+        else {
+            console.log("Gasto removido!");
+            await this.repository.delete({ id });
+        }
+    }
+    async update(id, area, titulo, valor) {
+        if (!await this.repository.findOne({ id })) {
+            console.log("Esse gasto não existe!");
+        }
+        else {
+            const outflow = await this.repository.findOne({ id });
+            outflow.Area = area ? area : outflow.Area;
+            outflow.Titulo = titulo ? titulo : outflow.Titulo;
+            outflow.Valor = valor ? valor : outflow.Valor;
+            await this.repository.save(outflow);
+            console.log("Gasto atualizado!");
+        }
+    }
 };
 CashOutflowRepository = __decorate([
     (0, typeorm_1.EntityRepository)(CashOutflowEntity_1.default),

@@ -22,6 +22,7 @@ export default class CashOutflowRepository{
         if(!await this.repository.findOne({id})){
             console.log("Esse gasto não existe!")
         } else {
+            console.log("Gasto removido!");
             await this.repository.delete({id})
         }
     }
@@ -30,15 +31,17 @@ export default class CashOutflowRepository{
         if(!await this.repository.findOne({id})){
             console.log("Esse gasto não existe!")
         } else {
-            await this.repository.delete({id})
+            const outflow = await this.repository.findOne({id})
+            outflow.Area = area ? area : outflow.Area;
+            outflow.Titulo = titulo ? titulo : outflow.Titulo;
+            outflow.Valor = valor ? valor : outflow.Valor;
+
+            await this.repository.save(outflow);
+
+            console.log("Gasto atualizado!");
         }
 
-        const outflow = await this.repository.findOne({id})
-        outflow.Area = area ? area : outflow.Area;
-        outflow.Titulo = titulo ? titulo : outflow.Titulo;
-        outflow.Valor = valor ? valor : outflow.Valor;
-
-        await this.repository.save(outflow);
+        
     }
 
     // public async findByTitulo(Titulo: string): Promise<CashOutflow[]> {
