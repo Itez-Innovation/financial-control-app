@@ -217,7 +217,6 @@ const app = async () => {
                         switch (opt) {
                             case 1:
                                 ouf.Area = CashOutflow_2.setores.groceries;
-                                console.log(ouf.Area);
                                 break;
                             case 2:
                                 ouf.Area = CashOutflow_2.setores.education;
