@@ -83,7 +83,7 @@ const app = async () =>{
             console.log("6 - REMOVER GANHO")
             console.log("7 - LISTAR GANHOS")
             console.log("8 - EDITAR GANHO")
-            console.log("9 - GERAR EXTRATO")
+            //console.log("9 - GERAR EXTRATO")
             console.log("10 - ENCERRAR")
 
             option = Number(prompt("Opção escolhida: "))
@@ -370,7 +370,7 @@ const app = async () =>{
                     
                         case 9:
                             console.log("~~~~~~~~~~GERAR EXTRATO~~~~~~~~~~")
-
+                            console.log("Funcionalidade a ser implementada!");
                             break;
                         case 10:
                             printLine(40, 1)
