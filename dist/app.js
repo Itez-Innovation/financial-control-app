@@ -247,7 +247,7 @@ const app = async () => {
                         }
                         else {
                             c.forEach(element => {
-                                console.log("ID do " + r + "º gasto: " + element.id);
+                                console.log("ID do " + f + "º gasto (" + element.Titulo + "): " + element.id);
                                 r++;
                             });
                         }
@@ -280,7 +280,7 @@ const app = async () => {
                         }
                         else {
                             d.forEach(element => {
-                                console.log("ID do " + t + "º gasto: " + element.id);
+                                console.log("ID do " + f + "º gasto (" + element.Titulo + "): " + element.id);
                                 t++;
                             });
                         }
@@ -307,7 +307,7 @@ const app = async () => {
                         }
                         else {
                             q.forEach(element => {
-                                console.log("ID do " + w + "º ganho: " + element.id);
+                                console.log("ID do " + w + "º ganho (" + element.Titulo + "): " + element.id);
                                 w++;
                             });
                         }
@@ -332,6 +332,22 @@ const app = async () => {
                         break;
                     case 8:
                         console.log("~~~~~~~~~~EDITAR GANHO~~~~~~~~~~");
+                        let y = await inputRepository.get_all();
+                        let f = 1;
+                        if (y.length == 0) {
+                            console.log("Não há entradas cadastradas!");
+                            console.log("Cadastre uma e tente novamente!");
+                        }
+                        else {
+                            y.forEach(element => {
+                                console.log("ID do " + f + "º ganho (" + element.Titulo + "): " + element.id);
+                                f++;
+                            });
+                        }
+                        let id_ganho = prompt("Digite o ID do ganho a ser editado: ");
+                        let tit = prompt("Digite o título do gasto a ser editado: ");
+                        let valo = Number(prompt("Digite o valor do gasto a ser editado: "));
+                        await inputRepository.update(id_ganho, tit, valo);
                         break;
                     case 9:
                         console.log("~~~~~~~~~~GERAR EXTRATO~~~~~~~~~~");
