@@ -22,7 +22,9 @@ __decorate([
     __metadata("design:type", String)
 ], CashInflowEntity.prototype, "Titulo", void 0);
 __decorate([
-    (0, typeorm_1.Column)(),
+    (0, typeorm_1.Column)({
+        type: 'float4'
+    }),
     __metadata("design:type", Number)
 ], CashInflowEntity.prototype, "Valor", void 0);
 __decorate([

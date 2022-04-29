@@ -14,7 +14,6 @@ createConnection({
  }).then(
      async conn => {
         await app()
-        
 })
 
 // database on docker

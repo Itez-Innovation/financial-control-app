@@ -30,7 +30,8 @@ __decorate([
 ], CashOutflow.prototype, "Titulo", void 0);
 __decorate([
     (0, typeorm_1.Column)({
-        nullable: false
+        nullable: false,
+        type: 'float4'
     }),
     __metadata("design:type", Number)
 ], CashOutflow.prototype, "Valor", void 0);

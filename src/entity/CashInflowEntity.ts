@@ -19,7 +19,9 @@ export default class CashInflowEntity {
     @Column()
     Titulo: string;
 
-    @Column()
+    @Column({
+        type: 'float4'
+    })
     Valor: number
 
     @Column()

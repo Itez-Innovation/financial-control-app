@@ -17,11 +17,11 @@ const app = async () => {
     const inputRepository = new CashInflowRepository_1.default();
     const outputRepository = new CashOutflowRepository_1.default();
     let ac = new AccountEntity_1.default();
-    let acc = new Account_1.default;
+    // let acc = new Account;
     let inn = new CashInflowEntity_1.default();
-    let inf = new CashInflow_1.default;
+    // let inf = new Input;
     let out = new CashOutflowEntity_1.default();
-    let ouf = new CashOutflow_1.default;
+    // let ouf = new Output;
     // npm install prompt-sync
     const prompt = require("prompt-sync")();
     /*-----------------------------------------------------------------------------------------*/
@@ -85,6 +85,7 @@ const app = async () => {
                 case 1:
                     printLine(40, 1);
                     console.log("----------------CADASTRO----------------");
+                    let acc = new Account_1.default;
                     acc.CPF = prompt("Primeiramente, digite seu CPF (apenas números): ");
                     acc.Name = prompt("Agora, digite seu nome: ");
                     await accountRepository.create(acc);
@@ -202,6 +203,7 @@ const app = async () => {
                 switch (option) {
                     case 1:
                         console.log("~~~~~~~~~~ADICIONAR GASTO~~~~~~~~~~\n");
+                        let ouf = new CashOutflow_1.default;
                         ouf.Titulo = prompt("Insira a descrição do gasto: ");
                         ouf.Valor = Number(prompt("Insira o valor do gasto (apenas valor): "));
                         let opt;
@@ -292,6 +294,7 @@ const app = async () => {
                         break;
                     case 5:
                         console.log("~~~~~~~~~~ADICIONAR GANHO~~~~~~~~~~");
+                        let inf = new CashInflow_1.default;
                         inf.Titulo = prompt("Insira a descrição do ganho: ");
                         inf.Valor = Number(prompt("Insira o valor do ganho (apenas valor): "));
                         inf.account_id = act.id;
@@ -351,7 +354,46 @@ const app = async () => {
                         break;
                     case 9:
                         console.log("~~~~~~~~~~GERAR EXTRATO~~~~~~~~~~");
-                        console.log("Funcionalidade a ser implementada!");
+                        let entrada = await inputRepository.get_all();
+                        let sumInflow = 0;
+                        let saida = await outputRepository.get_all();
+                        let sumOutflow = 0;
+                        let cont = 1;
+                        console.log("Ganhos: ");
+                        if (entrada.length == 0) {
+                            console.log("Não há entradas cadastradas!");
+                        }
+                        else {
+                            entrada.forEach(element => {
+                                console.log(cont + "º ganho: " + element.Titulo + ", no valor de R$ " + element.Valor + ";");
+                                sumInflow += element.Valor;
+                                cont++;
+                            });
+                        }
+                        console.log("Você registrou um total de R$ " + sumInflow + " em entradas!\n");
+                        cont = 0;
+                        if (saida.length == 0) {
+                            console.log("Não há saídas cadastradas!");
+                        }
+                        else {
+                            saida.forEach(element => {
+                                console.log(cont + "º gasto: " + element.Titulo + ", no valor de R$ " + element.Valor + " do tipo " + element.Area + ";");
+                                sumOutflow += element.Valor;
+                                cont++;
+                            });
+                        }
+                        console.log("Você registrou um total de R$ " + sumOutflow + " em saídas!\n");
+                        if (sumInflow > sumOutflow) {
+                            const diff = sumInflow - sumOutflow;
+                            console.log("O balanço de sua conta foi de + R$ " + diff + ". \nBalanço positivo!\n");
+                        }
+                        else if (sumInflow < sumOutflow) {
+                            const diff = sumOutflow - sumInflow;
+                            console.log("O balanço de sua conta foi de - R$ " + diff + ". \nBalanço negativo!\n");
+                        }
+                        else {
+                            console.log("O balanço de sua conta foi de R$ 0.\nBalanço neutro!\n");
+                        }
                         break;
                     case 10:
                         printLine(40, 1);

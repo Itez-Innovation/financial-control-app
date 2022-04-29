@@ -1,3 +1,4 @@
+import { type } from 'os';
 import {
     Entity,
     Column,
@@ -26,7 +27,8 @@ export default class CashOutflow {
     Titulo: string;
 
     @Column({
-        nullable: false
+        nullable: false,
+        type: 'float4'
     })
     Valor: number
 
