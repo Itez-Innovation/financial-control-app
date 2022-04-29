@@ -1,5 +1,6 @@
 import { createConnection } from "typeorm";
 import app from "./app"
+import { Express } from "express"
 
 createConnection({ 
     "type": "postgres", 

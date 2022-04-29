@@ -9,12 +9,13 @@
       "typeorm": "ts-node-dev -r tsconfig-paths/register ./node_modules/.bin/typeorm",
       "start": "node dist/server.js",
       "main": "node --trace-warnings dist/main.js",
-      "migrate": "typeorm migration:create"
+      "migrate": "typeorm migration:create",
+      "devStart": "nodemon ./dist/main.js"
    },
    "dependencies": {
       "class-validator": "^0.12.2",
       "dotenv": "^8.2.0",
-      "express": "^4.17.3",
+      "express": "^4.18.0",
       "node": "^17.7.2",
       "pg": "^8.7.3",
       "postinstall": "^0.7.0",
@@ -35,6 +36,7 @@
       "eslint-import-resolver-typescript": "^2.0.0",
       "eslint-plugin-import": "^2.20.1",
       "eslint-plugin-prettier": "^3.1.2",
+      "nodemon": "^2.0.15",
       "prettier": "^2.0.4",
       "ts-node-dev": "^1.0.0-pre.44",
       "typescript": "^3.9.10"
