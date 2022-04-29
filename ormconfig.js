@@ -1,18 +1,21 @@
 console.log('process.env.DATABASE_URL :>> ', process.env.DATABASE_URL);
 module.exports = {
-
   "type": "postgres",
-  "url" : process.env.DATABASE_URL,
+    host: "localhost",
+    port: 5432,
+    username: "finance",
+    password: "finance",
+    database: "finance",
+  "name":"default",
   "logging": true,
   "cache": true,
   "synchronize": true,
-  //"migrationsRun": false,,
   "entities": ["src/entity/*.ts"],
   "migrations": ["src/database/migration/*.ts"],
  "cli":{
   "migrationsDir": [
     "src/database/migration"
   ],
-  "entitiesDir": ["src/entity"]
+  "entitiesDir": "src/entity"
   },
 }

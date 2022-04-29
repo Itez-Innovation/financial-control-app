@@ -1,5 +1,6 @@
 import Input from './CashInflow'
 import Output from './CashOutflow'
+import * as uuid from 'uuid'
 // import { financialStats } from '../service/financialStatsService'
 
 // npm install prompt-sync
@@ -13,19 +14,15 @@ export default class Account {
     CPF: string
     input: Array<Input>
     output: Array<Output>
+    createdAt: Date
+    updatedAt: Date
 
-    constructor(id?: string, nome?: string, cpf?: string, input?: Input, output?: Output){
-        if (id && nome && cpf && input && output){
-            this.Name = nome
-            this.CPF = cpf
-            this.input = [input]
-            this.output = [output]
-        } else {
-            this.CPF = "6846884"
-            this.Name = "Zé"
-            this.input = []
-            this.output = []
-        }
+    constructor(props: Omit<Account, 'id' | 'createdAt' | 'updatedAt' | 'input' | 'output'>, id?: string, input?: Input, output?: Output){
+
+        Object.assign(this, props)
+
+        if(!id) this.id = uuid.v4()
+
     }
 
     // Criando a conta

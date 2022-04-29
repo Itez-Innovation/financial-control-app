@@ -1,17 +1,18 @@
 import { Router } from 'express';
-import { CreateAccountController } from '../controller/CreateAccountController';
 import { GetAllAccountsController } from '../controller/GetAllAccountsController';
 import { DeleteAccountController } from '../controller/DeleteAccountController';
 import { UpdateAccountController } from '../controller/UpdateAccountController';
 import { GetAllFinancialStatsController } from '../controller/GetAllFinancialStatsController';
+import AccountController from "../controller/accountController";
+import accountController from "../controller/accountController";
 
 const accountRoute = Router();
 
-accountRoute.post("/accounts", new CreateAccountController().handle);
+accountRoute.post("/accounts", AccountController.create);
 
 accountRoute.get("/accounts", new GetAllAccountsController().handle);
 
-accountRoute.delete("/accounts/:id", new DeleteAccountController().handle);
+accountRoute.delete("/accounts/:id", accountController.delete);
 
 accountRoute.put("/accounts/:id", new UpdateAccountController().handle);
 

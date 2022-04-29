@@ -1,18 +1,14 @@
 import 'reflect-metadata';
-import * as express from "express";
-import './database';
-import accountRoute from './routes/account.routes';
-import cashInflowRoute from './routes/cashInflow.routes';
-import cashOutflowRoute from './routes/cashOutflow.routes';
 
-const app = express();
-app.use(express.json());
+import {createConnection} from "typeorm";
 
-app.use(accountRoute)
-app.use(cashInflowRoute)
-app.use(cashOutflowRoute)
 
-app.listen(process.env.API_PORT || 3000, () => {
-  console.log('🏃 Running Server');
-})
+createConnection().then(async connection => {
+    const app = await import("./app")
+    app.default.listen(process.env.API_PORT || 8081);
+    console.log("server on in port:" + (process.env.API_PORT || 8081));
+}).catch(error => console.log(error))
+
+
+
 

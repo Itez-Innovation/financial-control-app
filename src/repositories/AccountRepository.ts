@@ -1,34 +1,22 @@
-import { DeepPartial, EntityRepository, getRepository, Repository } from 'typeorm';
+import { getRepository, Repository } from 'typeorm';
 import AccountEntity from '../entity/AccountEntity';
-import CashInflowEntity from '../entity/CashInflowEntity';
+
 import Account from '../model/Account';
-import Input from '../model/CashInflow';
-import Output from '../model/CashOutflow';
-@EntityRepository(AccountEntity)
+
 export default class AccountRepository{
+
     private repository: Repository<AccountEntity>
-    constructor(){
-        this.repository = getRepository(AccountEntity)
+
+    constructor() {
+        (this.repository = getRepository(AccountEntity))
     }
-    // public async findByName(Name: string): Promise<AccountEntity[]> {
-    //     return this.find({
-    //         where: {
-    //             Name,
-    //         }
-    //     })
-    // }
 
     async create(account: Account){
         return this.repository.save(account)
     }
 
-    async delete(CPF: string){
-
-        if(!await this.repository.findOne({CPF})) {
-            return new Error("Essa conta não existe!");
-        }
-
-        await this.repository.delete({CPF});
+    async delete(id: string){
+        return this.repository.delete({id});
     }
 
     async update(id: string, CPF: string, Name?:string){
@@ -51,14 +39,12 @@ export default class AccountRepository{
         return accounts;
     }
 
-    async findByCpf(CPF: string){
+    findByCpf(CPF: string){
+        return this.repository.findOne({CPF})
+    }
 
-        if(!await this.repository.findOne({CPF})) {
-            return new Error("Essa conta não existe!");
-        }
-
-        const acct = await this.repository.findOne({CPF})
-        return acct
+    findById(id: string) {
+        return this.repository.findOne({id})
     }
 
 }

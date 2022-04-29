@@ -5,7 +5,7 @@
    "main": "index.js",
    "scripts": {
       "build": "tsc",
-      "dev": "ts-node-dev --inspect --transpile-only --ignore-watch node_modules src/server.ts",
+      "dev": "ts-node-dev --inspect --respawn --transpile-only --ignore-watch node_modules --no-notify src/server.ts",
       "typeorm": "ts-node-dev -r tsconfig-paths/register ./node_modules/.bin/typeorm",
       "start": "node dist/server.js",
       "main": "node --trace-warnings dist/main.js",
