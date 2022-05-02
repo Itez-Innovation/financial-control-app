@@ -9,13 +9,13 @@ const accountRoute = Router();
 
 accountRoute.post("/accounts", AccountController.create);
 
-accountRoute.get("/accounts", new GetAllAccountsController().handle);
+accountRoute.get("/accounts", accountController.read);
 
 accountRoute.delete("/accounts/:id", accountController.delete);
 
-accountRoute.put("/accounts/:id", new UpdateAccountController().handle);
+accountRoute.put("/accounts", accountController.update);
 
-accountRoute.get("/stats", new GetAllFinancialStatsController().handle);
+accountRoute.get("/accounts/all", accountController.readAll);
 
 // const accountRoute = Router()
 

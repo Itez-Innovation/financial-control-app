@@ -21,11 +21,7 @@ export default class AccountRepository{
 
     async update(id: string, CPF: string, Name?:string){
 
-        if(!await this.repository.findOne({CPF})) {
-            return new Error("Essa conta não existe!");
-        }
-
-        const acc = await this.repository.findOne({CPF})
+        const acc = await this.repository.findOne({id})
         acc.CPF = CPF ? CPF : acc.CPF;
         acc.Name = Name ? Name : acc.Name;
 
