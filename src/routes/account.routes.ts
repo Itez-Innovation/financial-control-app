@@ -1,6 +1,5 @@
 import { Router } from 'express';
 import { GetAllAccountsController } from '../controller/GetAllAccountsController';
-import { DeleteAccountController } from '../controller/DeleteAccountController';
 import { UpdateAccountController } from '../controller/UpdateAccountController';
 import { GetAllFinancialStatsController } from '../controller/GetAllFinancialStatsController';
 import AccountController from "../controller/accountController";

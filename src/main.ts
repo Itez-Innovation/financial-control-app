@@ -14,7 +14,7 @@ createConnection({
     entities: [__dirname + '/entity/*{.ts,.js}'] 
  }).then(
      async conn => {
-        await app()
+        await app
 })
 
 // database on docker

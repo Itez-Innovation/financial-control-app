@@ -1,15 +1,15 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
 const express_1 = require("express");
-const CreateAccountController_1 = require("../controller/CreateAccountController");
 const GetAllAccountsController_1 = require("../controller/GetAllAccountsController");
-const DeleteAccountController_1 = require("../controller/DeleteAccountController");
 const UpdateAccountController_1 = require("../controller/UpdateAccountController");
 const GetAllFinancialStatsController_1 = require("../controller/GetAllFinancialStatsController");
+const accountController_1 = require("../controller/accountController");
+const accountController_2 = require("../controller/accountController");
 const accountRoute = (0, express_1.Router)();
-accountRoute.post("/accounts", new CreateAccountController_1.CreateAccountController().handle);
+accountRoute.post("/accounts", accountController_1.default.create);
 accountRoute.get("/accounts", new GetAllAccountsController_1.GetAllAccountsController().handle);
-accountRoute.delete("/accounts/:id", new DeleteAccountController_1.DeleteAccountController().handle);
+accountRoute.delete("/accounts/:id", accountController_2.default.delete);
 accountRoute.put("/accounts/:id", new UpdateAccountController_1.UpdateAccountController().handle);
 accountRoute.get("/stats", new GetAllFinancialStatsController_1.GetAllFinancialStatsController().handle);
 // const accountRoute = Router()

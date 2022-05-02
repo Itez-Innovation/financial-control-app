@@ -1,8 +1,5 @@
 import { response, Router } from 'express';
-import { getRepository, getCustomRepository } from 'typeorm';
 import { CreateCashOutflowController } from '../controller/CreateCashOutflowController';
-import CashOutflow from '../entity/CashOutflowEntity';
-import CashOutflowRepository from '../repositories/CashOutflowRepository';
 
 
 const cashOutflowRoute = Router()
