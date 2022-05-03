@@ -5,8 +5,12 @@ const cashInflowRoute = Router()
 
 cashInflowRoute.post("/inputs", cashInflowController.create)
 
-//cashInflowRoute.post("/cashInflow", new CreateCashInflowController().handle);
+cashInflowRoute.get("/inputs", cashInflowController.read)
 
+cashInflowRoute.delete("/inputs", cashInflowController.delete)
 
+cashInflowRoute.put("/inputs", cashInflowController.update)
+
+cashInflowRoute.get("/inputs/all", cashInflowController.readAll)
 
 export default cashInflowRoute

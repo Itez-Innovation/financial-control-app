@@ -23,7 +23,7 @@ class AccountController {
     async delete(request: Request, res: Response, next: NextFunction) {
         try {
 
-            const { id } = request.params
+            const { id } = request.body
 
             await service.delete(id)
 
@@ -53,7 +53,7 @@ class AccountController {
 
             const response = await service.read(id)
 
-            return res.status(201).json()
+            return res.status(201).json(response)
 
         }catch(error){
             res.status(500).json({code: 500, message: "internal server error"})

@@ -7,7 +7,7 @@ accountRoute.post("/accounts", accountController.create);
 
 accountRoute.get("/accounts", accountController.read);
 
-accountRoute.delete("/accounts/:id", accountController.delete);
+accountRoute.delete("/accounts", accountController.delete);
 
 accountRoute.put("/accounts", accountController.update);
 

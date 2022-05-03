@@ -1,4 +1,5 @@
 import CreateInputDto from "../dto/account/createInputDto";
+import UpdateInputDto from "../dto/account/updateInputDto";
 import Input from "../model/CashInflow";
 import CashInflowRepository from "../repositories/CashInflowRepository";
 
@@ -35,9 +36,9 @@ export class CashInflowService {
         }
     }
 
-    async update(dto: CreateInputDto, id: string){
+    async update(dto: UpdateInputDto, id: string){
         try{
-            const { Titulo, Valor} = dto
+            const { Titulo, Valor } = dto
 
             const inputFound = await this.repository.findByID(id)
 
@@ -63,7 +64,7 @@ export class CashInflowService {
         }
     }
 
-    async readAll(id: string){
+    async readAll(){
         try{
             const inputsFound = await this.repository.get_all()
 
