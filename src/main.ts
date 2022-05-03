@@ -1,6 +1,5 @@
 import { createConnection } from "typeorm";
 import app from "./app"
-import { Express } from "express"
 
 createConnection({ 
     "type": "postgres", 
@@ -16,7 +15,3 @@ createConnection({
      async conn => {
         await app
 })
-
-// database on docker
-// docker run --name finance -e POSTGRES_PASSWORD=finance -e POSTGRES_USER=finance -p 5432:5432 -d postgres
-
