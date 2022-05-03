@@ -38,26 +38,10 @@ export default class CashInflowRepository{
             await this.repository.save(inflow);
             console.log("Ganho atualizado!")
         }
-
-        
     }
 
-    
-
-    // public async findByTitulo(Titulo: string): Promise<CashInflowEntity[]> {
-    //     return this.find({
-    //         where: {
-    //             Titulo,
-    //         }
-    //     })
-    // }
-
-    // public async findById(id: number): Promise<CashInflowEntity[]> {
-    //     return this.find({
-    //         where: {
-    //             id,
-    //         }
-    //     })
-    // }
+    findByID(id: string){
+        return this.repository.findOne({id})
+    }
     
 }

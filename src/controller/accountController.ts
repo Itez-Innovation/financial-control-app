@@ -1,5 +1,5 @@
 import {AccountService} from "../service/accountService";
-import {NextFunction, Request, response, Response} from "express";
+import {NextFunction, Request, Response} from "express";
 
 
 const service = new AccountService()

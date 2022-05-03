@@ -76,7 +76,7 @@ export class AccountService {
         try{
             const accountsFound = await this.repository.get_all()
 
-            if(!accountsFound) throw new Error("Account not found")
+            if(!accountsFound) throw new Error("Accounts not found")
 
             return this.repository.get_all()
         } catch(error){
