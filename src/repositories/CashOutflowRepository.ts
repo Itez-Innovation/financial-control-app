@@ -60,19 +60,7 @@ export default class CashOutflowRepository{
     //     })
     // }
 
-    // public async findById(id: number): Promise<CashOutflow[]> {
-    //     return this.find({
-    //         where: {
-    //             id,
-    //         }
-    //     })
-    // }
-
-    // public async findByValor(Valor: number): Promise<CashOutflow[]> {
-    //     return this.find({
-    //         where: {
-    //             Valor,
-    //         }
-    //     })
-    // }
+    findByID(id: string){
+        return this.repository.findOne({id})
+    }
 }

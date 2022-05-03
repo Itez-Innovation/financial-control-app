@@ -1,48 +1,17 @@
-import { response, Router } from 'express';
-import { CreateCashOutflowController } from '../controller/CreateCashOutflowController';
+import { Router } from 'express';
+import cashOutflowController from '../controller/cashOutflowController';
 
 
 const cashOutflowRoute = Router()
 
-cashOutflowRoute.post("/cashOutflow", new CreateCashOutflowController().handle);
+cashOutflowRoute.post("/outputs", cashOutflowController.create)
 
-// cashOutflowRoute.post('/', async (request, response) => {
-//     try {
-//         const repo = getRepository(CashOutflow)
-//         const res = await repo.save(request.body)
-//         return response.status(201).json(res)
-//     } catch (err) {
-//         console.log('err.message :>> ', err)
-//         return response.status(400).send()
-//     }
-// })
+cashOutflowRoute.get("/outputs", cashOutflowController.read)
 
-// cashOutflowRoute.get('/',async (request, response) => {
-//     response.json(await getRepository(CashOutflow).find())    
-// })
+cashOutflowRoute.delete("/outputs", cashOutflowController.delete)
 
-// cashOutflowRoute.get('/:Titulo',async (request, response) => {
-//     const repository = getCustomRepository(CashOutflowRepository)
-//     const res = await repository.findByTitulo(request.params.Titulo)
-//     response.json(res)    
-// })
+cashOutflowRoute.put("/outputs", cashOutflowController.update)
 
-// cashOutflowRoute.get('/:Area',async (request, response) => {
-//     const repository = getCustomRepository(CashOutflowRepository)
-//     const res = await repository.findByArea(request.params.Area)
-//     response.json(res)    
-// })
-
-// cashOutflowRoute.get('/:id',async (request, response) => {
-//     const repository = getCustomRepository(CashOutflowRepository)
-//     const posta = await repository.findById(Number(request.params.id))
-//     response.json(posta)    
-// })
-
-// cashOutflowRoute.get('/:Valor',async (request, response) => {
-//     const repository = getCustomRepository(CashOutflowRepository)
-//     const posta = await repository.findByValor(Number(request.params.Valor))
-//     response.json(posta)    
-// })
+cashOutflowRoute.get("/outputs/all", cashOutflowController.readAll)
 
 export default cashOutflowRoute
