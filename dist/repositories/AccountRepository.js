@@ -13,10 +13,7 @@ class AccountRepository {
         return this.repository.delete({ id });
     }
     async update(id, CPF, Name) {
-        if (!await this.repository.findOne({ CPF })) {
-            return new Error("Essa conta não existe!");
-        }
-        const acc = await this.repository.findOne({ CPF });
+        const acc = await this.repository.findOne({ id });
         acc.CPF = CPF ? CPF : acc.CPF;
         acc.Name = Name ? Name : acc.Name;
         await this.repository.save(acc);

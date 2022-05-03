@@ -1,17 +1,14 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
 const express_1 = require("express");
-const GetAllAccountsController_1 = require("../controller/GetAllAccountsController");
-const UpdateAccountController_1 = require("../controller/UpdateAccountController");
-const GetAllFinancialStatsController_1 = require("../controller/GetAllFinancialStatsController");
 const accountController_1 = require("../controller/accountController");
 const accountController_2 = require("../controller/accountController");
 const accountRoute = (0, express_1.Router)();
 accountRoute.post("/accounts", accountController_1.default.create);
-accountRoute.get("/accounts", new GetAllAccountsController_1.GetAllAccountsController().handle);
+accountRoute.get("/accounts", accountController_2.default.read);
 accountRoute.delete("/accounts/:id", accountController_2.default.delete);
-accountRoute.put("/accounts/:id", new UpdateAccountController_1.UpdateAccountController().handle);
-accountRoute.get("/stats", new GetAllFinancialStatsController_1.GetAllFinancialStatsController().handle);
+accountRoute.put("/accounts", accountController_2.default.update);
+accountRoute.get("/accounts/all", accountController_2.default.readAll);
 // const accountRoute = Router()
 // accountRoute.post('/accounts', async (request, response) => {
 //     try {

@@ -4,7 +4,7 @@ services:
 
   db:
     image: postgres
-    container_name: finance-db
+    container_name: finance
     ports:
       - 5432:5432
     environment:

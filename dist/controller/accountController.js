@@ -23,6 +23,35 @@ class AccountController {
             res.status(500).json({ code: 500, message: "internal server error" });
         }
     }
+    async update(request, res, next) {
+        try {
+            const { CPF, Name, id } = request.body;
+            const response = await service.update(CPF, Name, id);
+            return res.status(201).json(response);
+        }
+        catch (error) {
+            res.status(500).json({ code: 500, message: "internal server error" });
+        }
+    }
+    async read(request, res, next) {
+        try {
+            const { id } = request.body;
+            const response = await service.read(id);
+            return res.status(201).json();
+        }
+        catch (error) {
+            res.status(500).json({ code: 500, message: "internal server error" });
+        }
+    }
+    async readAll(request, res, next) {
+        try {
+            const response = await service.readAll();
+            return res.status(201).json(response);
+        }
+        catch (error) {
+            res.status(500).json({ code: 500, message: "internal server error" });
+        }
+    }
 }
 exports.default = new AccountController();
 //# sourceMappingURL=accountController.js.map

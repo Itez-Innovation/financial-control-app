@@ -2,7 +2,7 @@ console.log('process.env.DATABASE_URL :>> ', process.env.DATABASE_URL);
 module.exports = {
   "type": "postgres",
     host: "localhost",
-    port: 5433,
+    port: 5432,
     username: "finance",
     password: "finance",
     database: "finance",

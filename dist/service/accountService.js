@@ -32,6 +32,39 @@ class AccountService {
             throw new Error(error);
         }
     }
+    async update(CPF, Name, id) {
+        try {
+            const accountFound = await this.repository.findById(id);
+            if (!accountFound)
+                throw new Error("Account not found");
+            return this.repository.update(id, CPF, Name);
+        }
+        catch (error) {
+            throw new Error(error);
+        }
+    }
+    async read(id) {
+        try {
+            const accountFound = await this.repository.findById(id);
+            if (!accountFound)
+                throw new Error("Account not found");
+            return this.repository.findById(id);
+        }
+        catch (error) {
+            throw new Error(error);
+        }
+    }
+    async readAll() {
+        try {
+            const accountsFound = await this.repository.get_all();
+            if (!accountsFound)
+                throw new Error("Account not found");
+            return this.repository.get_all();
+        }
+        catch (error) {
+            throw new Error(error);
+        }
+    }
 }
 exports.AccountService = AccountService;
 //# sourceMappingURL=accountService.js.map
