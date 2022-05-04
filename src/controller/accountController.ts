@@ -72,6 +72,20 @@ class AccountController {
         }
     }
 
+    async getStats(request: Request, res: Response, next: NextFunction){
+        try{
+
+            const { id } = request.body
+
+            const response = await service.getStats(id)
+
+            return res.status(201).json(response)
+
+        } catch(error){
+            res.status(500).json({code: 500, message: "internal server error"})
+        }
+    }
+
 
 }
 

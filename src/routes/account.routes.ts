@@ -13,4 +13,6 @@ accountRoute.put("/accounts", accountController.update);
 
 accountRoute.get("/accounts/all", accountController.readAll);
 
+accountRoute.get("/stats", accountController.getStats);
+
 export default accountRoute

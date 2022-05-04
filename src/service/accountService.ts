@@ -84,4 +84,15 @@ export class AccountService {
         }
     }
 
+    async getStats(id: string){
+        try{
+            const statsFound = await this.repository.getStats(id)
+
+            if(!statsFound) throw new Error("Stats not found")
+            return statsFound
+        } catch(error){
+            throw new Error(error)
+        }
+    }
+
 }
