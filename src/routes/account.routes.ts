@@ -15,4 +15,6 @@ accountRoute.get("/accounts/all", accountController.readAll);
 
 accountRoute.get("/stats", accountController.getStats);
 
+accountRoute.get("/login", accountController.login);
+
 export default accountRoute

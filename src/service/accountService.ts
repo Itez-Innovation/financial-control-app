@@ -2,6 +2,10 @@
 import Account from "../model/Account";
 import CreateAccountDto from "../dto/account/createAccountDto";
 import AccountRepository from "../repositories/AccountRepository";
+import { compare } from "bcryptjs";
+import * as jwt from "jsonwebtoken"
+import AccountEntity from "../entity/AccountEntity";
+import { config } from "dotenv";
 
 
 export class AccountService {
@@ -91,6 +95,24 @@ export class AccountService {
             if(!statsFound) throw new Error("Stats not found")
             return statsFound
         } catch(error){
+            throw new Error(error)
+        }
+    }
+
+    async login(CPF: string, password: string){
+        try{
+            let cpfMatch = await this.repository.findByCpf(CPF)
+            if(!cpfMatch) throw new Error("Account not found")
+
+            let passMatch = await compare(password, (await this.repository.findByCpf(CPF)).password)
+            if(!passMatch) throw new Error("Password doesn't match")
+
+            let acc = await this.repository.findByCpf(CPF)
+
+            const token = jwt.sign({accID: acc.id, accCPF: acc.CPF}, process.env.SECRET, { expiresIn: "24h" })
+
+            return token
+        } catch (error) {
             throw new Error(error)
         }
     }

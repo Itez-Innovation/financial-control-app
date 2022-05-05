@@ -39,9 +39,13 @@ class AccountController {
 
     async update(request: Request, res: Response, next: NextFunction) {
         try{
-            const { CPF, Name, password, id } = request.body
+            const CPF = request.params.userCPF
 
-            const response = await service.update(CPF, Name, password, id)
+            const { Name, password, id } = request.body
+
+            const passHash = await hash(password, 8)
+
+            const response = await service.update(CPF, Name, passHash, id)
 
             return res.status(201).json(response)
 
@@ -81,6 +85,20 @@ class AccountController {
             const { id } = request.body
 
             const response = await service.getStats(id)
+
+            return res.status(201).json(response)
+
+        } catch(error){
+            res.status(500).json({code: 500, message: "internal server error"})
+        }
+    }
+
+    async login(request: Request, res: Response, next: NextFunction){
+        try{
+
+            const { CPF, password } = request.body
+
+            const response = await service.login(CPF, password)
 
             return res.status(201).json(response)
 

@@ -2,6 +2,7 @@ import { getRepository, Repository } from 'typeorm';
 import AccountEntity from '../entity/AccountEntity';
 import CashInflowEntity from '../entity/CashInflowEntity';
 import CashOutflowEntity from '../entity/CashOutflowEntity';
+import { hash } from "bcryptjs"
 
 import Account from '../model/Account';
 
@@ -30,7 +31,7 @@ export default class AccountRepository{
         const acc = await this.repository.findOne({id})
         acc.CPF = CPF ? CPF : acc.CPF;
         acc.Name = Name ? Name : acc.Name;
-        acc.password = password ? password : acc.password;
+        acc.password = await hash(password, 8) ? password : acc.password;
 
         await this.repository.save(acc);
 
