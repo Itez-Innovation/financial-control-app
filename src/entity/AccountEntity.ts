@@ -15,6 +15,9 @@ export default class AccountEntity {
     @PrimaryGeneratedColumn('uuid')
     id: string
 
+    @Column()
+    password: string
+
     @Column({
         length: 14,
         unique: true

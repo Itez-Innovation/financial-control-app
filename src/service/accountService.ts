@@ -46,14 +46,14 @@ export class AccountService {
         }
     }
 
-    async update(CPF, Name, id){
+    async update(CPF, Name, password, id){
         try{
 
             const accountFound = await this.repository.findById(id)
 
             if(!accountFound) throw new Error("Account not found")
 
-            return this.repository.update(id, CPF, Name)
+            return this.repository.update(id, CPF, Name, password)
 
         } catch(error){
             throw new Error(error)

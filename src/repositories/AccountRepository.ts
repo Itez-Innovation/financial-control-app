@@ -25,11 +25,12 @@ export default class AccountRepository{
         return this.repository.delete({id});
     }
 
-    async update(id: string, CPF: string, Name?:string){
+    async update(id: string, CPF: string, Name?:string, password?: string){
 
         const acc = await this.repository.findOne({id})
         acc.CPF = CPF ? CPF : acc.CPF;
         acc.Name = Name ? Name : acc.Name;
+        acc.password = password ? password : acc.password;
 
         await this.repository.save(acc);
 

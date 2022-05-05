@@ -9,9 +9,9 @@ class AccountController {
     async create(request: Request, res: Response, next: NextFunction) {
         try {
 
-            const { CPF, Name } = request.body
+            const { CPF, Name, password } = request.body
 
-            const response = await service.create({ CPF, Name })
+            const response = await service.create({ CPF, Name , password})
 
             return res.status(201).json(response)
 
@@ -36,9 +36,9 @@ class AccountController {
 
     async update(request: Request, res: Response, next: NextFunction) {
         try{
-            const { CPF, Name, id } = request.body
+            const { CPF, Name, password, id } = request.body
 
-            const response = await service.update(CPF, Name, id)
+            const response = await service.update(CPF, Name, password, id)
 
             return res.status(201).json(response)
 

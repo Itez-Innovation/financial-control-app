@@ -1,12 +1,10 @@
 import Input from './CashInflow'
 import Output from './CashOutflow'
 import * as uuid from 'uuid'
-// import { financialStats } from '../service/financialStatsService'
 
-// npm install prompt-sync
-// const prompt = require("prompt-sync")()
 export default class Account {
     id: string
+    password: string
     Name: string
     CPF: string
     input: Array<Input>
