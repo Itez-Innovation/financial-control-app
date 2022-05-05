@@ -1,5 +1,6 @@
 import {AccountService} from "../service/accountService";
 import {NextFunction, Request, Response} from "express";
+import { hash } from "bcryptjs"
 
 
 const service = new AccountService()
@@ -11,7 +12,9 @@ class AccountController {
 
             const { CPF, Name, password } = request.body
 
-            const response = await service.create({ CPF, Name , password})
+            const passHash = await hash(password, 8)
+
+            const response = await service.create({ CPF, Name , password: passHash})
 
             return res.status(201).json(response)
 

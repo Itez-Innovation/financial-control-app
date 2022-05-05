@@ -13,9 +13,11 @@
       "devStart": "nodemon ./dist/main.js"
    },
    "dependencies": {
+      "bcryptjs": "^2.4.3",
       "class-validator": "^0.12.2",
       "dotenv": "^8.2.0",
       "express": "^4.18.0",
+      "jsonwebtoken": "^8.5.1",
       "node": "^17.7.2",
       "pg": "^8.7.3",
       "postinstall": "^0.7.0",
@@ -26,7 +28,9 @@
       "uuidv4": "^6.0.7"
    },
    "devDependencies": {
+      "@types/bcryptjs": "^2.4.2",
       "@types/express": "^4.17.5",
+      "@types/jsonwebtoken": "^8.5.8",
       "@types/node": "^14.18.13",
       "@typescript-eslint/eslint-plugin": "^2.27.0",
       "@typescript-eslint/parser": "^2.27.0",
