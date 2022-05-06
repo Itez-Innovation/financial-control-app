@@ -39,9 +39,10 @@ class AccountController {
 
     async update(request: Request, res: Response, next: NextFunction) {
         try{
-            const CPF = request.params.userCPF
+            const idToken = request.params.userId
+            console.log(idToken)
 
-            const { Name, password, id } = request.body
+            const { CPF, Name, password, id } = request.body
 
             const passHash = await hash(password, 8)
 

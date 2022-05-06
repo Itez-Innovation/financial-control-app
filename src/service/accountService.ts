@@ -109,8 +109,8 @@ export class AccountService {
 
             let acc = await this.repository.findByCpf(CPF)
 
-            const token = jwt.sign({accID: acc.id, accCPF: acc.CPF}, process.env.SECRET, { expiresIn: "24h" })
-
+            const token = jwt.sign({userId: acc.id}, process.env.SECRET, { expiresIn: "24h", subject: acc.id })
+            
             return token
         } catch (error) {
             throw new Error(error)
