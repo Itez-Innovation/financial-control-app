@@ -4,17 +4,17 @@ import { verifyAuth } from '../middleware/verifyAuth';
 
 const accountRoute = Router();
 
-accountRoute.post("/accounts", verifyAuth(), accountController.create);
+accountRoute.post("/accounts", accountController.create);
 
-accountRoute.get("/accounts", verifyAuth(), accountController.read);
+accountRoute.get("/accounts", accountController.read);
 
-accountRoute.delete("/accounts", verifyAuth(), accountController.delete);
+accountRoute.delete("/accounts", accountController.delete);
 
-accountRoute.put("/accounts", verifyAuth(), accountController.update);
+accountRoute.put("/accounts", accountController.update);
 
-accountRoute.get("/accounts/all", verifyAuth(), accountController.readAll);
+accountRoute.get("/accounts/all", accountController.readAll);
 
-accountRoute.get("/stats", verifyAuth(), accountController.getStats);
+accountRoute.get("/stats", accountController.getStats);
 
 accountRoute.get("/login", accountController.login);
 

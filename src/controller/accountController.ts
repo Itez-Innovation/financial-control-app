@@ -39,6 +39,8 @@ class AccountController {
 
     async update(request: Request, res: Response, next: NextFunction) {
         try{
+            // Essa parte aqui que não consegue receber o ID presente 
+            // no JWT
             const idToken = request.params.userId
             console.log(idToken)
 

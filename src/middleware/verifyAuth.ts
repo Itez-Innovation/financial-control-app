@@ -15,8 +15,7 @@ export const verifyAuth = () => {
             verify(token, process.env.SECRET);
 
             const { sub } = decode(token);
-
-            request.body = sub.toString();
+            
             //request.userId = sub.toString();
             return next();
         } catch (err) {
