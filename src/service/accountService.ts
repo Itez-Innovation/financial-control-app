@@ -111,7 +111,7 @@ export class AccountService {
 
             const token = jwt.sign({userId: acc.id, userCPF: acc.CPF}, process.env.SECRET, { expiresIn: "1h", subject: acc.id })
             
-            return token
+            return {token}
         } catch (error) {
             throw new Error(error)
         }
