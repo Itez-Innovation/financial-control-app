@@ -4,10 +4,12 @@ import {
     CreateDateColumn,
     UpdateDateColumn,
     PrimaryGeneratedColumn,
-    OneToMany
+    OneToMany,
+    OneToOne
   } from 'typeorm';
-import CashInflow from './CashInflowEntity';
-import CashOutflow from './CashOutflowEntity';
+import RefreshTokenEntity from './RefreshTokenEntity';
+import CashInflowEntity from './CashInflowEntity';
+import CashOutflowEntity from './CashOutflowEntity';
 
 @Entity('account')
 export default class AccountEntity {
@@ -27,11 +29,14 @@ export default class AccountEntity {
     @Column()
     Name: string
 
-    @OneToMany(type => CashInflow, input => input.account)
-    inputs: CashInflow[]
+    @OneToMany(type => CashInflowEntity, input => input.account)
+    inputs: CashInflowEntity[]
 
-    @OneToMany(type => CashOutflow, output => output.account)
-    outputs: CashOutflow[]
+    @OneToMany(type => CashOutflowEntity, output => output.account)
+    outputs: CashOutflowEntity[]
+
+    @OneToOne(type => RefreshTokenEntity, refresh => refresh.account)
+    refresh: RefreshTokenEntity
 
     @CreateDateColumn({ name: 'created_At' })
     createdAt: Date;
