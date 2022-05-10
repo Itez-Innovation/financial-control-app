@@ -113,6 +113,19 @@ class AccountController {
         }
     }
 
+    async refresh(request: Request, res: Response, next: NextFunction){
+        try{
+            const refreshToken = request.body
+
+            const response = await service.refresh(refreshToken)
+
+            return res.status(201).json(response)
+
+        } catch(error){
+            res.status(500).json(error)
+        }
+    }
+
 
 }
 

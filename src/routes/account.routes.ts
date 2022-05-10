@@ -4,7 +4,7 @@ import { verifyAuth } from '../middleware/verifyAuth';
 
 const accountRoute = Router();
 
-accountRoute.post("/accounts", verifyAuth, accountController.create);
+accountRoute.post("/accounts", accountController.create);
 
 accountRoute.get("/accounts", verifyAuth, accountController.read);
 
@@ -17,5 +17,7 @@ accountRoute.get("/accounts/all", verifyAuth, accountController.readAll);
 accountRoute.get("/stats", verifyAuth, accountController.getStats);
 
 accountRoute.post("/login", accountController.login);
+
+accountRoute.post("/refresh", accountController.refresh);
 
 export default accountRoute
