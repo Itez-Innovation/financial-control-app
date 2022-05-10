@@ -16,6 +16,6 @@ accountRoute.get("/accounts/all", verifyAuth, accountController.readAll);
 
 accountRoute.get("/stats", verifyAuth, accountController.getStats);
 
-accountRoute.get("/login", accountController.login);
+accountRoute.post("/login", accountController.login);
 
 export default accountRoute

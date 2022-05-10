@@ -104,9 +104,9 @@ class AccountController {
 
             const { CPF, password } = request.body
 
-            const response = await service.login(CPF, password)
+            const token = await service.login(CPF, password)
 
-            return res.status(201).json(response)
+            return res.status(201).json(token)
 
         } catch(error){
             res.status(500).json({code: 500, message: "internal server error"})

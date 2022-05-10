@@ -10,7 +10,10 @@ export const verifyAuth = (request: IRequest, response: Response, next: NextFunc
             return response.status(401).json({error:"Token is missing"})
         }
 
+        // O formato do token é:
+        // Bearer tokendjkahsdkasjhdkajshdkajhsaldjk
         const [, token] = authHeaders.split(" ");
+        // Por isso, pegamos apenas o token após o espaço
 
         try{
             verify(token, process.env.SECRET);
@@ -20,7 +23,7 @@ export const verifyAuth = (request: IRequest, response: Response, next: NextFunc
             request.userId = sub.toString();
             return next();
         } catch (err) {
-            return response.status(401).end();
+            return response.status(401).json("Invalid Token!");
         }
 
 }
