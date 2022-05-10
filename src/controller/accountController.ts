@@ -115,9 +115,9 @@ class AccountController {
 
     async refresh(request: Request, res: Response, next: NextFunction){
         try{
-            const refreshToken = request.body
+            const refreshToken = request.params
 
-            const response = await service.refresh(refreshToken)
+            const response = await service.refresh(refreshToken.id)
 
             return res.status(201).json(response)
 

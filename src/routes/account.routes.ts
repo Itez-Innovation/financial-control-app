@@ -18,6 +18,6 @@ accountRoute.get("/stats", verifyAuth, accountController.getStats);
 
 accountRoute.post("/login", accountController.login);
 
-accountRoute.post("/refresh", accountController.refresh);
+accountRoute.post("/refresh/:id", accountController.refresh);
 
 export default accountRoute

@@ -125,14 +125,9 @@ export class AccountService {
     }
 
     async refresh(refreshToken: string) {
-        
         const generateRefreshToken = new GenerateRefreshToken();
         const refToken = await generateRefreshToken.findById(refreshToken)
-
-        console.log("oioioioi", refToken)
-
         
-
         if(!refToken) throw new Error("Invalid Refresh Token")
 
         const token = jwt.sign({userId: refToken.account_id}, process.env.SECRET, { expiresIn: "1h", subject: refToken.account_id })
