@@ -1,6 +1,7 @@
 import {AccountService} from "../service/accountService";
 import {NextFunction, Request, Response} from "express";
 import { hash } from "bcryptjs"
+import { IRequest } from "../utils/utils";
 
 
 const service = new AccountService()
@@ -23,10 +24,10 @@ class AccountController {
         }
     }
 
-    async delete(request: Request, res: Response, next: NextFunction) {
+    async delete(request: IRequest, res: Response, next: NextFunction) {
         try {
 
-            const { id } = request.body
+            const id  = request.userId
 
             await service.delete(id)
 
@@ -37,14 +38,16 @@ class AccountController {
         }
     }
 
-    async update(request: Request, res: Response, next: NextFunction) {
+    async update(request: IRequest, res: Response, next: NextFunction) {
         try{
             // Essa parte aqui que não consegue receber o ID presente 
             // no JWT
-            const idToken = request.params.userId
-            console.log(idToken)
+            // const idToken = request.headers.authorization
+            // console.log("aqui é o token: ", idToken)
 
-            const { CPF, Name, password, id } = request.body
+            let id = request.userId
+
+            const { CPF, Name, password} = request.body
 
             const passHash = await hash(password, 8)
 

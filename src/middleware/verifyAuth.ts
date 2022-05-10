@@ -1,8 +1,9 @@
 import { NextFunction, Request, Response } from "express";
 import { decode, verify } from "jsonwebtoken";
+import { IRequest } from "../utils/utils";
 
-export const verifyAuth = () => {
-    return async (request: Request, response: Response, next: NextFunction) => {
+export const verifyAuth = (request: IRequest, response: Response, next: NextFunction) => {
+
         const authHeaders = request.headers.authorization;
 
         if(!authHeaders) {
@@ -16,16 +17,10 @@ export const verifyAuth = () => {
 
             const { sub } = decode(token);
             
-            //request.userId = sub.toString();
+            request.userId = sub.toString();
             return next();
         } catch (err) {
             return response.status(401).end();
         }
-
-
-
-    }
-
-
 
 }
