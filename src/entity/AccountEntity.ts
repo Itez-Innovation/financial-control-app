@@ -5,11 +5,15 @@ import {
     UpdateDateColumn,
     PrimaryGeneratedColumn,
     OneToMany,
-    OneToOne
+    OneToOne,
+    ManyToMany,
+    JoinTable
   } from 'typeorm';
 import RefreshTokenEntity from './RefreshTokenEntity';
 import CashInflowEntity from './CashInflowEntity';
 import CashOutflowEntity from './CashOutflowEntity';
+import PermissionEntity from './PermissionEntity';
+import RoleEntity from './RoleEntity';
 
 @Entity('account')
 export default class AccountEntity {
@@ -43,4 +47,20 @@ export default class AccountEntity {
 
     @UpdateDateColumn({ name: 'updated_At' })
     updatedAt: Date;
+
+    @ManyToMany(() => RoleEntity)
+    @JoinTable({
+        name: "users_roles",
+        joinColumns: [{ name: "user_id" }],
+        inverseJoinColumns: [{ name: "role_id" }],
+    })
+    roles: RoleEntity[];
+
+    @ManyToMany(() => PermissionEntity)
+    @JoinTable({
+        name: "users_permissions",
+        joinColumns: [{ name: "user_id" }],
+        inverseJoinColumns: [{ name: "permission_id" }],
+    })
+    permissions: PermissionEntity[];
 }
