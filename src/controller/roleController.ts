@@ -11,7 +11,6 @@ class RoleController {
             const { name, description } = request.body;
 
             const response = await service.create({ name, description })
-            console.log(response)
         
             res.status(201).json(response)
 

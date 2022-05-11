@@ -26,10 +26,6 @@ export class RoleService {
 
             const newRole = new Role(dto)
 
-            // PROMISE { <PENDING> }
-            //const resp = 
-            console.log("AQUI: ", newRole)
-
             return this.repository.create(newRole)
 
         } catch (error) {
