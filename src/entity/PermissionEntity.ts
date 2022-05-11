@@ -2,7 +2,7 @@ import { Column, Entity, CreateDateColumn, PrimaryGeneratedColumn, UpdateDateCol
 
 @Entity("permissions")
 export default class PermissionEntity {
-    @PrimaryGeneratedColumn()
+    @PrimaryGeneratedColumn('uuid')
     id: string;
 
     @CreateDateColumn({ name: 'created_At' })

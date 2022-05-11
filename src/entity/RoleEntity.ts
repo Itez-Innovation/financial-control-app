@@ -3,7 +3,7 @@ import PermissionEntity from './PermissionEntity'
 
 @Entity("roles")
 export default class RoleEntity {
-    @PrimaryGeneratedColumn()
+    @PrimaryGeneratedColumn('uuid')
     id: string;
 
     @CreateDateColumn({ name: 'created_At' })
