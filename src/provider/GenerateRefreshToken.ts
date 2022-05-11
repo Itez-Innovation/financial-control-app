@@ -13,7 +13,7 @@ export default class GenerateRefreshToken {
     }
 
     async generate(account_id: string) {
-        const expiresIn = dayjs().add(15, "second").unix()
+        const expiresIn = dayjs().add(1, "hour").unix()
 
         const refreshToken = new RefreshToken({expiresIn, account_id})
 
@@ -22,7 +22,13 @@ export default class GenerateRefreshToken {
         return generateRefreshToken
     }
 
+    async delete(id: string) {
+        return this.repository.delete({id})
+    }
+
     findById(id: string) {
         return this.repository.findOne(id)
     }
+
+    
 }

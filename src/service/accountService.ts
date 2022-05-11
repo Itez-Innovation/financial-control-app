@@ -4,11 +4,11 @@ import CreateAccountDto from "../dto/account/createAccountDto";
 import AccountRepository from "../repositories/AccountRepository";
 import { compare } from "bcryptjs";
 import * as jwt from "jsonwebtoken"
-import AccountEntity from "../entity/AccountEntity";
-import { config } from "dotenv";
+import * as dayjs from 'dayjs'
 import GenerateRefreshToken from "../provider/GenerateRefreshToken";
 import { getRepository } from "typeorm";
 import RefreshTokenEntity from "../entity/RefreshTokenEntity";
+import GenerateToken from "../provider/GenerateToken";
 
 
 export class AccountService {
@@ -113,7 +113,8 @@ export class AccountService {
 
             let acc = await this.repository.findByCpf(CPF)
 
-            const token = jwt.sign({userId: acc.id}, process.env.SECRET, { expiresIn: "30s", subject: acc.id })
+            const generateToken = new GenerateToken();
+            const token = await generateToken.generate(acc.id);
             
             const generateRefreshToken = new GenerateRefreshToken();
             const refreshToken = await generateRefreshToken.generate(acc.id)
@@ -126,11 +127,19 @@ export class AccountService {
 
     async refresh(refreshToken: string) {
         const generateRefreshToken = new GenerateRefreshToken();
-        const refToken = await generateRefreshToken.findById(refreshToken)
+        let refToken = await generateRefreshToken.findById(refreshToken)
         
         if(!refToken) throw new Error("Invalid Refresh Token")
 
-        const token = jwt.sign({userId: refToken.account_id}, process.env.SECRET, { expiresIn: "1h", subject: refToken.account_id })
+        const refreshTokenExpired = dayjs().isAfter(dayjs.unix(refToken.expiresIn))
+
+        if(refreshTokenExpired) {
+            generateRefreshToken.delete(refToken.id);
+            refToken = await generateRefreshToken.generate(refToken.account_id)
+        }
+
+        const generateToken = new GenerateToken();
+        const token = await generateToken.generate(refToken.account_id);
     
         return token
     }
