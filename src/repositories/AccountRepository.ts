@@ -18,7 +18,7 @@ export default class AccountRepository{
         this.repoOutflow = getRepository(CashOutflowEntity)
     }
 
-    async create(account: Account){
+    async create(account: Account | AccountEntity){
         return this.repository.save(account)
     }
 

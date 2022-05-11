@@ -10,7 +10,7 @@ export default class RoleRepository {
         this.repository = getRepository(RoleEntity)
     }
 
-    async create(role: Role){
+    async create(role: Role | RoleEntity){
         return this.repository.save(role)
     }
 

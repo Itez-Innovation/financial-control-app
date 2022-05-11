@@ -22,4 +22,8 @@ export default class PermissionRepository {
     findById(id: string) {
         return this.repository.findOne({id})
     }
+
+    findByIds(ids: string[]) {
+        return this.repository.findByIds(ids)
+    }
 }

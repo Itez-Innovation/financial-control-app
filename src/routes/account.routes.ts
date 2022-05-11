@@ -20,4 +20,6 @@ accountRoute.post("/login", accountController.login);
 
 accountRoute.post("/refresh/:id", accountController.refresh);
 
+accountRoute.post("/acl", verifyAuth, accountController.createAcl);
+
 export default accountRoute

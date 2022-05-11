@@ -15,7 +15,22 @@ class RoleController {
             res.status(201).json(response)
 
         } catch (error) {
-            res.status(500).json({code: 500, message: "internal server error"})
+            res.status(400).json({code: 400, message: "internal server error"})
+        }
+    }
+
+    async createRolePermission(request: Request, res: Response, next: NextFunction) {
+        try {
+
+            const { roleId } = request.params;
+            const { permissions } = request.body;
+
+            const response = await service.createRolePermission({ roleId, permissions });
+
+            res.status(201).json(response)
+
+        } catch (error) {
+            res.status(400).json({code: 400, message: "internal server error"})
         }
     }
 }

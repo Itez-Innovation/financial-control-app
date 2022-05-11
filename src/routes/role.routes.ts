@@ -6,4 +6,6 @@ const roleRoute = Router()
 
 roleRoute.post("/roles", verifyAuth, roleController.create);
 
+roleRoute.post("/roles/:roleId", verifyAuth, roleController.createRolePermission);
+
 export default roleRoute

@@ -40,11 +40,6 @@ class AccountController {
 
     async update(request: IRequest, res: Response, next: NextFunction) {
         try{
-            // Essa parte aqui que não consegue receber o ID presente 
-            // no JWT
-            // const idToken = request.headers.authorization
-            // console.log("aqui é o token: ", idToken)
-
             let id = request.userId
 
             const { CPF, Name, password} = request.body
@@ -123,6 +118,22 @@ class AccountController {
 
         } catch(error){
             res.status(500).json(error)
+        }
+    }
+
+    async createAcl(request: IRequest, res: Response, next: NextFunction){
+        try{
+
+            const { permissions, roles } = request.body;
+
+            const userId = request.userId;
+
+            const response = await service.createACL({userId, permissions, roles})
+
+            return res.status(201).json(response)
+
+        } catch(error){
+            res.status(400).json(error.message)
         }
     }
 

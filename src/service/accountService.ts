@@ -10,12 +10,17 @@ import GenerateRefreshToken from "../provider/GenerateRefreshToken";
 import { getRepository } from "typeorm";
 import RefreshTokenEntity from "../entity/RefreshTokenEntity";
 import GenerateToken from "../provider/GenerateToken";
+import PermissionRepository from "../repositories/PermissionRepository";
+import PermissionEntity from "../entity/PermissionEntity";
+import RoleEntity from "../entity/RoleEntity";
 
 export class AccountService {
 
     constructor(
         private readonly repository = new AccountRepository(),
-        private readonly repoRefToken = getRepository(RefreshTokenEntity)
+        private readonly repoRefToken = getRepository(RefreshTokenEntity),
+        private readonly permissionRepo = getRepository(PermissionEntity),
+        private readonly roleRepo = getRepository(RoleEntity)
     ) {}
 
 
@@ -143,11 +148,26 @@ export class AccountService {
     }
 
     async createACL(dto: CreateAclDto) {
-        const { userId, roles, permissions } = dto
+        try{
+            const { userId, roles, permissions } = dto
 
-        const user = await this.repository.findById(userId);
+            const user = await this.repository.findById(userId);
 
-        //aqui
+            if(!user) throw new Error("User does not exists!")
+
+            const permissionsExists = await this.permissionRepo.findByIds(permissions);
+            const rolesExists = await this.roleRepo.findByIds(roles);
+
+            user.permissions = permissionsExists;
+            user.roles = rolesExists;
+
+            this.repository.create(user);
+
+            return user;
+
+        } catch (error) {
+            throw new Error(error)
+        }
     }   
 
 }

@@ -16,7 +16,7 @@ export class PermissionService {
 
             const permissionAlreadyExists = await this.repository.findByName(name)
 
-            if(permissionAlreadyExists) return new Error("Permission already exists")
+            if(permissionAlreadyExists) throw new Error("Permission already exists!")
 
             const newPermission = new Permission(dto)
 
