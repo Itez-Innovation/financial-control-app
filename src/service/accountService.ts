@@ -1,6 +1,7 @@
 
 import Account from "../model/Account";
 import CreateAccountDto from "../dto/account/createAccountDto";
+import CreateAclDto from "../dto/account/createAclDto";
 import AccountRepository from "../repositories/AccountRepository";
 import { compare } from "bcryptjs";
 import * as jwt from "jsonwebtoken"
@@ -9,7 +10,6 @@ import GenerateRefreshToken from "../provider/GenerateRefreshToken";
 import { getRepository } from "typeorm";
 import RefreshTokenEntity from "../entity/RefreshTokenEntity";
 import GenerateToken from "../provider/GenerateToken";
-
 
 export class AccountService {
 
@@ -141,5 +141,13 @@ export class AccountService {
     
         return token
     }
+
+    async createACL(dto: CreateAclDto) {
+        const { userId, roles, permissions } = dto
+
+        const user = await this.repository.findById(userId);
+
+        //aqui
+    }   
 
 }
