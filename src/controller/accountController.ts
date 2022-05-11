@@ -1,5 +1,5 @@
-import {AccountService} from "../service/accountService";
-import {NextFunction, Request, Response} from "express";
+import { AccountService } from "../service/accountService";
+import { NextFunction, Request, Response } from "express";
 import { hash } from "bcryptjs"
 import { IRequest } from "../utils/utils";
 
