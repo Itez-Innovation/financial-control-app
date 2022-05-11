@@ -31,8 +31,6 @@ export class AccountService {
 
             const newAccount = new Account(dto)
 
-            console.log(newAccount)
-
             return this.repository.create(newAccount);
 
         }catch (error) {

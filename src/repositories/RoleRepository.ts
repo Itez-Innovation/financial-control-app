@@ -1,5 +1,6 @@
 import { getRepository, Repository } from "typeorm";
 import RoleEntity from "../entity/RoleEntity";
+import Role from "../model/Role";
 
 
 export default class RoleRepository {
@@ -7,6 +8,14 @@ export default class RoleRepository {
 
     constructor () {
         this.repository = getRepository(RoleEntity)
+    }
+
+    async create(role: Role){
+        return this.repository.save(role)
+    }
+
+    findByName(name: string) {
+        return this.repository.findOne({name})
     }
 
     findById(id: string) {
