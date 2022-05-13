@@ -117,7 +117,7 @@ class AccountController {
             return res.status(201).json(response)
 
         } catch(error){
-            res.status(500).json(error)
+            res.status(401).json({code: 401, message: "Unauthorized"})
         }
     }
 

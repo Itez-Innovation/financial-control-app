@@ -1,34 +1,34 @@
-import { getRepository, Repository } from 'typeorm';
-import RefreshTokenEntity from "../entity/RefreshTokenEntity";
-import * as dayjs from "dayjs"
+// import { getRepository, Repository } from 'typeorm';
+// import RefreshTokenEntity from "../entity/RefreshTokenEntity";
+// import * as dayjs from "dayjs"
 
-import RefreshToken from '../model/RefreshToken';
+// import RefreshToken from '../model/RefreshToken';
 
-export default class GenerateRefreshToken {
+// export default class GenerateRefreshToken {
 
-    private repository: Repository<RefreshTokenEntity>
+//     private repository: Repository<RefreshTokenEntity>
 
-    constructor(){
-        this.repository = getRepository(RefreshTokenEntity)
-    }
+//     constructor(){
+//         this.repository = getRepository(RefreshTokenEntity)
+//     }
 
-    async generate(account_id: string) {
-        const expiresIn = dayjs().add(1, "hour").unix()
+//     async generate(account_id: string) {
+//         const expiresIn = dayjs().add(1, "hour").unix()
 
-        const refreshToken = new RefreshToken({expiresIn, account_id})
+//         const refreshToken = new RefreshToken({expiresIn, account_id})
 
-        const generateRefreshToken = await this.repository.save(refreshToken)
+//         const generateRefreshToken = await this.repository.save(refreshToken)
 
-        return generateRefreshToken
-    }
+//         return generateRefreshToken
+//     }
 
-    async delete(id: string) {
-        return this.repository.delete({id})
-    }
+//     async delete(id: string) {
+//         return this.repository.delete({id})
+//     }
 
-    findById(id: string) {
-        return this.repository.findOne(id)
-    }
+//     findById(id: string) {
+//         return this.repository.findOne(id)
+//     }
 
     
-}
+// }

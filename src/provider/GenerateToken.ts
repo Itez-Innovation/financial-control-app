@@ -1,10 +1,10 @@
-import * as jwt from "jsonwebtoken"
+// import * as jwt from "jsonwebtoken"
 
-export default class GenerateToken {
+// export default class GenerateToken {
 
-    async generate(account_id: string) {
-        const token = jwt.sign({userId: account_id}, process.env.SECRET, { expiresIn: "1h", subject: account_id })
+//     async generate(account_id: string) {
+//         const token = jwt.sign({userId: account_id}, process.env.SECRET, { expiresIn: "10m", subject: account_id })
 
-        return token
-    }
-}
+//         return token
+//     }
+// }
