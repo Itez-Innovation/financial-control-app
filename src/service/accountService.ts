@@ -8,6 +8,8 @@ import * as dayjs from 'dayjs'
 import { getRepository } from "typeorm";
 import PermissionEntity from "../entity/PermissionEntity";
 import RoleEntity from "../entity/RoleEntity";
+import NotFoundError from "../exceptions/notFoundError";
+import CustomError from "../exceptions/customError";
 
 export class AccountService {
 
@@ -70,11 +72,13 @@ export class AccountService {
         try{
             const accountFound = await this.repository.findById(id)
 
-            if(!accountFound) throw new Error("Account not found")
+            if(!accountFound) throw new NotFoundError(`Account ${id}`)
 
             return this.repository.findById(id)
         } catch(error){
-            throw new Error(error)
+            console.log("OIOIOIO ", error)
+            if(error instanceof CustomError) throw error
+            else throw new Error("Internal server error")
         }
     }
 

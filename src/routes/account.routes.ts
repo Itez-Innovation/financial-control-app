@@ -13,7 +13,7 @@ accountRoute.post("/accounts", accountController.create);
 
 accountRoute.get("/accounts", verifyAuth, accountController.read);
 
-accountRoute.delete("/accounts", verifyAuth, accountController.delete);
+accountRoute.delete("/accounts", verifyAuth, can([EPermissions.DELETE_ACCOUNT]), accountController.delete);
 
 accountRoute.put("/accounts", verifyAuth, accountController.update);
 

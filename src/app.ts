@@ -1,4 +1,5 @@
 import * as express from "express";
+import exceptionHandler from "./middleware/exceptionHandler";
 import accountRoute from "./routes/account.routes";
 import cashInflowRoute from "./routes/cashInflow.routes";
 import cashOutflowRoute from "./routes/cashOutflow.routes";
@@ -13,5 +14,6 @@ app.use(roleRoute)
 app.use(accountRoute)
 app.use(cashInflowRoute)
 app.use(cashOutflowRoute)
+app.use(exceptionHandler)
 
 export default app

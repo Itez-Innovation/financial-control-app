@@ -20,7 +20,7 @@ export function can(permissionsRoutes: string[]){
         .map(permission => permission.name)
         .some(permission => permissionsRoutes.includes(permission));
 
-        if(!permissionExists) return response.status(401).end()
+        if(!permissionExists) return response.status(403).end()
 
         return next();
     }
@@ -43,7 +43,7 @@ export function is(rolesRoutes: string[]){
         .map(role => role.name)
         .some(role => rolesRoutes.includes(role));
 
-        if(!roleExists) return response.status(401).end()
+        if(!roleExists) return response.status(403).end()
 
         return next();
     }

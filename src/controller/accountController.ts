@@ -63,7 +63,7 @@ class AccountController {
             return res.status(201).json(response)
 
         }catch(error){
-            res.status(500).json({code: 500, message: "internal server error"})
+            next(error)
         }
     }
 
