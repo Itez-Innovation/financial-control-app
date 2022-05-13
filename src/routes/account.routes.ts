@@ -1,7 +1,9 @@
 import { Router } from 'express';
 import accountController from "../controller/accountController";
 import { ERoles } from '../enum/ERoles';
+import { EPermissions } from '../enum/EPermissions';
 import { verifyAuth } from '../middleware/verifyAuth';
+import { can, is } from "../middleware/permissions"
 
 const accountRoute = Router();
 
@@ -15,7 +17,7 @@ accountRoute.delete("/accounts", verifyAuth, accountController.delete);
 
 accountRoute.put("/accounts", verifyAuth, accountController.update);
 
-accountRoute.get("/accounts/all", verifyAuth, accountController.readAll);
+accountRoute.get("/accounts/all", verifyAuth, can([EPermissions.GET_ACCOUNT]), is([ERoles.ADMIN]), accountController.readAll);
 
 accountRoute.get("/stats", verifyAuth, accountController.getStats);
 
