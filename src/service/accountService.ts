@@ -128,10 +128,11 @@ export class AccountService {
 
         const refreshTokenExpired = dayjs().isAfter(dayjs.unix(refToken.expiresIn))
 
-        //const newRefToken = await generateRefreshToken.generate(refToken.account_id);
         if(refreshTokenExpired) {
-            // generateRefreshToken.delete(refToken.id);
-            return new Error("Refresh token expired!")
+            await this.repoToken.delete(refToken.id);
+            throw new Error("Refresh token expired!")
+            // await this.repoToken.delete(refToken.id);
+            // refToken = await this.repoToken.generateRefreshToken(refToken.account_id);
         }
 
         const token = await this.repoToken.generateToken(refToken.account_id);
