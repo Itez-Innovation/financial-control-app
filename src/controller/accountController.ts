@@ -3,7 +3,6 @@ import { NextFunction, Request, Response } from "express";
 import { hash } from "bcryptjs"
 import { IRequest } from "../utils/utils";
 
-
 const service = new AccountService()
 
 class AccountController {
@@ -136,8 +135,6 @@ class AccountController {
             res.status(400).json(error.message)
         }
     }
-
-
 }
 
 export default new AccountController()

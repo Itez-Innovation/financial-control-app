@@ -1,17 +1,11 @@
-
 import Account from "../model/Account";
 import CreateAccountDto from "../dto/account/createAccountDto";
 import CreateAclDto from "../dto/account/createAclDto";
 import AccountRepository from "../repositories/AccountRepository";
 import TokenRepository from "../repositories/TokenRepository";
 import { compare } from "bcryptjs";
-import * as jwt from "jsonwebtoken"
 import * as dayjs from 'dayjs'
-// import GenerateRefreshToken from "../provider/GenerateRefreshToken";
 import { getRepository } from "typeorm";
-import RefreshTokenEntity from "../entity/RefreshTokenEntity";
-// import GenerateToken from "../provider/GenerateToken";
-import PermissionRepository from "../repositories/PermissionRepository";
 import PermissionEntity from "../entity/PermissionEntity";
 import RoleEntity from "../entity/RoleEntity";
 
@@ -20,7 +14,6 @@ export class AccountService {
     constructor(
         private readonly repository = new AccountRepository(),
         private readonly repoToken = new TokenRepository(),
-        // private readonly repoRefToken = getRepository(RefreshTokenEntity),
         private readonly permissionRepo = getRepository(PermissionEntity),
         private readonly roleRepo = getRepository(RoleEntity)
     ) {}
@@ -118,12 +111,8 @@ export class AccountService {
 
             let acc = await this.repository.findByCpf(CPF)
 
-            // const generateToken = new GenerateToken();
-            // const token = await generateToken.generate(acc.id);
             const token = await this.repoToken.generateToken(acc.id);
             
-            // const generateRefreshToken = new GenerateRefreshToken();
-            // const refreshToken = await generateRefreshToken.generate(acc.id)
             const refreshToken = await this.repoToken.generateRefreshToken(acc.id);
 
             return { token, refreshToken }
@@ -133,8 +122,6 @@ export class AccountService {
     }
 
     async refresh(refreshToken: string) {
-        // const generateRefreshToken = new GenerateRefreshToken();
-        // let refToken = await generateRefreshToken.findById(refreshToken)
         let refToken = await this.repoToken.findById(refreshToken);
         
         if(!refToken) throw new Error("Invalid Refresh Token")
@@ -147,8 +134,6 @@ export class AccountService {
             return new Error("Refresh token expired!")
         }
 
-        // const generateToken = new GenerateToken();
-        // const token = await generateToken.generate(refToken.account_id);
         const token = await this.repoToken.generateToken(refToken.account_id);
 
         return token

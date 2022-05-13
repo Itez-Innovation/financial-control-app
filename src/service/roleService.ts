@@ -6,11 +6,6 @@ import Role from "../model/Role";
 import PermissionRepository from "../repositories/PermissionRepository";
 import RoleRepository from "../repositories/RoleRepository";
 
-
-// type RoleRequest = {
-//     name: string;
-//     description: string;
-// }
 export class RoleService {
 
     constructor (
