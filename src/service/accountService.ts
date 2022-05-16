@@ -3,6 +3,7 @@ import CreateAccountDto from "../dto/account/createAccountDto";
 import CreateAclDto from "../dto/account/createAclDto";
 import AccountRepository from "../repositories/AccountRepository";
 import TokenRepository from "../repositories/TokenRepository";
+import * as jwt from "jsonwebtoken"
 import { compare } from "bcryptjs";
 import * as dayjs from 'dayjs'
 import { getRepository } from "typeorm";
@@ -130,7 +131,9 @@ export class AccountService {
         
         if(!refToken) throw new Error("Invalid Refresh Token")
 
-        const refreshTokenExpired = dayjs().isAfter(dayjs.unix(refToken.expiresIn))
+        const { exp, sub } =  jwt.decode(refToken.refToken, { json: true })
+
+        const refreshTokenExpired = dayjs().isAfter(dayjs.unix(exp))
 
         if(refreshTokenExpired) {
             await this.repoToken.delete(refToken.id);
@@ -139,7 +142,7 @@ export class AccountService {
             // refToken = await this.repoToken.generateRefreshToken(refToken.account_id);
         }
 
-        const token = await this.repoToken.generateToken(refToken.account_id);
+        const token = await this.repoToken.generateToken(sub);
 
         return token
     }

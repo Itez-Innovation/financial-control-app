@@ -9,7 +9,7 @@ export default class RefreshTokenEntity {
     id: string;
     
     @Column()
-    expiresIn: number;
+    refToken: string;
 
     @Column()
     account_id: string;

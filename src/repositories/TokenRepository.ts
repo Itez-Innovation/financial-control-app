@@ -14,9 +14,9 @@ export default class TokenRepository {
     }
 
     async generateRefreshToken(account_id: string) {
-        const expiresIn = dayjs().add(1, "hour").unix()
+        const refToken = jwt.sign({userId: account_id}, process.env.SECRET, { expiresIn: "1h", subject: account_id })
 
-        const refreshToken = new RefreshToken({expiresIn, account_id})
+        const refreshToken = new RefreshToken({ refToken, account_id })
 
         const generateRefreshToken = await this.repository.save(refreshToken)
 
