@@ -10,6 +10,8 @@ const adminRoute = Router();
 
 adminRoute.post("/accounts/admin", verifyAuth, can([EPermissions.CREATE_ACCOUNT]), is([ERoles.ADMIN]), accountController.create);
 
+adminRoute.get("/accounts/admin", verifyAuth, can([EPermissions.GET_ACCOUNT]), is([ERoles.ADMIN]), accountController.readAdmin);
 
+adminRoute.delete("/accounts/admin", verifyAuth, can([EPermissions.DELETE_ACCOUNT]), is([ERoles.ADMIN]), accountController.deleteAdmin);
 
 export default adminRoute;

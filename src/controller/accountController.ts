@@ -37,6 +37,20 @@ class AccountController {
         }
     }
 
+    async deleteAdmin(request: Request, res: Response, next: NextFunction) {
+        try {
+
+            const { id }  = request.body
+
+            await service.delete(id)
+
+            return res.status(204).json()
+
+        }catch (error) {
+            res.status(500).json({code: 500, message: "internal server error"})
+        }
+    }
+
     async update(request: IRequest, res: Response, next: NextFunction) {
         try{
             let id = request.userId
@@ -54,7 +68,20 @@ class AccountController {
         }
     }
 
-    async read(request: Request, res: Response, next: NextFunction){
+    async read(request: IRequest, res: Response, next: NextFunction){
+        try{
+            const id = request.userId
+
+            const response = await service.read(id)
+
+            return res.status(201).json(response)
+
+        }catch(error){
+            next(error)
+        }
+    }
+
+    async readAdmin(request: Request, res: Response, next: NextFunction){
         try{
             const { id }= request.body
 
