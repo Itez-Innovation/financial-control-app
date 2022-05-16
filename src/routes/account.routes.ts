@@ -9,15 +9,13 @@ const accountRoute = Router();
 
 accountRoute.post("/accounts", accountController.create);
 
-// accountRoute.get("/accounts", verifyAuth, (req, res, next) => authorization(req, res, next, ERoles.GET_ACCOUNT), accountController.read);
-
 accountRoute.get("/accounts", verifyAuth, accountController.read);
 
-accountRoute.delete("/accounts", verifyAuth, can([EPermissions.DELETE_ACCOUNT]), accountController.delete);
+accountRoute.delete("/accounts", verifyAuth, accountController.delete);
 
 accountRoute.put("/accounts", verifyAuth, accountController.update);
 
-accountRoute.get("/accounts/all", verifyAuth, can([EPermissions.GET_ACCOUNT]), is([ERoles.ADMIN]), accountController.readAll);
+accountRoute.get("/accounts/all", verifyAuth, accountController.readAll);
 
 accountRoute.get("/stats", verifyAuth, accountController.getStats);
 
@@ -28,3 +26,5 @@ accountRoute.post("/refresh/:id", accountController.refresh);
 accountRoute.post("/acl", verifyAuth, accountController.createAcl);
 
 export default accountRoute
+
+// accountRoute.get("/accounts", verifyAuth, (req, res, next) => authorization(req, res, next, ERoles.GET_ACCOUNT), accountController.read);
