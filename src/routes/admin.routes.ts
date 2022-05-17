@@ -14,4 +14,12 @@ adminRoute.get("/accounts/admin", verifyAuth, can([EPermissions.GET_ACCOUNT]), i
 
 adminRoute.delete("/accounts/admin", verifyAuth, can([EPermissions.DELETE_ACCOUNT]), is([ERoles.ADMIN]), accountController.deleteAdmin);
 
+adminRoute.put("/accounts/admin", verifyAuth, can([EPermissions.UPDATE_ACCOUNT]), is([ERoles.ADMIN]), accountController.updateAdmin);
+
+adminRoute.get("/accounts/admin/all", verifyAuth, can([EPermissions.GET_ALL_ACCOUNTS]), is([ERoles.ADMIN]), accountController.readAll);
+
+adminRoute.get("/stats/admin", verifyAuth, accountController.getStatsAdmin);
+
+adminRoute.post("/acl/admin", verifyAuth, accountController.createAcl);
+
 export default adminRoute;

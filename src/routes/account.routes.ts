@@ -15,8 +15,6 @@ accountRoute.delete("/accounts", verifyAuth, accountController.delete);
 
 accountRoute.put("/accounts", verifyAuth, accountController.update);
 
-accountRoute.get("/accounts/all", verifyAuth, accountController.readAll);
-
 accountRoute.get("/stats", verifyAuth, accountController.getStats);
 
 accountRoute.post("/login", accountController.login);

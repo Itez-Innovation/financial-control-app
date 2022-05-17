@@ -53,9 +53,25 @@ class AccountController {
 
     async update(request: IRequest, res: Response, next: NextFunction) {
         try{
-            let id = request.userId
+            let id = request.body
 
-            const { CPF, Name, password} = request.body
+            const { CPF, Name, password } = request.body
+
+            const passHash = await hash(password, 8)
+
+            const response = await service.update(CPF, Name, passHash, id)
+
+            return res.status(201).json(response)
+
+        }catch(error){
+            res.status(500).json({code: 500, message: "internal server error"})
+        }
+    }
+
+    async updateAdmin(request: Request, res: Response, next: NextFunction) {
+        try{
+
+            const { id, CPF, Name, password } = request.body
 
             const passHash = await hash(password, 8)
 
@@ -106,10 +122,24 @@ class AccountController {
         }
     }
 
-    async getStats(request: Request, res: Response, next: NextFunction){
+    async getStatsAdmin(request: Request, res: Response, next: NextFunction){
         try{
 
             const { id } = request.body
+
+            const response = await service.getStats(id)
+
+            return res.status(201).json(response)
+
+        } catch(error){
+            res.status(500).json({code: 500, message: "internal server error"})
+        }
+    }
+
+    async getStats(request: IRequest, res: Response, next: NextFunction){
+        try{
+
+            const id = request.userId
 
             const response = await service.getStats(id)
 
