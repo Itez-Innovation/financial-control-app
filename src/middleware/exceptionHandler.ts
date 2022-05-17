@@ -44,6 +44,13 @@ export default function (error: any, request: Request, response: Response, next:
             })
         case CustomError:
             // Usar um if para definir o erro e a msg específica
+            // if(error.errorCode == "CONFLICT"){
+            //     return response.status(409).json({
+            //         code: ErrorCodes.CONFLICT.code,
+            //         message: ErrorCodes.CONFLICT.message,
+            //         identifier: error.identifier
+            //     })
+            // }
             break;
         default:
             return response.status(500).json({
