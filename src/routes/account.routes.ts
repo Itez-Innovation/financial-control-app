@@ -1,9 +1,6 @@
 import { Router } from 'express';
 import accountController from "../controller/accountController";
-import { ERoles } from '../enum/ERoles';
-import { EPermissions } from '../enum/EPermissions';
 import { verifyAuth } from '../middleware/verifyAuth';
-import { can, is } from "../middleware/permissions"
 
 const accountRoute = Router();
 
@@ -20,8 +17,6 @@ accountRoute.get("/stats", verifyAuth, accountController.getStats);
 accountRoute.post("/login", accountController.login);
 
 accountRoute.post("/refresh/:id", accountController.refresh);
-
-accountRoute.post("/acl", verifyAuth, accountController.createAcl);
 
 export default accountRoute
 

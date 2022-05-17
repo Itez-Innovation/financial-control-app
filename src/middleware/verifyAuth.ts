@@ -1,5 +1,6 @@
 import { NextFunction, Request, Response } from "express";
 import { decode, verify } from "jsonwebtoken";
+import UnauthorizedError from "../exceptions/unauthorizedError";
 import { IRequest } from "../utils/utils";
 
 export const verifyAuth = (request: IRequest, response: Response, next: NextFunction) => {
@@ -7,7 +8,7 @@ export const verifyAuth = (request: IRequest, response: Response, next: NextFunc
         const authHeaders = request.headers.authorization;
 
         if(!authHeaders) {
-            return response.status(401).json({error:"Token is missing"})
+            throw new UnauthorizedError("Missing Token!");
         }
 
         const [, token] = authHeaders.split(" ");
@@ -20,7 +21,7 @@ export const verifyAuth = (request: IRequest, response: Response, next: NextFunc
             request.userId = sub.toString();
             return next();
         } catch (err) {
-            return response.status(401).json("Invalid Token!");
+            throw new UnauthorizedError("Invalid Token!");
         }
 
 }

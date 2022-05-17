@@ -11,6 +11,9 @@ import PermissionEntity from "../entity/PermissionEntity";
 import RoleEntity from "../entity/RoleEntity";
 import NotFoundError from "../exceptions/notFoundError";
 import CustomError from "../exceptions/customError";
+import ConflictError from "../exceptions/conflictError";
+import UnauthorizedError from "../exceptions/unauthorizedError";
+import ForbiddenError from "../exceptions/forbiddenError";
 
 export class AccountService {
 
@@ -30,14 +33,15 @@ export class AccountService {
 
             const accountAlreadyExists = await this.repository.findByCpf(CPF)
 
-            if(accountAlreadyExists) throw new Error("Account already exists")
+            if(accountAlreadyExists) throw new ConflictError(`This account ${CPF} already exists`)
 
             const newAccount = new Account(dto)
 
             return this.repository.create(newAccount);
 
         }catch (error) {
-            throw new Error(error)
+            if(error instanceof CustomError) throw error
+            else throw new Error("Internal server error")
         }
     }
 
@@ -46,12 +50,13 @@ export class AccountService {
 
             const accountFound = await this.repository.findById(id)
 
-            if(!accountFound) throw new Error("Account not found")
+            if(!accountFound) throw new NotFoundError(`Account ${id}`)
 
             return this.repository.delete(id)
 
         }catch(error) {
-            throw new Error(error)
+            if(error instanceof CustomError) throw error
+            else throw new Error("Internal server error")
         }
     }
 
@@ -60,12 +65,13 @@ export class AccountService {
 
             const accountFound = await this.repository.findById(id)
 
-            if(!accountFound) throw new Error("Account not found")
+            if(!accountFound) throw new NotFoundError(`Account ${id}`)
 
             return this.repository.update(id, CPF, Name, password)
 
         } catch(error){
-            throw new Error(error)
+            if(error instanceof CustomError) throw error
+            else throw new Error("Internal server error")
         }
     }
 
@@ -77,7 +83,6 @@ export class AccountService {
 
             return this.repository.findById(id)
         } catch(error){
-            console.log("OIOIOIO ", error)
             if(error instanceof CustomError) throw error
             else throw new Error("Internal server error")
         }
@@ -87,11 +92,12 @@ export class AccountService {
         try{
             const accountsFound = await this.repository.get_all()
 
-            if(!accountsFound) throw new Error("Accounts not found")
+            if(!accountsFound) throw new NotFoundError(`No accounts were found`)
 
             return this.repository.get_all()
         } catch(error){
-            throw new Error(error)
+            if(error instanceof CustomError) throw error
+            else throw new Error("Internal server error")
         }
     }
 
@@ -99,20 +105,22 @@ export class AccountService {
         try{
             const statsFound = await this.repository.getStats(id)
 
-            if(!statsFound) throw new Error("Stats not found")
+            if(!statsFound) throw new NotFoundError("Couldn't find Financial Stats")
+
             return statsFound
         } catch(error){
-            throw new Error(error)
+            if(error instanceof CustomError) throw error
+            else throw new Error("Internal server error")
         }
     }
 
     async login(CPF: string, password: string){
         try{
             let cpfMatch = await this.repository.findByCpf(CPF)
-            if(!cpfMatch) throw new Error("Account not found")
+            if(!cpfMatch) throw new NotFoundError(`CPF or Password doesn't match`)
 
             let passMatch = await compare(password, (await this.repository.findByCpf(CPF)).password)
-            if(!passMatch) throw new Error("Password doesn't match")
+            if(!passMatch) throw new NotFoundError(`CPF or Password doesn't match`)
 
             let acc = await this.repository.findByCpf(CPF)
 
@@ -122,14 +130,15 @@ export class AccountService {
 
             return { token, refreshToken }
         } catch (error) {
-            throw new Error(error)
+            if(error instanceof CustomError) throw error
+            else throw new Error("Internal server error")
         }
     }
 
     async refresh(refreshToken: string) {
         let refToken = await this.repoToken.findById(refreshToken);
         
-        if(!refToken) throw new Error("Invalid Refresh Token")
+        if(!refToken) throw new UnauthorizedError("Refresh Token isn't valid")
 
         const { exp, sub } =  jwt.decode(refToken.refToken, { json: true })
 
@@ -137,7 +146,7 @@ export class AccountService {
 
         if(refreshTokenExpired) {
             await this.repoToken.delete(refToken.id);
-            throw new Error("Refresh token expired!")
+            throw new ForbiddenError("Refresh Token Expired!")
             // await this.repoToken.delete(refToken.id);
             // refToken = await this.repoToken.generateRefreshToken(refToken.account_id);
         }
@@ -153,7 +162,7 @@ export class AccountService {
 
             const user = await this.repository.findById(userId);
 
-            if(!user) throw new Error("User does not exists!")
+            if(!user) throw new NotFoundError("Couldn't find this account")
 
             const permissionsExists = await this.permissionRepo.findByIds(permissions);
             const rolesExists = await this.roleRepo.findByIds(roles);
@@ -166,7 +175,8 @@ export class AccountService {
             return user;
 
         } catch (error) {
-            throw new Error(error)
+            if(error instanceof CustomError) throw error
+            else throw new Error("Internal server error")
         }
     }   
 

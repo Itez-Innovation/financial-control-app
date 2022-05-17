@@ -19,7 +19,7 @@ class AccountController {
             return res.status(201).json(response)
 
         }catch (error) {
-            res.status(500).json({code: 500, message: "internal server error"})
+            next(error)
         }
     }
 
@@ -30,10 +30,10 @@ class AccountController {
 
             await service.delete(id)
 
-            return res.status(204).json()
+            return res.status(202).json()
 
         }catch (error) {
-            res.status(500).json({code: 500, message: "internal server error"})
+            next(error)
         }
     }
 
@@ -44,10 +44,10 @@ class AccountController {
 
             await service.delete(id)
 
-            return res.status(204).json()
+            return res.status(202).json()
 
         }catch (error) {
-            res.status(500).json({code: 500, message: "internal server error"})
+            next(error)
         }
     }
 
@@ -61,10 +61,10 @@ class AccountController {
 
             const response = await service.update(CPF, Name, passHash, id)
 
-            return res.status(201).json(response)
+            return res.status(200).json(response)
 
         }catch(error){
-            res.status(500).json({code: 500, message: "internal server error"})
+            next(error)
         }
     }
 
@@ -77,10 +77,10 @@ class AccountController {
 
             const response = await service.update(CPF, Name, passHash, id)
 
-            return res.status(201).json(response)
+            return res.status(200).json(response)
 
         }catch(error){
-            res.status(500).json({code: 500, message: "internal server error"})
+            next(error)
         }
     }
 
@@ -90,7 +90,7 @@ class AccountController {
 
             const response = await service.read(id)
 
-            return res.status(201).json(response)
+            return res.status(200).json(response)
 
         }catch(error){
             next(error)
@@ -103,7 +103,7 @@ class AccountController {
 
             const response = await service.read(id)
 
-            return res.status(201).json(response)
+            return res.status(200).json(response)
 
         }catch(error){
             next(error)
@@ -115,10 +115,10 @@ class AccountController {
 
             const response = await service.readAll()
 
-            return res.status(201).json(response)
+            return res.status(200).json(response)
 
         }catch(error){
-            res.status(500).json({code: 500, message: "internal server error"})
+            next(error)
         }
     }
 
@@ -129,10 +129,10 @@ class AccountController {
 
             const response = await service.getStats(id)
 
-            return res.status(201).json(response)
+            return res.status(200).json(response)
 
         } catch(error){
-            res.status(500).json({code: 500, message: "internal server error"})
+            next(error)
         }
     }
 
@@ -143,10 +143,10 @@ class AccountController {
 
             const response = await service.getStats(id)
 
-            return res.status(201).json(response)
+            return res.status(200).json(response)
 
         } catch(error){
-            res.status(500).json({code: 500, message: "internal server error"})
+            next(error)
         }
     }
 
@@ -157,10 +157,10 @@ class AccountController {
 
             const token = await service.login(CPF, password)
 
-            return res.status(201).json(token)
+            return res.status(200).json(token)
 
         } catch(error){
-            res.status(500).json({code: 500, message: "internal server error"})
+            next(error)
         }
     }
 
@@ -170,10 +170,10 @@ class AccountController {
 
             const response = await service.refresh(refreshToken.id)
 
-            return res.status(201).json(response)
+            return res.status(200).json(response)
 
         } catch(error){
-            res.status(401).json({code: 401, message: "Unauthorized"})
+            next(error)
         }
     }
 
@@ -189,7 +189,7 @@ class AccountController {
             return res.status(201).json(response)
 
         } catch(error){
-            res.status(400).json(error.message)
+            next(error)
         }
     }
 }
