@@ -1,9 +1,10 @@
-import { AccountService } from "../service/accountService";
+import AccountService from "../service/accountService";
 import { NextFunction, Request, Response } from "express";
 import { hash } from "bcryptjs"
 import { IRequest } from "../utils/utils";
+import AccountRepository from "../repositories/accountRepository/AccountRepository";
 
-const service = new AccountService()
+const service = new AccountService(new AccountRepository())
 
 class AccountController {
 
@@ -23,175 +24,175 @@ class AccountController {
         }
     }
 
-    async delete(request: IRequest, res: Response, next: NextFunction) {
-        try {
+    // async delete(request: IRequest, res: Response, next: NextFunction) {
+    //     try {
 
-            const id  = request.userId
+    //         const id  = request.userId
 
-            await service.delete(id)
+    //         await service.delete(id)
 
-            return res.status(202).json()
+    //         return res.status(202).json()
 
-        }catch (error) {
-            next(error)
-        }
-    }
+    //     }catch (error) {
+    //         next(error)
+    //     }
+    // }
 
-    async deleteAdmin(request: Request, res: Response, next: NextFunction) {
-        try {
+    // async deleteAdmin(request: Request, res: Response, next: NextFunction) {
+    //     try {
 
-            const { id }  = request.body
+    //         const { id }  = request.body
 
-            await service.delete(id)
+    //         await service.delete(id)
 
-            return res.status(202).json()
+    //         return res.status(202).json()
 
-        }catch (error) {
-            next(error)
-        }
-    }
+    //     }catch (error) {
+    //         next(error)
+    //     }
+    // }
 
-    async update(request: IRequest, res: Response, next: NextFunction) {
-        try{
-            let id = request.body
+    // async update(request: IRequest, res: Response, next: NextFunction) {
+    //     try{
+    //         let id = request.body
 
-            const { CPF, Name, password } = request.body
+    //         const { CPF, Name, password } = request.body
 
-            const passHash = await hash(password, 8)
+    //         const passHash = await hash(password, 8)
 
-            const response = await service.update(CPF, Name, passHash, id)
+    //         const response = await service.update(CPF, Name, passHash, id)
 
-            return res.status(200).json(response)
+    //         return res.status(200).json(response)
 
-        }catch(error){
-            next(error)
-        }
-    }
+    //     }catch(error){
+    //         next(error)
+    //     }
+    // }
 
-    async updateAdmin(request: Request, res: Response, next: NextFunction) {
-        try{
+    // async updateAdmin(request: Request, res: Response, next: NextFunction) {
+    //     try{
 
-            const { id, CPF, Name, password } = request.body
+    //         const { id, CPF, Name, password } = request.body
 
-            const passHash = await hash(password, 8)
+    //         const passHash = await hash(password, 8)
 
-            const response = await service.update(CPF, Name, passHash, id)
+    //         const response = await service.update(CPF, Name, passHash, id)
 
-            return res.status(200).json(response)
+    //         return res.status(200).json(response)
 
-        }catch(error){
-            next(error)
-        }
-    }
+    //     }catch(error){
+    //         next(error)
+    //     }
+    // }
 
-    async read(request: IRequest, res: Response, next: NextFunction){
-        try{
-            const id = request.userId
+    // async read(request: IRequest, res: Response, next: NextFunction){
+    //     try{
+    //         const id = request.userId
 
-            const response = await service.read(id)
+    //         const response = await service.read(id)
 
-            return res.status(200).json(response)
+    //         return res.status(200).json(response)
 
-        }catch(error){
-            next(error)
-        }
-    }
+    //     }catch(error){
+    //         next(error)
+    //     }
+    // }
 
-    async readAdmin(request: Request, res: Response, next: NextFunction){
-        try{
-            const { id }= request.body
+    // async readAdmin(request: Request, res: Response, next: NextFunction){
+    //     try{
+    //         const { id }= request.body
 
-            const response = await service.read(id)
+    //         const response = await service.read(id)
 
-            return res.status(200).json(response)
+    //         return res.status(200).json(response)
 
-        }catch(error){
-            next(error)
-        }
-    }
+    //     }catch(error){
+    //         next(error)
+    //     }
+    // }
 
-    async readAll(request: Request, res: Response, next: NextFunction){
-        try{
+    // async readAll(request: Request, res: Response, next: NextFunction){
+    //     try{
 
-            const response = await service.readAll()
+    //         const response = await service.readAll()
 
-            return res.status(200).json(response)
+    //         return res.status(200).json(response)
 
-        }catch(error){
-            next(error)
-        }
-    }
+    //     }catch(error){
+    //         next(error)
+    //     }
+    // }
 
-    async getStatsAdmin(request: Request, res: Response, next: NextFunction){
-        try{
+    // async getStatsAdmin(request: Request, res: Response, next: NextFunction){
+    //     try{
 
-            const { id } = request.body
+    //         const { id } = request.body
 
-            const response = await service.getStats(id)
+    //         const response = await service.getStats(id)
 
-            return res.status(200).json(response)
+    //         return res.status(200).json(response)
 
-        } catch(error){
-            next(error)
-        }
-    }
+    //     } catch(error){
+    //         next(error)
+    //     }
+    // }
 
-    async getStats(request: IRequest, res: Response, next: NextFunction){
-        try{
+    // async getStats(request: IRequest, res: Response, next: NextFunction){
+    //     try{
 
-            const id = request.userId
+    //         const id = request.userId
 
-            const response = await service.getStats(id)
+    //         const response = await service.getStats(id)
 
-            return res.status(200).json(response)
+    //         return res.status(200).json(response)
 
-        } catch(error){
-            next(error)
-        }
-    }
+    //     } catch(error){
+    //         next(error)
+    //     }
+    // }
 
-    async login(request: Request, res: Response, next: NextFunction){
-        try{
+    // async login(request: Request, res: Response, next: NextFunction){
+    //     try{
 
-            const { CPF, password } = request.body
+    //         const { CPF, password } = request.body
 
-            const token = await service.login(CPF, password)
+    //         const token = await service.login(CPF, password)
 
-            return res.status(200).json(token)
+    //         return res.status(200).json(token)
 
-        } catch(error){
-            next(error)
-        }
-    }
+    //     } catch(error){
+    //         next(error)
+    //     }
+    // }
 
-    async refresh(request: Request, res: Response, next: NextFunction){
-        try{
-            const refreshToken = request.params
+    // async refresh(request: Request, res: Response, next: NextFunction){
+    //     try{
+    //         const refreshToken = request.params
 
-            const response = await service.refresh(refreshToken.id)
+    //         const response = await service.refresh(refreshToken.id)
 
-            return res.status(200).json(response)
+    //         return res.status(200).json(response)
 
-        } catch(error){
-            next(error)
-        }
-    }
+    //     } catch(error){
+    //         next(error)
+    //     }
+    // }
 
-    async createAcl(request: IRequest, res: Response, next: NextFunction){
-        try{
+    // async createAcl(request: IRequest, res: Response, next: NextFunction){
+    //     try{
 
-            const { permissions, roles } = request.body;
+    //         const { permissions, roles } = request.body;
 
-            const userId = request.userId;
+    //         const userId = request.userId;
 
-            const response = await service.createACL({userId, permissions, roles})
+    //         const response = await service.createACL({userId, permissions, roles})
 
-            return res.status(201).json(response)
+    //         return res.status(201).json(response)
 
-        } catch(error){
-            next(error)
-        }
-    }
+    //     } catch(error){
+    //         next(error)
+    //     }
+    // }
 }
 
 export default new AccountController()
