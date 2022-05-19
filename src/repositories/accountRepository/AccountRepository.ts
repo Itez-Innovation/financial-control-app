@@ -1,9 +1,6 @@
 import { getRepository, Repository } from 'typeorm';
 import AccountEntity from '../../entity/AccountEntity';
-import CashInflowEntity from '../../entity/CashInflowEntity';
-import CashOutflowEntity from '../../entity/CashOutflowEntity';
 import { hash } from "bcryptjs"
-
 import Account from '../../model/Account';
 import IAccountRepository from './IAccountRepository';
 
@@ -36,17 +33,14 @@ export default class AccountRepository implements IAccountRepository{
     }
 
     async get_all(){
-        const accounts = await this.repository.find();
-        return accounts;
+        return this.repository.find();
     }
 
     async getStats(idS: string){
-        
-        const stats = await this.repository.find({
+        return this.repository.find({
             relations: ['inputs', 'outputs'],
             where: { id: idS }
         })
-        return stats
     }
 
     findByCpf(CPF: string){
