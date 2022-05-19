@@ -1,7 +1,7 @@
 import CreatePermissionDto from "../dto/permission/createPermissionDto";
 import PermissionEntity from "../entity/PermissionEntity";
 import Permission from "../model/Permission";
-import PermissionRepository from "../repositories/PermissionRepository";
+import PermissionRepository from "../repositories/permissionRepository/PermissionRepository";
 
 export class PermissionService {
 

@@ -1,6 +1,6 @@
 import { getRepository, Repository } from "typeorm";
-import PermissionEntity from "../entity/PermissionEntity";
-import Permission from "../model/Permission";
+import PermissionEntity from "../../entity/PermissionEntity";
+import Permission from "../../model/Permission";
 
 
 export default class PermissionRepository {

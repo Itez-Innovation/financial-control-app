@@ -1,7 +1,7 @@
 import CreateInputDto from "../dto/input/createInputDto";
 import UpdateInputDto from "../dto/input/updateInputDto";
 import Input from "../model/CashInflow";
-import CashInflowRepository from "../repositories/CashInflowRepository";
+import CashInflowRepository from "../repositories/cashInflowRepository/CashInflowRepository";
 
 export class CashInflowService {
 

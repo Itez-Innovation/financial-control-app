@@ -3,8 +3,8 @@ import CreateRoleDto from "../dto/role/createRoleDto";
 import CreateRolePermissionDto from "../dto/role/createRolePermissionDto";
 import RoleEntity from "../entity/RoleEntity";
 import Role from "../model/Role";
-import PermissionRepository from "../repositories/PermissionRepository";
-import RoleRepository from "../repositories/RoleRepository";
+import PermissionRepository from "../repositories/permissionRepository/PermissionRepository";
+import RoleRepository from "../repositories/roleRepository/RoleRepository";
 
 export class RoleService {
 

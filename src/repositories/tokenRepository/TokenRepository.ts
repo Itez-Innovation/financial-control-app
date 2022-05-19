@@ -1,8 +1,8 @@
 import dayjs = require("dayjs")
 import * as jwt from "jsonwebtoken"
 import { getRepository, Repository } from "typeorm"
-import RefreshTokenEntity from "../entity/RefreshTokenEntity"
-import RefreshToken from "../model/RefreshToken"
+import RefreshTokenEntity from "../../entity/RefreshTokenEntity"
+import RefreshToken from "../../model/RefreshToken"
 
 
 export default class TokenRepository {
@@ -18,15 +18,11 @@ export default class TokenRepository {
 
         const refreshToken = new RefreshToken({ refToken, account_id })
 
-        const generateRefreshToken = await this.repository.save(refreshToken)
-
-        return generateRefreshToken
+        return this.repository.save(refreshToken)
     }
 
     async generateToken(account_id: string) {
-        const token = jwt.sign({userId: account_id}, process.env.SECRET, { expiresIn: "10m", subject: account_id })
-
-        return token
+        return jwt.sign({userId: account_id}, process.env.SECRET, { expiresIn: "10m", subject: account_id })
     }
 
     async delete(id: string) {

@@ -1,7 +1,7 @@
 import Account from "../model/Account";
 import CreateAccountDto from "../dto/account/createAccountDto";
 import CreateAclDto from "../dto/account/createAclDto";
-import TokenRepository from "../repositories/TokenRepository";
+import TokenRepository from "../repositories/tokenRepository/TokenRepository";
 import * as jwt from "jsonwebtoken"
 import { compare } from "bcryptjs";
 import * as dayjs from 'dayjs'

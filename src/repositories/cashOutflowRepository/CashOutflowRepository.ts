@@ -1,6 +1,6 @@
 import { EntityRepository, getRepository, Repository } from 'typeorm';
-import CashOutflowEntity from '../entity/CashOutflowEntity';
-import Output from '../model/CashOutflow';
+import CashOutflowEntity from '../../entity/CashOutflowEntity';
+import Output from '../../model/CashOutflow';
 
 @EntityRepository(CashOutflowEntity)
 export default class CashOutflowRepository{

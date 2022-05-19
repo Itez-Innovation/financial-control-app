@@ -1,7 +1,7 @@
 import Output from "../model/CashOutflow";
 import CreateOutputDto from "../dto/output/createOutputDto"
 import UpdateOutputDto from "../dto/output/updateOutputDto"
-import CashOutflowRepository from "../repositories/CashOutflowRepository";
+import CashOutflowRepository from "../repositories/cashOutflowRepository/CashOutflowRepository";
 
 export class CashOutflowService {
 
