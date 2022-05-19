@@ -1,8 +1,9 @@
 import { NextFunction, Request, Response } from "express";
+import RoleRepository from "../repositories/roleRepository/RoleRepository";
 import { RoleService } from "../service/roleService";
 
 
-const service = new RoleService()
+const service = new RoleService(new RoleRepository())
 
 class RoleController {
     async create(request: Request, res: Response, next: NextFunction){

@@ -1,9 +1,10 @@
-import { getRepository, Repository } from "typeorm";
+import { EntityRepository, getRepository, Repository } from "typeorm";
 import RoleEntity from "../../entity/RoleEntity";
 import Role from "../../model/Role";
+import IRoleRepository from "./IRoleRepository";
 
-
-export default class RoleRepository {
+@EntityRepository(RoleEntity)
+export default class RoleRepository implements IRoleRepository {
     private repository: Repository<RoleEntity>
 
     constructor () {
