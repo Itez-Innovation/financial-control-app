@@ -1,18 +1,16 @@
 import CreateInputDto from "../dto/input/createInputDto";
 import UpdateInputDto from "../dto/input/updateInputDto";
 import Input from "../model/CashInflow";
-import CashInflowRepository from "../repositories/cashInflowRepository/CashInflowRepository";
+import ICashInflowRepository from "../repositories/cashInflowRepository/ICashInflowRepository";
 
 export class CashInflowService {
 
     constructor(
-        private readonly repository = new CashInflowRepository()
+        private readonly repository: ICashInflowRepository
     ) {}
 
     async create(dto: CreateInputDto){
         try{
-            const { Titulo, Valor, account_id } = dto
-
             const newInput = new Input(dto)
 
             console.log(newInput)

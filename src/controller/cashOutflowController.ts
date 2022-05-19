@@ -1,7 +1,8 @@
 import { NextFunction, Request, Response } from "express";
+import CashOutflowRepository from "../repositories/cashOutflowRepository/CashOutflowRepository";
 import { CashOutflowService } from "../service/cashOutflowService";
 
-const service = new CashOutflowService()
+const service = new CashOutflowService(new CashOutflowRepository())
 class CashOutflowController {
 
     async create(request: Request, res: Response, next: NextFunction){

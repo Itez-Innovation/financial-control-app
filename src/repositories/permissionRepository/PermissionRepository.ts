@@ -1,9 +1,10 @@
-import { getRepository, Repository } from "typeorm";
+import { EntityRepository, getRepository, Repository } from "typeorm";
 import PermissionEntity from "../../entity/PermissionEntity";
 import Permission from "../../model/Permission";
+import IPermissionRepository from "./IPermissionRepository";
 
-
-export default class PermissionRepository {
+@EntityRepository(PermissionEntity)
+export default class PermissionRepository implements IPermissionRepository{
 
     private repository: Repository<PermissionEntity>
 

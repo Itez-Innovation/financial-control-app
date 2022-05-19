@@ -1,22 +1,17 @@
 import Output from "../model/CashOutflow";
 import CreateOutputDto from "../dto/output/createOutputDto"
 import UpdateOutputDto from "../dto/output/updateOutputDto"
-import CashOutflowRepository from "../repositories/cashOutflowRepository/CashOutflowRepository";
+import ICashOutflowRepository from "../repositories/cashOutflowRepository/ICashOutflowRepository";
 
 export class CashOutflowService {
 
     constructor(
-        private readonly repository = new CashOutflowRepository()
+        private readonly repository: ICashOutflowRepository
     ) {}
 
     async create(dto: CreateOutputDto){
         try{
-            const { Area, Titulo, Valor, account_id } = dto
-
             const newOutput = new Output(dto)
-
-            console.log(newOutput)
-
             return this.repository.create(newOutput)
 
         } catch (error){

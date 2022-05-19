@@ -25,12 +25,9 @@ export default class AccountService {
 
     async create(dto: CreateAccountDto) {
         try{
+            const accountAlreadyExists = await this.repository.findByCpf(dto.CPF)
 
-            const {CPF} = dto
-
-            const accountAlreadyExists = await this.repository.findByCpf(CPF)
-
-            if(accountAlreadyExists) throw new ConflictError(`This account ${CPF} already exists`)
+            if(accountAlreadyExists) throw new ConflictError(`This account ${dto.CPF} already exists`)
 
             const newAccount = new Account(dto)
 

@@ -1,21 +1,21 @@
 import { EntityRepository, getRepository, Repository } from 'typeorm';
 import CashInflowEntity from '../../entity/CashInflowEntity';
 import Input from '../../model/CashInflow';
+import ICashInflowRepository from './ICashInflowRepository';
 
 @EntityRepository(CashInflowEntity)
-export default class CashInflowRepository{
+export default class CashInflowRepository implements ICashInflowRepository{
     private repository: Repository<CashInflowEntity>
     constructor(){
         this.repository = getRepository(CashInflowEntity)
     }
 
     async create(input: Input){
-        await this.repository.save(input)
+        return this.repository.save(input)
     }
 
     async get_all(){
-        const inputs = await this.repository.find();
-        return inputs;
+        return this.repository.find();
     }
 
     async delete(id: string){
@@ -35,8 +35,9 @@ export default class CashInflowRepository{
             inflow.Titulo = titulo ? titulo : inflow.Titulo;
             inflow.Valor = valor ? valor : inflow.Valor;
 
-            await this.repository.save(inflow);
+            const saved = await this.repository.save(inflow);
             console.log("Ganho atualizado!")
+            return saved
         }
     }
 

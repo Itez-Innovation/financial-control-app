@@ -1,21 +1,21 @@
 import { EntityRepository, getRepository, Repository } from 'typeorm';
 import CashOutflowEntity from '../../entity/CashOutflowEntity';
 import Output from '../../model/CashOutflow';
+import ICashOutflowRepository from './ICashOutflowRepository';
 
 @EntityRepository(CashOutflowEntity)
-export default class CashOutflowRepository{
+export default class CashOutflowRepository implements ICashOutflowRepository{
     private repository: Repository<CashOutflowEntity>
     constructor(){
         this.repository = getRepository(CashOutflowEntity)
     }
 
     async create(output: Output){
-        await this.repository.save(output);
+        return this.repository.save(output);
     }
 
     async get_all(){
-        const outputs = await this.repository.find();
-        return outputs;
+        return this.repository.find();
     }
 
     async delete(id: string){
@@ -36,9 +36,11 @@ export default class CashOutflowRepository{
             outflow.Titulo = titulo ? titulo : outflow.Titulo;
             outflow.Valor = valor ? valor : outflow.Valor;
 
-            await this.repository.save(outflow);
+            const saved = await this.repository.save(outflow);
 
             console.log("Gasto atualizado!");
+
+            return saved
         }
 
         

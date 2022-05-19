@@ -13,11 +13,8 @@ export default class Account {
     updatedAt: Date
 
     constructor(props: Omit<Account, 'id' | 'createdAt' | 'updatedAt' | 'input' | 'output'>, id?: string, input?: Input, output?: Output){
-
         Object.assign(this, props)
-
         if(!id) this.id = uuid.v4()
-
     }
 
 }

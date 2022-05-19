@@ -1,18 +1,16 @@
-import { type } from 'os';
 import {
     Entity,
     Column,
     CreateDateColumn,
     UpdateDateColumn,
     PrimaryGeneratedColumn,
-    OneToMany,
     ManyToOne,
     JoinColumn
 } from 'typeorm';
 import Account from './AccountEntity';
 
 @Entity('cashOutflow')
-export default class CashOutflow {
+export default class CashOutflowEntity {
 
     @PrimaryGeneratedColumn('uuid')
     id: string

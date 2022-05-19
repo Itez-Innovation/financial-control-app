@@ -1,8 +1,9 @@
 import { NextFunction, Request, Response } from "express";
+import PermissionRepository from "../repositories/permissionRepository/PermissionRepository";
 import { PermissionService } from "../service/permissionService";
 
 
-const service = new PermissionService()
+const service = new PermissionService(new PermissionRepository())
 
 class PermissionController {
     async create(request: Request, res: Response, next: NextFunction){

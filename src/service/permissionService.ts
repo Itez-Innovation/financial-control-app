@@ -1,12 +1,12 @@
 import CreatePermissionDto from "../dto/permission/createPermissionDto";
 import PermissionEntity from "../entity/PermissionEntity";
 import Permission from "../model/Permission";
-import PermissionRepository from "../repositories/permissionRepository/PermissionRepository";
+import IPermissionRepository from "../repositories/permissionRepository/IPermissionRepository";
 
 export class PermissionService {
 
     constructor (
-        private readonly repository = new PermissionRepository()
+        private readonly repository: IPermissionRepository
     ) {}
 
     async create(dto: CreatePermissionDto): Promise<PermissionEntity | Error>{

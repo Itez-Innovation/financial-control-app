@@ -1,9 +1,10 @@
-import { getRepository, Repository } from 'typeorm';
+import { EntityRepository, getRepository, Repository } from 'typeorm';
 import AccountEntity from '../../entity/AccountEntity';
 import { hash } from "bcryptjs"
 import Account from '../../model/Account';
 import IAccountRepository from './IAccountRepository';
 
+@EntityRepository(AccountEntity)
 export default class AccountRepository implements IAccountRepository{
 
     private repository: Repository<AccountEntity>
