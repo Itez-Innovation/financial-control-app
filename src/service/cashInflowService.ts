@@ -13,8 +13,6 @@ export class CashInflowService {
         try{
             const newInput = new Input(dto)
 
-            console.log(newInput)
-
             return this.repository.create(newInput)
 
         } catch (error){

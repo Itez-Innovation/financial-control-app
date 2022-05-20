@@ -3,8 +3,11 @@ import { NextFunction, Request, Response } from "express";
 import { hash } from "bcryptjs"
 import { IRequest } from "../utils/utils";
 import AccountRepository from "../repositories/accountRepository/AccountRepository";
+import TokenRepository from "../repositories/tokenRepository/TokenRepository";
+import PermissionRepository from "../repositories/permissionRepository/PermissionRepository";
+import RoleRepository from "../repositories/roleRepository/RoleRepository";
 
-const service = new AccountService(new AccountRepository())
+const service = new AccountService(new AccountRepository(), new TokenRepository(), new PermissionRepository(), new RoleRepository())
 
 class AccountController {
 
