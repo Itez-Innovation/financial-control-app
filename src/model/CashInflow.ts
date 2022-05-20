@@ -1,6 +1,6 @@
 import * as uuid from 'uuid'
 
-export default class Input {
+export default class CashInflow {
     id: string
     Titulo: string
     Valor: number
@@ -9,7 +9,7 @@ export default class Input {
     updatedAt: Date
 
     
-    constructor(props: Omit<Input, 'id' | 'createdAt' | 'updatedAt' | 'account_id'>, id?: string, account_id?: string) {
+    constructor(props: Omit<CashInflow, 'id' | 'createdAt' | 'updatedAt' | 'account_id'>, id?: string, account_id?: string) {
         Object.assign(this, props)
 
         if(!id) this.id = uuid.v4()

@@ -8,7 +8,7 @@ export enum setores {
     transport = "Transporte"
 }
 
-export default class Output { 
+export default class CashOutflow { 
     id: string
     Area: setores
     Titulo: string
@@ -17,10 +17,8 @@ export default class Output {
     createdAt: Date
     updatedAt: Date
 
-    constructor(props: Omit<Output, 'id' | 'createdAt' | 'updatedAt' | 'account_id'>, id?: string, account_id?: string){
+    constructor(props: Omit<CashOutflow, 'id' | 'createdAt' | 'updatedAt' | 'account_id'>, id?: string, account_id?: string){
         Object.assign(this, props)
-
         if(!id) this.id = uuid.v4()
     }
-
 }
