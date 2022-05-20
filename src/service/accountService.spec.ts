@@ -1,3 +1,4 @@
+import CreateAccountDto from "../dto/account/createAccountDto";
 import Account from "../model/Account";
 import AccountRepository from "../repositories/accountRepository/AccountRepository";
 import PermissionRepository from "../repositories/permissionRepository/PermissionRepository";
@@ -24,22 +25,20 @@ const roleRepositoryMock = new roleRepository() as jest.Mocked<RoleRepository>
 const service = new AccountService(accountRepositoryMock, tokenRepositoryMock, permissionRepositoryMock, roleRepositoryMock)
 
 
-// --------------------------
-const CPF = "11111111111"
-const Name = "Teste"
-const password = "Teste123"
-
-const newAccount = new Account({ CPF, Name, password });
+// --------------------------------- //
+const dto = new CreateAccountDto()
+dto.CPF = "11111111111"
+dto.Name = "Teste"
+dto.password = "Teste123"
+const newAccount = new Account(dto);
+// --------------------------------- //
 
 describe("Account Service", () => {
     it("should be able to create a new account", async () => {
-        
 
         accountRepositoryMock.create.mockResolvedValueOnce(newAccount)
 
         const account = await service.create(newAccount);
-        
-        console.log("oi: ", account)
 
         expect(account.id).not.toEqual(undefined)
         expect(account.Name).toEqual(newAccount.Name)

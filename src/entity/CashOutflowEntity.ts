@@ -35,7 +35,7 @@ export default class CashOutflowEntity {
 
     @ManyToOne(type => Account, account => account.output, {onDelete: "CASCADE"})
     @JoinColumn({name: "account_id"})
-    account?: Account
+    account: Account
 
     @CreateDateColumn({ name: 'created_At' })
     createdAt: Date;
