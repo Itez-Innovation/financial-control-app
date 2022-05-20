@@ -44,5 +44,9 @@ describe("Account Service", () => {
         expect(account.Name).toEqual(newAccount.Name)
         expect(account.CPF).toEqual(newAccount.CPF)
         expect(account.password).toEqual(newAccount.password)
+    });
+
+    it("should not be able to create an existing account", async () => {
+        
     })
 })
