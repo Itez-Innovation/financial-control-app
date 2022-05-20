@@ -7,7 +7,7 @@ export default class RefreshToken {
     account_id: string
     account: Account
     
-    constructor(props: Omit<RefreshToken, 'id'>, id?: string, account_id?: string, account?: Account) {
+    constructor(props: Omit<RefreshToken, 'id' | 'account'>, id?: string, account_id?: string, account?: Account) {
         Object.assign(this, props);
         if(!id) this.id = uuid.v4();
     }
