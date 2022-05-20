@@ -4,11 +4,10 @@ export default class Permission {
     id: string
     name: string
     description: string
-    role_id: string
     createdAt: Date
     updatedAt: Date
 
-    constructor(props: Omit<Permission, 'id' | 'createdAt' | 'updatedAt' | 'role_id'>, id?: string){
+    constructor(props: Omit<Permission, 'id' | 'createdAt' | 'updatedAt'>, id?: string){
 
         Object.assign(this, props)
 

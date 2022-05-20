@@ -11,10 +11,7 @@ export class PermissionService {
 
     async create(dto: CreatePermissionDto): Promise<PermissionEntity | Error>{
         try{
-
-            const {name, description} = dto
-
-            const permissionAlreadyExists = await this.repository.findByName(name)
+            const permissionAlreadyExists = await this.repository.findByName(dto.name)
 
             if(permissionAlreadyExists) throw new Error("Permission already exists!")
 
