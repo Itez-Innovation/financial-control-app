@@ -19,5 +19,3 @@ accountRoute.post("/login", accountController.login);
 accountRoute.post("/refresh/:id", accountController.refresh);
 
 export default accountRoute
-
-// accountRoute.get("/accounts", verifyAuth, (req, res, next) => authorization(req, res, next, ERoles.GET_ACCOUNT), accountController.read);

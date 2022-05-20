@@ -1,8 +1,8 @@
 import { Router } from "express";
-import { EPermissions } from "../enum/EPermissions";
 import { verifyAuth } from "../middleware/verifyAuth";
 import { can, is } from "../middleware/permissions";
 import { ERoles } from "../enum/ERoles";
+import { EPermissions } from "../enum/EPermissions";
 import accountController from "../controller/accountController";
 
 
