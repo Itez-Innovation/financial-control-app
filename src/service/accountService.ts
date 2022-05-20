@@ -1,26 +1,25 @@
 import Account from "../model/Account";
 import CreateAccountDto from "../dto/account/createAccountDto";
 import CreateAclDto from "../dto/account/createAclDto";
-import TokenRepository from "../repositories/tokenRepository/TokenRepository";
 import * as jwt from "jsonwebtoken"
 import { compare } from "bcryptjs";
 import * as dayjs from 'dayjs'
-import { getRepository } from "typeorm";
-import PermissionEntity from "../entity/PermissionEntity";
-import RoleEntity from "../entity/RoleEntity";
 import NotFoundError from "../exceptions/notFoundError";
 import CustomError from "../exceptions/customError";
 import ConflictError from "../exceptions/conflictError";
 import UnauthorizedError from "../exceptions/unauthorizedError";
 import ForbiddenError from "../exceptions/forbiddenError";
 import IAccountRepository from "../repositories/accountRepository/IAccountRepository";
+import ITokenRepository from "../repositories/tokenRepository/ITokenRepository";
+import IPermissionRepository from "../repositories/permissionRepository/IPermissionRepository";
+import IRoleRepository from "../repositories/roleRepository/IRoleRepository";
 
 export default class AccountService {
     constructor(
         private readonly repository: IAccountRepository,
-        private readonly repoToken = new TokenRepository(),
-        private readonly permissionRepo = getRepository(PermissionEntity),
-        private readonly roleRepo = getRepository(RoleEntity)
+        private readonly repoToken: ITokenRepository,
+        private readonly permissionRepo: IPermissionRepository,
+        private readonly roleRepo: IRoleRepository
     ) {}
 
     async create(dto: CreateAccountDto) {

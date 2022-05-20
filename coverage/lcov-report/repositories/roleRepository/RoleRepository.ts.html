@@ -3,15 +3,15 @@
 <html lang="en">
 
 <head>
-    <title>Code coverage report for entity/RoleEntity.ts</title>
+    <title>Code coverage report for repositories/roleRepository/RoleRepository.ts</title>
     <meta charset="utf-8" />
-    <link rel="stylesheet" href="../prettify.css" />
-    <link rel="stylesheet" href="../base.css" />
-    <link rel="shortcut icon" type="image/x-icon" href="../favicon.png" />
+    <link rel="stylesheet" href="../../prettify.css" />
+    <link rel="stylesheet" href="../../base.css" />
+    <link rel="shortcut icon" type="image/x-icon" href="../../favicon.png" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <style type='text/css'>
         .coverage-summary .sorter {
-            background-image: url(../sort-arrow-sprite.png);
+            background-image: url(../../sort-arrow-sprite.png);
         }
     </style>
 </head>
@@ -19,13 +19,13 @@
 <body>
 <div class='wrapper'>
     <div class='pad1'>
-        <h1><a href="../index.html">All files</a> / <a href="index.html">entity</a> RoleEntity.ts</h1>
+        <h1><a href="../../index.html">All files</a> / <a href="index.html">repositories/roleRepository</a> RoleRepository.ts</h1>
         <div class='clearfix'>
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">100% </span>
+                <span class="strong">68% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>28/28</span>
+                <span class='fraction'>17/25</span>
             </div>
         
             
@@ -37,16 +37,16 @@
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">100% </span>
+                <span class="strong">0% </span>
                 <span class="quiet">Functions</span>
-                <span class='fraction'>0/0</span>
+                <span class='fraction'>0/4</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">100% </span>
+                <span class="strong">68% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>28/28</span>
+                <span class='fraction'>17/25</span>
             </div>
         
             
@@ -61,7 +61,7 @@
             </div>
         </template>
     </div>
-    <div class='status-line high'></div>
+    <div class='status-line medium'></div>
     <pre><table class="coverage">
 <tr><td class="line-count quiet"><a name='L1'></a><a href='#L1'>1</a>
 <a name='L2'></a><a href='#L2'>2</a>
@@ -87,10 +87,7 @@
 <a name='L22'></a><a href='#L22'>22</a>
 <a name='L23'></a><a href='#L23'>23</a>
 <a name='L24'></a><a href='#L24'>24</a>
-<a name='L25'></a><a href='#L25'>25</a>
-<a name='L26'></a><a href='#L26'>26</a>
-<a name='L27'></a><a href='#L27'>27</a>
-<a name='L28'></a><a href='#L28'>28</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">1x</span>
+<a name='L25'></a><a href='#L25'>25</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
@@ -100,50 +97,44 @@
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-yes">1x</span></td><td class="text"><pre class="prettyprint lang-js">import { Column, Entity, JoinTable, ManyToMany, CreateDateColumn, PrimaryGeneratedColumn, UpdateDateColumn } from "typeorm";
-import PermissionEntity from './PermissionEntity'
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span></td><td class="text"><pre class="prettyprint lang-js">import { EntityRepository, getRepository, Repository } from "typeorm";
+import RoleEntity from "../../entity/RoleEntity";
+import Role from "../../model/Role";
+import IRoleRepository from "./IRoleRepository";
 &nbsp;
-@Entity("roles")
-export default class RoleEntity {
-    @PrimaryGeneratedColumn('uuid')
-    id: string;
+@EntityRepository(RoleEntity)
+export default class RoleRepository implements IRoleRepository {
+    private repository: Repository&lt;RoleEntity&gt;
 &nbsp;
-    @CreateDateColumn({ name: 'created_At' })
-    createdAt: Date;
+<span class="fstat-no" title="function not covered" >    constructor () {</span>
+<span class="cstat-no" title="statement not covered" >        this.repository = getRepository(RoleEntity)</span>
+<span class="cstat-no" title="statement not covered" >    }</span>
 &nbsp;
-    @UpdateDateColumn({ name: 'updated_At' })
-    updatedAt: Date;
+<span class="fstat-no" title="function not covered" >    async create(role: Role | RoleEntity){</span>
+<span class="cstat-no" title="statement not covered" >        return this.repository.save(role)</span>
+<span class="cstat-no" title="statement not covered" >    }</span>
 &nbsp;
-    @Column()
-    name: string;
+<span class="fstat-no" title="function not covered" >    findByName(name: string) {</span>
+<span class="cstat-no" title="statement not covered" >        return this.repository.findOne({name})</span>
+<span class="cstat-no" title="statement not covered" >    }</span>
 &nbsp;
-    @Column()
-    description: string;
-&nbsp;
-    @ManyToMany(() =&gt; PermissionEntity)
-    @JoinTable({
-        name: "permissions_roles",
-        joinColumns: [{ name: "role_id" }],
-        inverseJoinColumns: [{ name: "permission_id" }],
-    })
-    permissions: PermissionEntity[];
+<span class="fstat-no" title="function not covered" >    findById(id: string) {</span>
+<span class="cstat-no" title="statement not covered" >        return this.repository.findOne({id})</span>
+<span class="cstat-no" title="statement not covered" >    }</span>
 }</pre></td></tr></table></pre>
 
                 <div class='push'></div><!-- for sticky footer -->
@@ -153,14 +144,14 @@ export default class RoleEntity {
                 <a href="https://istanbul.js.org/" target="_blank" rel="noopener noreferrer">istanbul</a>
                 at Thu May 19 2022 21:55:42 GMT-0300 (Horário Padrão de Brasília)
             </div>
-        <script src="../prettify.js"></script>
+        <script src="../../prettify.js"></script>
         <script>
             window.onload = function () {
                 prettyPrint();
             };
         </script>
-        <script src="../sorter.js"></script>
-        <script src="../block-navigation.js"></script>
+        <script src="../../sorter.js"></script>
+        <script src="../../block-navigation.js"></script>
     </body>
 </html>
     

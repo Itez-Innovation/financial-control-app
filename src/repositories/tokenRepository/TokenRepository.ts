@@ -3,9 +3,9 @@ import * as jwt from "jsonwebtoken"
 import { getRepository, Repository } from "typeorm"
 import RefreshTokenEntity from "../../entity/RefreshTokenEntity"
 import RefreshToken from "../../model/RefreshToken"
+import ITokenRepository from "./ITokenRepository"
 
-
-export default class TokenRepository {
+export default class TokenRepository implements ITokenRepository{
 
     private repository: Repository<RefreshTokenEntity>
 

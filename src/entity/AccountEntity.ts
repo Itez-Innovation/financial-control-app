@@ -34,13 +34,13 @@ export default class AccountEntity {
     Name: string
 
     @OneToMany(type => CashInflowEntity, input => input.account)
-    inputs: CashInflowEntity[]
+    input: CashInflowEntity[]
 
     @OneToMany(type => CashOutflowEntity, output => output.account)
-    outputs: CashOutflowEntity[]
+    output: CashOutflowEntity[]
 
     @OneToOne(type => RefreshTokenEntity, refresh => refresh.account)
-    refresh: RefreshTokenEntity
+    refresh?: RefreshTokenEntity
 
     @CreateDateColumn({ name: 'created_At' })
     createdAt: Date;
@@ -54,7 +54,7 @@ export default class AccountEntity {
         joinColumns: [{ name: "user_id" }],
         inverseJoinColumns: [{ name: "role_id" }],
     })
-    roles: RoleEntity[];
+    roles?: RoleEntity[];
 
     @ManyToMany(() => PermissionEntity)
     @JoinTable({
@@ -62,5 +62,5 @@ export default class AccountEntity {
         joinColumns: [{ name: "user_id" }],
         inverseJoinColumns: [{ name: "permission_id" }],
     })
-    permissions: PermissionEntity[];
+    permissions?: PermissionEntity[];
 }

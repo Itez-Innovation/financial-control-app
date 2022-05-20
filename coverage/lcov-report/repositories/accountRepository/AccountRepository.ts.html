@@ -23,30 +23,30 @@
         <div class='clearfix'>
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">53.33% </span>
+                <span class="strong">50.9% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>32/60</span>
+                <span class='fraction'>28/55</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
                 <span class="strong">100% </span>
                 <span class="quiet">Branches</span>
-                <span class='fraction'>1/1</span>
+                <span class='fraction'>0/0</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">12.5% </span>
+                <span class="strong">0% </span>
                 <span class="quiet">Functions</span>
-                <span class='fraction'>1/8</span>
+                <span class='fraction'>0/8</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">53.33% </span>
+                <span class="strong">50.9% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>32/60</span>
+                <span class='fraction'>28/55</span>
             </div>
         
             
@@ -117,12 +117,7 @@
 <a name='L52'></a><a href='#L52'>52</a>
 <a name='L53'></a><a href='#L53'>53</a>
 <a name='L54'></a><a href='#L54'>54</a>
-<a name='L55'></a><a href='#L55'>55</a>
-<a name='L56'></a><a href='#L56'>56</a>
-<a name='L57'></a><a href='#L57'>57</a>
-<a name='L58'></a><a href='#L58'>58</a>
-<a name='L59'></a><a href='#L59'>59</a>
-<a name='L60'></a><a href='#L60'>60</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">1x</span>
+<a name='L55'></a><a href='#L55'>55</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
@@ -134,10 +129,8 @@
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-no">&nbsp;</span>
@@ -162,11 +155,8 @@
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
@@ -181,22 +171,20 @@
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-yes">1x</span></td><td class="text"><pre class="prettyprint lang-js">import { getRepository, Repository } from 'typeorm';
+<span class="cline-any cline-yes">1x</span></td><td class="text"><pre class="prettyprint lang-js">import { EntityRepository, getRepository, Repository } from 'typeorm';
 import AccountEntity from '../../entity/AccountEntity';
-import CashInflowEntity from '../../entity/CashInflowEntity';
-import CashOutflowEntity from '../../entity/CashOutflowEntity';
 import { hash } from "bcryptjs"
-&nbsp;
 import Account from '../../model/Account';
 import IAccountRepository from './IAccountRepository';
 &nbsp;
+@EntityRepository(AccountEntity)
 export default class AccountRepository implements IAccountRepository{
 &nbsp;
     private repository: Repository&lt;AccountEntity&gt;
 &nbsp;
-    constructor() {
-        this.repository = getRepository(AccountEntity)
-    }
+<span class="fstat-no" title="function not covered" >    constructor() {</span>
+<span class="cstat-no" title="statement not covered" >        this.repository = getRepository(AccountEntity)</span>
+<span class="cstat-no" title="statement not covered" >    }</span>
 &nbsp;
 <span class="fstat-no" title="function not covered" >    async create(account: Account | AccountEntity){</span>
 <span class="cstat-no" title="statement not covered" >        return this.repository.save(account)</span>
@@ -219,17 +207,14 @@ export default class AccountRepository implements IAccountRepository{
 <span class="cstat-no" title="statement not covered" >    }</span>
 &nbsp;
 <span class="fstat-no" title="function not covered" >    async get_all(){</span>
-<span class="cstat-no" title="statement not covered" >        const accounts = await this.repository.find();</span>
-<span class="cstat-no" title="statement not covered" >        return accounts;</span>
+<span class="cstat-no" title="statement not covered" >        return this.repository.find();</span>
 <span class="cstat-no" title="statement not covered" >    }</span>
 &nbsp;
 <span class="fstat-no" title="function not covered" >    async getStats(idS: string){</span>
-<span class="cstat-no" title="statement not covered" >        </span>
-<span class="cstat-no" title="statement not covered" >        const stats = await this.repository.find({</span>
+<span class="cstat-no" title="statement not covered" >        return this.repository.find({</span>
 <span class="cstat-no" title="statement not covered" >            relations: ['inputs', 'outputs'],</span>
 <span class="cstat-no" title="statement not covered" >            where: { id: idS }</span>
 <span class="cstat-no" title="statement not covered" >        })</span>
-<span class="cstat-no" title="statement not covered" >        return stats</span>
 <span class="cstat-no" title="statement not covered" >    }</span>
 &nbsp;
 <span class="fstat-no" title="function not covered" >    findByCpf(CPF: string){</span>
@@ -247,7 +232,7 @@ export default class AccountRepository implements IAccountRepository{
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank" rel="noopener noreferrer">istanbul</a>
-                at Wed May 18 2022 18:32:08 GMT-0300 (Horário Padrão de Brasília)
+                at Thu May 19 2022 21:55:42 GMT-0300 (Horário Padrão de Brasília)
             </div>
         <script src="../../prettify.js"></script>
         <script>
