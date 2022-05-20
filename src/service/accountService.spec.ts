@@ -42,5 +42,7 @@ describe("Account Service", () => {
 
         expect(account.id).not.toEqual(undefined)
         expect(account.Name).toEqual(newAccount.Name)
+        expect(account.CPF).toEqual(newAccount.CPF)
+        expect(account.password).toEqual(newAccount.password)
     })
 })
