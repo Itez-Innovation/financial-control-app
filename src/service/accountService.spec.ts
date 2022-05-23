@@ -1,4 +1,5 @@
 import CreateAccountDto from "../dto/account/createAccountDto";
+import ConflictError from "../exceptions/conflictError";
 import Account from "../model/Account";
 import AccountRepository from "../repositories/accountRepository/AccountRepository";
 import PermissionRepository from "../repositories/permissionRepository/PermissionRepository";
@@ -36,7 +37,7 @@ const newAccount = new Account(dto);
 describe("Account Service", () => {
     it("should be able to create a new account", async () => {
 
-        accountRepositoryMock.create.mockResolvedValueOnce(newAccount)
+        accountRepositoryMock.create.mockResolvedValue(newAccount)
 
         const account = await service.create(newAccount);
 
@@ -46,7 +47,12 @@ describe("Account Service", () => {
         expect(account.password).toEqual(newAccount.password)
     });
 
-    it("should not be able to create an existing account", async () => {
-        
-    })
+    // it("should not be able to create an existing account", async () => {
+    //     accountRepositoryMock.create.mockResolvedValueOnce(newAccount)
+    //     // Primeira vez (deve funcionar)
+    //     const ans = await service.create(newAccount);
+    //     // Segunda vez (deve retornar erro)
+    //     await expect(service.create(newAccount))
+    //     .rejects.toEqual(new ConflictError(`This account ${dto.CPF} already exists`))
+    // })
 })

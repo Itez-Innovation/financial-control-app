@@ -3,7 +3,7 @@ import CreateAccountDto from "../dto/account/createAccountDto";
 import CreateAclDto from "../dto/account/createAclDto";
 import * as jwt from "jsonwebtoken"
 import { compare } from "bcryptjs";
-import * as dayjs from 'dayjs'
+import dayjs from 'dayjs';
 import NotFoundError from "../exceptions/notFoundError";
 import CustomError from "../exceptions/customError";
 import ConflictError from "../exceptions/conflictError";
@@ -25,6 +25,8 @@ export default class AccountService {
     async create(dto: CreateAccountDto) {
         try{
             const accountAlreadyExists = await this.repository.findByCpf(dto.CPF)
+
+            console.log("AQUI: ", accountAlreadyExists)
 
             if(accountAlreadyExists) throw new ConflictError(`This account ${dto.CPF} already exists`)
 

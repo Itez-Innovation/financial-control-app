@@ -1,4 +1,4 @@
-import * as express from "express";
+import express from "express";
 import exceptionHandler from "./middleware/exceptionHandler";
 import accountRoute from "./routes/account.routes";
 import adminRoute from "./routes/admin.routes";
@@ -18,4 +18,4 @@ app.use(cashOutflowRoute)
 app.use(adminRoute)
 app.use(exceptionHandler)
 
-export default app
+export { app }

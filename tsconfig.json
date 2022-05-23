@@ -15,5 +15,6 @@
       "experimentalDecorators": true,
       "sourceMap": true,
       "skipLibCheck": true,
+      "esModuleInterop": true,
    }
 }
