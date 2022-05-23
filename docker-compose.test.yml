@@ -6,7 +6,7 @@ services:
     image: postgres
     container_name: test
     ports:
-      - 5433:5433
+      - 5432:5432
     environment:
       POSTGRES_DB: test
       POSTGRES_USER: test

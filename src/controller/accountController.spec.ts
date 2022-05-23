@@ -1,4 +1,4 @@
-import {app} from "../app"
+import app from "../app"
 import request from "supertest"
 import CreateAccountDto from "../dto/account/createAccountDto"
 import AccountRepository from "../repositories/accountRepository/AccountRepository"
@@ -41,7 +41,9 @@ describe("Create User Controller", () => {
         // await createConnections()
         // const defaultConnection = getConnection('default')
 
-        const ans = request(app)
+        
+
+        const ans = await request(app)
         .post("/accounts")
         .send({
             CPF: dto.CPF,
@@ -49,6 +51,8 @@ describe("Create User Controller", () => {
             password: dto.password
         })
 
-        console.log(ans);
+        
+
+        console.log(ans.status);
     })
 })

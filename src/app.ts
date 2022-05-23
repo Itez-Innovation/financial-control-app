@@ -18,4 +18,4 @@ app.use(cashOutflowRoute)
 app.use(adminRoute)
 app.use(exceptionHandler)
 
-export { app }
+export default app
