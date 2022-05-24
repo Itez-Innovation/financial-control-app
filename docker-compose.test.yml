@@ -4,10 +4,10 @@ services:
 
   db:
     image: postgres
-    container_name: test
+    container_name: prod
     ports:
       - 5432:5432
     environment:
-      POSTGRES_DB: test
-      POSTGRES_USER: test
-      POSTGRES_PASSWORD: test
+      POSTGRES_DB: prod
+      POSTGRES_USER: prod
+      POSTGRES_PASSWORD: prod
