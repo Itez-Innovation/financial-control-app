@@ -1,4 +1,4 @@
-console.log('process.env.DATABASE_URL :>> ', process.env.DATABASE_URL);
+// console.log('process.env.DATABASE_URL :>> ', process.env.DATABASE_URL);
 module.exports = process.env.ENVIRONMENT == "test"? {
   "type": "postgres",
     host: "localhost",

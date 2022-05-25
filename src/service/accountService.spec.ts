@@ -37,7 +37,7 @@ const newAccount = new Account(dto);
 describe("Account Service", () => {
     it("should be able to create a new account", async () => {
 
-        accountRepositoryMock.create.mockResolvedValue(newAccount)
+        accountRepositoryMock.create.mockResolvedValueOnce(newAccount)
 
         const account = await service.create(newAccount);
 
@@ -49,10 +49,14 @@ describe("Account Service", () => {
 
     it("should not be able to create an existing account", async () => {
         accountRepositoryMock.create.mockResolvedValueOnce(newAccount)
+        accountRepositoryMock.findByCpf.mockResolvedValueOnce(newAccount)
+
         // Primeira vez (deve funcionar)
         await service.create(newAccount);
+
         // Segunda vez (deve retornar erro)
-        await expect(service.create(newAccount))
+        expect(() => {service.create(newAccount)})
+        // .toThrowError(ConflictError)
         .rejects.toEqual(new ConflictError(`This account ${dto.CPF} already exists`))
     })
 })
