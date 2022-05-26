@@ -13,6 +13,7 @@ import IAccountRepository from "../repositories/accountRepository/IAccountReposi
 import ITokenRepository from "../repositories/tokenRepository/ITokenRepository";
 import IPermissionRepository from "../repositories/permissionRepository/IPermissionRepository";
 import IRoleRepository from "../repositories/roleRepository/IRoleRepository";
+import AccountEntity from "../entity/AccountEntity";
 
 export default class AccountService {
     constructor(
@@ -26,9 +27,9 @@ export default class AccountService {
         try{
             const accountAlreadyExists = await this.repository.findByCpf(dto.CPF)
 
-            console.log("AQUI: ", accountAlreadyExists)
+            if(accountAlreadyExists instanceof AccountEntity) throw new ConflictError(`This account ${dto.CPF} already exists`)
 
-            if(accountAlreadyExists) throw new ConflictError(`This account ${dto.CPF} already exists`)
+            console.log("AQUI: ", accountAlreadyExists)
 
             const newAccount = new Account(dto)
 

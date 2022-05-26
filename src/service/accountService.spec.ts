@@ -55,8 +55,8 @@ describe("Account Service", () => {
         await service.create(newAccount);
 
         // Segunda vez (deve retornar erro)
-        expect(() => {service.create(newAccount)})
-        // .toThrowError(ConflictError)
+        expect(await service.create(newAccount))
+        // .toThrowError(new ConflictError(`This account ${dto.CPF} already exists`))
         .rejects.toEqual(new ConflictError(`This account ${dto.CPF} already exists`))
     })
 })
