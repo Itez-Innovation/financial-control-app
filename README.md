@@ -1,3 +1,4 @@
+<!---
 <p align="center">
   <a href="http://nestjs.com/" target="blank"><img src="https://nestjs.com/img/logo-small.svg" width="200" alt="Nest Logo" /></a>
 </p>
@@ -19,9 +20,6 @@
     <a href="https://opencollective.com/nest#sponsor"  target="_blank"><img src="https://img.shields.io/badge/Support%20us-Open%20Collective-41B883.svg" alt="Support us"></a>
   <a href="https://twitter.com/nestframework" target="_blank"><img src="https://img.shields.io/twitter/follow/nestframework.svg?style=social&label=Follow"></a>
 </p>
-  <!--[![Backers on Open Collective](https://opencollective.com/nest/backers/badge.svg)](https://opencollective.com/nest#backer)
-  [![Sponsors on Open Collective](https://opencollective.com/nest/sponsors/badge.svg)](https://opencollective.com/nest#sponsor)-->
-
 ## Description
 
 [Nest](https://github.com/nestjs/nest) framework TypeScript starter repository.
@@ -71,3 +69,22 @@ Nest is an MIT-licensed open source project. It can grow thanks to the sponsors 
 ## License
 
 Nest is [MIT licensed](LICENSE).
+-->
+# Aplicação de Controle Financeiro
+
+<p style='align: center;'>Em geral, ter uma boa visão dos seus ganhos e gastos é um ótimo "Primeiro Passo" para alcançar uma melhor saúde financeira.
+Dessa forma, você deverá desenvolver uma aplicação de controle financeiro, para auxiliar aqueles que desejam melhorar o relacionamento com o seu "bolso".
+A seguir você encontrará todos os requisitos!</p>
+
+
+> - Requisitos Funcionais: 
+>    - O usuário deve poder se cadastrar no seu app.
+>    - Haverão 5 áreas de gastos: Entretenimento, Alimentação, Educação, Saúde e Transporte.
+>    - Deve ser possível adicionar, remover, atualizar e listar os gastos e ganhos.
+>    - O usuário deve conseguir ter uma visão geral da sua saúde financeira a qualquer momento.
+        para isso, gere um extrato financeiro mostrando todos os gastos (seguindo as 5 áreas supracitadas) e seus ganhos.
+
+
+> - Requisitos não funcionais:
+>    - Utilizar o Git/Github para versionamento do seu código.
+>    - Use TypeScript!

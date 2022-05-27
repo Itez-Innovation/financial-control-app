@@ -1,0 +1,9 @@
+{
+    "type": "postgres",
+    "host": "localhost",
+    "port": 5432,
+    "username": "finance",
+    "password": "finance",
+    "database": "finance",
+    "entities": ["dist/**/*.entity{.ts,.js}"]
+  }
