@@ -8,9 +8,10 @@ import { CashInflowModule } from './cash-inflow/cash-inflow.module';
 import { CashOutflowModule } from './cash-outflow/cash-outflow.module';
 import { PermissionModule } from './permission/permission.module';
 import { RoleModule } from './role/role.module';
+import { RefreshTokenModule } from './refresh-token/refresh-token.module';
 
 @Module({
-  imports: [TypeOrmModule.forRoot(), CashInflowModule, CashOutflowModule, PermissionModule, RoleModule],
+  imports: [TypeOrmModule.forRoot(), CashInflowModule, CashOutflowModule, PermissionModule, RoleModule, RefreshTokenModule],
   controllers: [AppController],
   providers: [AppService, DatabaseService],
 })

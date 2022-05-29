@@ -9,7 +9,7 @@ import {
   ManyToMany,
   JoinTable,
 } from 'typeorm';
-import { RefreshTokenEntity } from '../../entity/refreshToken.entity';
+import { RefreshTokenEntity } from '../../refresh-token/entity/refreshToken.entity';
 import { CashInflowEntity } from '../../cash-inflow/entity/cash-inflow.entity';
 import { CashOutflowEntity } from '../../cash-outflow/entity/cash-outflow.entity';
 import { PermissionEntity } from '../../permission/entity/permission.entity';
