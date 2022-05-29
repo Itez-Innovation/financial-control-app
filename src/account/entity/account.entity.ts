@@ -9,11 +9,11 @@ import {
   ManyToMany,
   JoinTable,
 } from 'typeorm';
-import { RefreshTokenEntity } from './refreshToken.entity';
-import { CashInflowEntity } from './cashInflow.entity';
-import { CashOutflowEntity } from './cashOutflowEntity';
-import { PermissionEntity } from './permission.entity';
-import { RoleEntity } from './role.entity';
+import { RefreshTokenEntity } from '../../entity/refreshToken.entity';
+import { CashInflowEntity } from '../../cash-inflow/entity/cash-inflow.entity';
+import { CashOutflowEntity } from '../../entity/cash-outflowEntity';
+import { PermissionEntity } from '../../entity/permission.entity';
+import { RoleEntity } from '../../entity/role.entity';
 
 @Entity()
 export class AccountEntity {

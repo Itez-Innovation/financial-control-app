@@ -7,24 +7,17 @@ import {
   ManyToOne,
   JoinColumn,
 } from 'typeorm';
-import { AccountEntity } from './account.entity';
+import { AccountEntity } from '../../account/entity/account.entity';
 
 @Entity()
-export class CashOutflowEntity {
+export class CashInflowEntity {
   @PrimaryGeneratedColumn('uuid')
   id: string;
-
-  @Column({
-    unique: false,
-    nullable: false,
-  })
-  Area: string;
 
   @Column()
   Titulo: string;
 
   @Column({
-    nullable: false,
     type: 'float4',
   })
   Valor: number;
@@ -32,7 +25,7 @@ export class CashOutflowEntity {
   @Column()
   account_id: string;
 
-  @ManyToOne((type) => AccountEntity, (account) => account.output, {
+  @ManyToOne((type) => AccountEntity, (account) => account.input, {
     onDelete: 'CASCADE',
   })
   @JoinColumn({ name: 'account_id' })
