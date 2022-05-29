@@ -11,9 +11,9 @@ import {
 } from 'typeorm';
 import { RefreshTokenEntity } from '../../entity/refreshToken.entity';
 import { CashInflowEntity } from '../../cash-inflow/entity/cash-inflow.entity';
-import { CashOutflowEntity } from '../../entity/cash-outflowEntity';
-import { PermissionEntity } from '../../entity/permission.entity';
-import { RoleEntity } from '../../entity/role.entity';
+import { CashOutflowEntity } from '../../cash-outflow/entity/cash-outflow.entity';
+import { PermissionEntity } from '../../permission/entity/permission.entity';
+import { RoleEntity } from '../../role/entity/role.entity';
 
 @Entity()
 export class AccountEntity {

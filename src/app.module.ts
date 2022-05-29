@@ -5,9 +5,12 @@ import { DatabaseService } from './database/database.service';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { Connection } from 'typeorm';
 import { CashInflowModule } from './cash-inflow/cash-inflow.module';
+import { CashOutflowModule } from './cash-outflow/cash-outflow.module';
+import { PermissionModule } from './permission/permission.module';
+import { RoleModule } from './role/role.module';
 
 @Module({
-  imports: [TypeOrmModule.forRoot(), CashInflowModule],
+  imports: [TypeOrmModule.forRoot(), CashInflowModule, CashOutflowModule, PermissionModule, RoleModule],
   controllers: [AppController],
   providers: [AppService, DatabaseService],
 })
