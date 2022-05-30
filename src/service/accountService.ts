@@ -27,7 +27,7 @@ export default class AccountService {
         try{
             const accountAlreadyExists = await this.repository.findByCpf(dto.CPF)
 
-            if(accountAlreadyExists instanceof AccountEntity) throw new ConflictError(`This account ${dto.CPF} already exists`)
+            if(accountAlreadyExists) throw new ConflictError(`This account ${dto.CPF} already exists`)
 
             console.log("AQUI: ", accountAlreadyExists)
 

@@ -1,3 +1,4 @@
+import { response } from "express";
 import CreateAccountDto from "../dto/account/createAccountDto";
 import ConflictError from "../exceptions/conflictError";
 import Account from "../model/Account";
@@ -48,15 +49,13 @@ describe("Account Service", () => {
     });
 
     it("should not be able to create an existing account", async () => {
-        accountRepositoryMock.create.mockResolvedValueOnce(newAccount)
         accountRepositoryMock.findByCpf.mockResolvedValueOnce(newAccount)
 
         // Primeira vez (deve funcionar)
-        await service.create(newAccount);
+        const response = service.create(newAccount);
 
         // Segunda vez (deve retornar erro)
-        expect(await service.create(newAccount))
-        // .toThrowError(new ConflictError(`This account ${dto.CPF} already exists`))
+        await expect(response)
         .rejects.toEqual(new ConflictError(`This account ${dto.CPF} already exists`))
     })
 })
