@@ -1,5 +1,5 @@
 
-import { Check, Column, Entity, JoinColumn, OneToOne, PrimaryGeneratedColumn } from 'typeorm';
+import { Column, Entity, JoinColumn, OneToOne, PrimaryGeneratedColumn } from 'typeorm';
 import Account from './AccountEntity';
 
 @Entity('refreshToken')

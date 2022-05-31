@@ -18,7 +18,9 @@ export default class TokenRepository implements ITokenRepository{
 
         const refreshToken = new RefreshToken({ refToken, account_id })
 
-        return this.repository.save(refreshToken)
+        const result: RefreshTokenEntity | RefreshToken = await this.repository.save(refreshToken)
+
+        return result
     }
 
     async generateToken(account_id: string) {

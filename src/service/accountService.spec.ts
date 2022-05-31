@@ -1,5 +1,6 @@
 import CreateAccountDto from "../dto/account/createAccountDto";
 import CreateOutputDto from '../dto/output/createOutputDto'
+import CreateRefreshTokenDto from "../dto/refreshToken/createRefreshTokenDto";
 import ConflictError from "../exceptions/conflictError";
 import NotFoundError from "../exceptions/notFoundError";
 import Account from "../model/Account";
@@ -11,6 +12,8 @@ import AccountService from "./accountService"
 import CreateInputDto from "../dto/input/createInputDto";
 import CashInflow from "../model/CashInflow";
 import CashOutflow, { setores } from "../model/CashOutflow";
+import * as jwt from "jsonwebtoken"
+import RefreshToken from "../model/RefreshToken";
 
 jest.mock("../repositories/accountRepository/AccountRepository")
 const accountRepository = AccountRepository as jest.Mock<AccountRepository>
@@ -33,6 +36,7 @@ const service = new AccountService(accountRepositoryMock, tokenRepositoryMock, p
 
 // --------------------------------- //
 const dto = new CreateAccountDto()
+dto.id = "e292f9fa-24e5-4a04-b27f-21a500ab48e6"
 dto.CPF = "11111111111"
 dto.Name = "Teste"
 dto.password = "Teste1"
@@ -41,8 +45,9 @@ const newAccount = new Account(dto);
 dto.CPF = "22222222222"
 dto.Name = "Teste2"
 dto.password = "Teste2"
-const newAccount2 = new Account(dto, newAccount.id);
+const newAccount2 = new Account(dto);
 
+dto.id = "3973fbde-e0ff-4e3c-a196-abb8e5558409"
 dto.CPF = "33333333333"
 dto.Name = "Teste3"
 dto.password = "Teste3"
@@ -63,6 +68,15 @@ const newOutput = new CashOutflow(dto3)
 
 newAccount.input = [newInput]
 newAccount.output = [newOutput]
+
+const refToken = jwt.sign({userId: newAccount.id}, process.env.SECRET, { expiresIn: "1h", subject: newAccount.id })
+const dto4 = new CreateRefreshTokenDto
+dto4.account_id = newAccount.id
+dto4.account = newAccount
+dto4.refToken = refToken
+const newRefToken: RefreshToken = new RefreshToken(dto4)
+
+const token = jwt.sign({userId: newAccount.id}, process.env.SECRET, { expiresIn: "1h", subject: newAccount.id })
 // --------------------------------- //
 
 describe("Account Service", () => {
@@ -128,5 +142,16 @@ describe("Account Service", () => {
         
         expect(response.at(0).input).toEqual([newInput])
         expect(response.at(0).output).toEqual([newOutput])
+    });
+
+    it("should be able to login", async () => {
+        accountRepositoryMock.findByCpf.mockResolvedValue(newAccount);
+        tokenRepositoryMock.generateRefreshToken.mockResolvedValueOnce(newRefToken);
+        tokenRepositoryMock.generateToken.mockResolvedValueOnce(token);
+
+        const response = await service.login(newAccount.CPF, newAccount.password);
+
+        console.log(response)
+
     });
 })
