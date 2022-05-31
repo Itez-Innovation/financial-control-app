@@ -1,9 +1,9 @@
-import RefreshTokenEntity from './refreshToken.entity';
-import CashInflowEntity from './cashInflow.entity';
-import CashOutflowEntity from './cashOutflowEntity';
-import PermissionEntity from './permission.entity';
-import RoleEntity from './role.entity';
-export default class AccountEntity {
+import { RefreshTokenEntity } from './refreshToken.entity';
+import { CashInflowEntity } from './cash-inflow.entity';
+import { CashOutflowEntity } from './cash-outflow.entity';
+import { PermissionEntity } from './permission.entity';
+import { RoleEntity } from './role.entity';
+export declare class AccountEntity {
     id: string;
     password: string;
     Name: string;

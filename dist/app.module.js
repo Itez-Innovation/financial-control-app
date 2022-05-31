@@ -16,6 +16,11 @@ const app_service_1 = require("./app.service");
 const database_service_1 = require("./database/database.service");
 const typeorm_1 = require("@nestjs/typeorm");
 const typeorm_2 = require("typeorm");
+const cash_inflow_module_1 = require("./module/cash-inflow.module");
+const cash_outflow_module_1 = require("./module/cash-outflow.module");
+const permission_module_1 = require("./module/permission.module");
+const role_module_1 = require("./module/role.module");
+const refresh_token_module_1 = require("./module/refresh-token.module");
 let AppModule = class AppModule {
     constructor(connection) {
         this.connection = connection;
@@ -23,7 +28,7 @@ let AppModule = class AppModule {
 };
 AppModule = __decorate([
     (0, common_1.Module)({
-        imports: [typeorm_1.TypeOrmModule.forRoot()],
+        imports: [typeorm_1.TypeOrmModule.forRoot(), cash_inflow_module_1.CashInflowModule, cash_outflow_module_1.CashOutflowModule, permission_module_1.PermissionModule, role_module_1.RoleModule, refresh_token_module_1.RefreshTokenModule],
         controllers: [app_controller_1.AppController],
         providers: [app_service_1.AppService, database_service_1.DatabaseService],
     }),
