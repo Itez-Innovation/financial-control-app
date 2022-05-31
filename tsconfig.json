@@ -16,5 +16,6 @@
       "sourceMap": true,
       "skipLibCheck": true,
       "esModuleInterop": true,
+      "baseUrl": "./"
    }
 }

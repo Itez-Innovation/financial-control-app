@@ -16,7 +16,7 @@ describe("Create User Controller", () => {
 
     it("Should be able to create a new user", async () => {
 
-        const ans = await Request(getApp())
+        const response = Request(getApp())
         .post("/accounts")
         .send({
             CPF: dto.CPF,
@@ -24,7 +24,6 @@ describe("Create User Controller", () => {
             password: dto.password
         })
 
-        console.log(ans.status);
-        return ans.status;
+        return await response
     })
 })

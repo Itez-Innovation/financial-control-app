@@ -30,6 +30,8 @@ export default class AccountRepository implements IAccountRepository{
 
         await this.repository.save(acc);
 
+        console.log(acc)
+
         return acc;
     }
 

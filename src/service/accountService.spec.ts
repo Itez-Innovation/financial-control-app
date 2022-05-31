@@ -1,6 +1,7 @@
-import { response } from "express";
+import AccountEntity from "../entity/AccountEntity";
 import CreateAccountDto from "../dto/account/createAccountDto";
 import ConflictError from "../exceptions/conflictError";
+import NotFoundError from "../exceptions/notFoundError";
 import Account from "../model/Account";
 import AccountRepository from "../repositories/accountRepository/AccountRepository";
 import PermissionRepository from "../repositories/permissionRepository/PermissionRepository";
@@ -33,6 +34,11 @@ dto.CPF = "11111111111"
 dto.Name = "Teste"
 dto.password = "Teste123"
 const newAccount = new Account(dto);
+
+dto.CPF = "22222222222"
+dto.Name = "Teste2"
+dto.password = "Teste2"
+const newAccount2 = new Account(dto, newAccount.id);
 // --------------------------------- //
 
 describe("Account Service", () => {
@@ -57,5 +63,22 @@ describe("Account Service", () => {
         // Segunda vez (deve retornar erro)
         await expect(response)
         .rejects.toEqual(new ConflictError(`This account ${dto.CPF} already exists`))
-    })
+    });
+
+    it("should not be able to delete an account that does not exists", async () => {
+        const response = service.delete(newAccount.id);
+        
+        await expect(response)
+        .rejects.toEqual(new NotFoundError(`Account ${newAccount.id}`))
+    });
+
+    it("should be able to update an existing account", async () => {
+        accountRepositoryMock.findById.mockResolvedValueOnce(newAccount);
+        accountRepositoryMock.update.mockResolvedValueOnce(newAccount2);
+        
+        const response = service.update("22222222222", "Teste2", "Teste2", newAccount2.id)
+        
+        await expect(response)
+
+    });
 })
