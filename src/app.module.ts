@@ -4,11 +4,11 @@ import { AppService } from './app.service';
 import { DatabaseService } from './database/database.service';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { Connection } from 'typeorm';
-import { CashInflowModule } from './cash-inflow/cash-inflow.module';
-import { CashOutflowModule } from './cash-outflow/cash-outflow.module';
-import { PermissionModule } from './permission/permission.module';
-import { RoleModule } from './role/role.module';
-import { RefreshTokenModule } from './refresh-token/refresh-token.module';
+import { CashInflowModule } from './module/cash-inflow.module';
+import { CashOutflowModule } from './module/cash-outflow.module';
+import { PermissionModule } from './module/permission.module';
+import { RoleModule } from './module/role.module';
+import { RefreshTokenModule } from './module/refresh-token.module';
 
 @Module({
   imports: [TypeOrmModule.forRoot(), CashInflowModule, CashOutflowModule, PermissionModule, RoleModule, RefreshTokenModule],

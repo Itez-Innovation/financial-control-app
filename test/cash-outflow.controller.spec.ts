@@ -1,5 +1,5 @@
 import { Test, TestingModule } from '@nestjs/testing';
-import { CashOutflowController } from './cash-outflow.controller';
+import { CashOutflowController } from '../src/controller/cash-outflow.controller';
 
 describe('CashOutflowController', () => {
   let controller: CashOutflowController;

@@ -1,6 +1,6 @@
 import { Module } from '@nestjs/common';
-import { CashOutflowController } from './cash-outflow.controller';
-import { CashOutflowService } from './cash-outflow.service';
+import { CashOutflowController } from '../controller/cash-outflow.controller';
+import { CashOutflowService } from '../service/cash-outflow.service';
 
 @Module({
   controllers: [CashOutflowController],

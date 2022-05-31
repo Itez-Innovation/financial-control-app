@@ -5,7 +5,7 @@ import {
   OneToOne,
   PrimaryGeneratedColumn,
 } from 'typeorm';
-import { AccountEntity } from '../../account/entity/account.entity';
+import { AccountEntity } from './account.entity';
 
 @Entity('refreshToken')
 export class RefreshTokenEntity {
