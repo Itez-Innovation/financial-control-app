@@ -1,5 +1,5 @@
-import AccountEntity from "../entity/AccountEntity";
 import CreateAccountDto from "../dto/account/createAccountDto";
+import CreateOutputDto from '../dto/output/createOutputDto'
 import ConflictError from "../exceptions/conflictError";
 import NotFoundError from "../exceptions/notFoundError";
 import Account from "../model/Account";
@@ -8,6 +8,9 @@ import PermissionRepository from "../repositories/permissionRepository/Permissio
 import RoleRepository from "../repositories/roleRepository/RoleRepository";
 import TokenRepository from "../repositories/tokenRepository/TokenRepository";
 import AccountService from "./accountService"
+import CreateInputDto from "../dto/input/createInputDto";
+import CashInflow from "../model/CashInflow";
+import CashOutflow, { setores } from "../model/CashOutflow";
 
 jest.mock("../repositories/accountRepository/AccountRepository")
 const accountRepository = AccountRepository as jest.Mock<AccountRepository>
@@ -32,13 +35,34 @@ const service = new AccountService(accountRepositoryMock, tokenRepositoryMock, p
 const dto = new CreateAccountDto()
 dto.CPF = "11111111111"
 dto.Name = "Teste"
-dto.password = "Teste123"
+dto.password = "Teste1"
 const newAccount = new Account(dto);
 
 dto.CPF = "22222222222"
 dto.Name = "Teste2"
 dto.password = "Teste2"
 const newAccount2 = new Account(dto, newAccount.id);
+
+dto.CPF = "33333333333"
+dto.Name = "Teste3"
+dto.password = "Teste3"
+const newAccount3 = new Account(dto);
+
+const dto2 = new CreateInputDto()
+dto2.Titulo = "Input1"
+dto2.Valor = 50.5
+dto2.account_id = newAccount.id
+const newInput = new CashInflow(dto2)
+
+const dto3 = new CreateOutputDto()
+dto3.Titulo = "Output1"
+dto3.Valor = 50.5
+dto3.Area = setores.education
+dto3.account_id = newAccount.id
+const newOutput = new CashOutflow(dto3)
+
+newAccount.input = [newInput]
+newAccount.output = [newOutput]
 // --------------------------------- //
 
 describe("Account Service", () => {
@@ -76,9 +100,33 @@ describe("Account Service", () => {
         accountRepositoryMock.findById.mockResolvedValueOnce(newAccount);
         accountRepositoryMock.update.mockResolvedValueOnce(newAccount2);
         
-        const response = service.update("22222222222", "Teste2", "Teste2", newAccount2.id)
+        const response = await service.update("22222222222", "Teste2", "Teste2", newAccount2.id)
         
-        await expect(response)
+        expect(response).toEqual(newAccount2)
+    });
 
+    it("should be able to read an existing account", async () => {
+        accountRepositoryMock.findById.mockResolvedValue(newAccount);
+
+        const response = await service.read(newAccount.id);
+
+        expect(response).toEqual(newAccount);
+    });
+
+    it("should be able to read all accounts", async () => {
+        accountRepositoryMock.get_all.mockResolvedValue([newAccount, newAccount3]);
+    
+        const response = await service.readAll();
+
+        expect(response).toEqual([newAccount, newAccount3]);
+    });
+
+    it("should be able to get stats of an account", async () => {
+        accountRepositoryMock.getStats.mockResolvedValueOnce([newAccount]);
+
+        const response = await service.getStats(newAccount.id);
+        
+        expect(response.at(0).input).toEqual([newInput])
+        expect(response.at(0).output).toEqual([newOutput])
     });
 })

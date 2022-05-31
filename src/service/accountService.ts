@@ -74,7 +74,7 @@ export default class AccountService {
 
             if(!accountFound) throw new NotFoundError(`Account ${id}`)
 
-            return this.repository.findById(id)
+            return accountFound
         } catch(error){
             if(error instanceof CustomError) throw error
             else throw new Error("Internal server error")
@@ -87,7 +87,7 @@ export default class AccountService {
 
             if(!accountsFound) throw new NotFoundError(`No accounts were found`)
 
-            return this.repository.get_all()
+            return accountsFound
         } catch(error){
             if(error instanceof CustomError) throw error
             else throw new Error("Internal server error")
