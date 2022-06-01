@@ -1,0 +1,13 @@
+version: '3.7'
+
+services:
+
+  db:
+    image: postgres
+    container_name: finance
+    ports:
+      - 5432:5432
+    environment:
+      POSTGRES_DB: finance
+      POSTGRES_USER: finance
+      POSTGRES_PASSWORD: finance
