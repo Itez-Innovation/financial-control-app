@@ -1,4 +1,4 @@
-export declare enum setores {
+export declare enum ESetores {
     groceries = "Alimenta\u00E7\u00E3o",
     education = "Educa\u00E7\u00E3o",
     entertainment = "Entretenimento",

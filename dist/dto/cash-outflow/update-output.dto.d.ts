@@ -1,6 +1,6 @@
-import { setores } from '../../enum/setores.enum';
+import { ESetores } from '../../enum/setores.enum';
 export declare class CreateInputDto {
-    Area: setores;
+    Area: ESetores;
     Titulo: string;
     Valor: number;
 }

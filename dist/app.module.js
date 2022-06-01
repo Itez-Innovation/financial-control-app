@@ -11,9 +11,6 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.AppModule = void 0;
 const common_1 = require("@nestjs/common");
-const app_controller_1 = require("./app.controller");
-const app_service_1 = require("./app.service");
-const database_service_1 = require("./database/database.service");
 const typeorm_1 = require("@nestjs/typeorm");
 const typeorm_2 = require("typeorm");
 const cash_inflow_module_1 = require("./module/cash-inflow.module");
@@ -28,9 +25,16 @@ let AppModule = class AppModule {
 };
 AppModule = __decorate([
     (0, common_1.Module)({
-        imports: [typeorm_1.TypeOrmModule.forRoot(), cash_inflow_module_1.CashInflowModule, cash_outflow_module_1.CashOutflowModule, permission_module_1.PermissionModule, role_module_1.RoleModule, refresh_token_module_1.RefreshTokenModule],
-        controllers: [app_controller_1.AppController],
-        providers: [app_service_1.AppService, database_service_1.DatabaseService],
+        imports: [
+            typeorm_1.TypeOrmModule.forRoot(),
+            cash_inflow_module_1.CashInflowModule,
+            cash_outflow_module_1.CashOutflowModule,
+            permission_module_1.PermissionModule,
+            role_module_1.RoleModule,
+            refresh_token_module_1.RefreshTokenModule,
+        ],
+        controllers: [],
+        providers: [],
     }),
     __metadata("design:paramtypes", [typeorm_2.Connection])
 ], AppModule);
