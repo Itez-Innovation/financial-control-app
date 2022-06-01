@@ -21,6 +21,8 @@ model account {
   input         cashInflow[]
   output        cashOutflow[]
   permissions   permissions[] @relation(references: [id])
+  roles         roles[]       @relation(references: [id])
+  refresh       refreshToken?
 }
 
 model cashInflow {
@@ -56,3 +58,20 @@ model permissions {
   accounts      account[]     @relation(references: [id])
 }
 
+model refreshToken {
+  id            String        @id @default(uuid())
+  refToken      String        
+  // Relations
+  account       account       @relation(fields: [account_id], references: [id])
+  account_id    String
+}
+
+model roles {
+  id            String        @id @default(uuid())
+  name          String
+  description   String
+  createdAt     DateTime      @default(now())
+  updatedAt     DateTime      @updatedAt
+  // Relations
+  accounts      account[]     @relation(references: [id])
+}
