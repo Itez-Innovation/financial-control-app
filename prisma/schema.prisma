@@ -10,6 +10,24 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
-model Account {
-  
+model account {
+  id            String       @id @default(uuid())
+  createdAt     DateTime     @default(now())
+  updatedAt     DateTime     @updatedAt
+  password      String
+  Name          String
+  CPF           String       @unique @db.VarChar(14) 
+  // Relations
+  input         cashInflow[]
 }
+
+model cashInflow {
+  id            String       @id @default(uuid())
+  Titulo        String
+  Valor         Float
+  createdAt     DateTime     @default(now())
+  updatedAt     DateTime     @updatedAt
+  account       account      @relation(fields: [account_id], references: [id])
+  account_id    String
+}
+
