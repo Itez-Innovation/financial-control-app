@@ -20,6 +20,7 @@ model account {
   // Relations
   input         cashInflow[]
   output        cashOutflow[]
+  permissions   permissions[] @relation(references: [id])
 }
 
 model cashInflow {
@@ -51,5 +52,7 @@ model permissions {
   description   String
   createdAt     DateTime      @default(now())
   updatedAt     DateTime      @updatedAt
+  // Relations
+  accounts      account[]     @relation(references: [id])
 }
 
