@@ -18,6 +18,23 @@ const cash_outflow_module_1 = require("./module/cash-outflow.module");
 const permission_module_1 = require("./module/permission.module");
 const role_module_1 = require("./module/role.module");
 const refresh_token_module_1 = require("./module/refresh-token.module");
+const account_entity_1 = require("./entity/account.entity");
+const cash_inflow_entity_1 = require("./entity/cash-inflow.entity");
+const cash_outflow_entity_1 = require("./entity/cash-outflow.entity");
+const permission_entity_1 = require("./entity/permission.entity");
+const refreshToken_entity_1 = require("./entity/refreshToken.entity");
+const role_entity_1 = require("./entity/role.entity");
+const account_service_1 = require("./service/account.service");
+const cash_inflow_service_1 = require("./service/cash-inflow.service");
+const cash_outflow_service_1 = require("./service/cash-outflow.service");
+const permission_service_1 = require("./service/permission.service");
+const role_service_1 = require("./service/role.service");
+const account_controller_1 = require("./controller/account.controller");
+const cash_inflow_controller_1 = require("./controller/cash-inflow.controller");
+const cash_outflow_controller_1 = require("./controller/cash-outflow.controller");
+const permission_controller_1 = require("./controller/permission.controller");
+const role_controller_1 = require("./controller/role.controller");
+const account_module_1 = require("./module/account.module");
 let AppModule = class AppModule {
     constructor(connection) {
         this.connection = connection;
@@ -26,15 +43,44 @@ let AppModule = class AppModule {
 AppModule = __decorate([
     (0, common_1.Module)({
         imports: [
-            typeorm_1.TypeOrmModule.forRoot(),
+            typeorm_1.TypeOrmModule.forRoot({
+                type: 'postgres',
+                host: 'localhost',
+                port: 5432,
+                username: 'finance',
+                password: 'finance',
+                database: 'finance',
+                entities: [
+                    account_entity_1.AccountEntity,
+                    cash_inflow_entity_1.CashInflowEntity,
+                    cash_outflow_entity_1.CashOutflowEntity,
+                    permission_entity_1.PermissionEntity,
+                    refreshToken_entity_1.RefreshTokenEntity,
+                    role_entity_1.RoleEntity,
+                ],
+                synchronize: false,
+            }),
+            account_module_1.AccountModule,
             cash_inflow_module_1.CashInflowModule,
             cash_outflow_module_1.CashOutflowModule,
             permission_module_1.PermissionModule,
             role_module_1.RoleModule,
             refresh_token_module_1.RefreshTokenModule,
         ],
-        controllers: [],
-        providers: [],
+        controllers: [
+            account_controller_1.AccountController,
+            cash_inflow_controller_1.CashInflowController,
+            cash_outflow_controller_1.CashOutflowController,
+            permission_controller_1.PermissionController,
+            role_controller_1.RoleController,
+        ],
+        providers: [
+            account_service_1.AccountService,
+            cash_inflow_service_1.CashInflowService,
+            cash_outflow_service_1.CashOutflowService,
+            permission_service_1.PermissionService,
+            role_service_1.RoleService,
+        ],
     }),
     __metadata("design:paramtypes", [typeorm_2.Connection])
 ], AppModule);
