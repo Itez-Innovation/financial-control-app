@@ -11,23 +11,45 @@ datasource db {
 }
 
 model account {
-  id            String       @id @default(uuid())
-  createdAt     DateTime     @default(now())
-  updatedAt     DateTime     @updatedAt
+  id            String        @id @default(uuid())
+  createdAt     DateTime      @default(now())
+  updatedAt     DateTime      @updatedAt
   password      String
   Name          String
-  CPF           String       @unique @db.VarChar(14) 
+  CPF           String        @unique @db.VarChar(14) 
   // Relations
   input         cashInflow[]
+  output        cashOutflow[]
 }
 
 model cashInflow {
-  id            String       @id @default(uuid())
+  id            String        @id @default(uuid())
   Titulo        String
   Valor         Float
-  createdAt     DateTime     @default(now())
-  updatedAt     DateTime     @updatedAt
-  account       account      @relation(fields: [account_id], references: [id])
+  createdAt     DateTime      @default(now())
+  updatedAt     DateTime      @updatedAt
+  // Relations
+  account       account       @relation(fields: [account_id], references: [id])
   account_id    String
+}
+
+model cashOutflow {
+  id            String        @id @default(uuid())
+  Area          String        @unique
+  Titulo        String
+  Valor         Float
+  createdAt     DateTime      @default(now())
+  updatedAt     DateTime      @updatedAt
+  // Relations
+  account       account       @relation(fields: [account_id], references: [id])
+  account_id    String
+}
+
+model permissions {
+  id            String        @id @default(uuid())
+  name          String        
+  description   String
+  createdAt     DateTime      @default(now())
+  updatedAt     DateTime      @updatedAt
 }
 
