@@ -42,6 +42,12 @@ let AccountController = class AccountController {
             password: passHash,
         });
     }
+    async read(id) {
+        return this.accountService.read({ id });
+    }
+    async readAll() {
+        return this.accountService.readAll();
+    }
 };
 __decorate([
     (0, common_1.Post)('create'),
@@ -65,6 +71,19 @@ __decorate([
     __metadata("design:paramtypes", [String, Object]),
     __metadata("design:returntype", Promise)
 ], AccountController.prototype, "update", null);
+__decorate([
+    (0, common_1.Get)('read/:id'),
+    __param(0, (0, common_1.Param)('id')),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", [String]),
+    __metadata("design:returntype", Promise)
+], AccountController.prototype, "read", null);
+__decorate([
+    (0, common_1.Get)('readAll'),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", []),
+    __metadata("design:returntype", Promise)
+], AccountController.prototype, "readAll", null);
 AccountController = __decorate([
     (0, common_1.Controller)('account'),
     __metadata("design:paramtypes", [account_service_1.AccountService])

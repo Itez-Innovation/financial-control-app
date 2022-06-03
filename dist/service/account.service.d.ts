@@ -17,6 +17,10 @@ export declare class AccountService {
         Name: any;
         password: any;
     }): Promise<account>;
+    read({ id }: {
+        id: any;
+    }): Promise<account>;
+    readAll(): Promise<account[]>;
     findByCpf(CPF: string): Promise<account>;
     findById(id: string): Promise<account>;
 }

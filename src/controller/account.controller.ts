@@ -1,4 +1,12 @@
-import { Body, Controller, Delete, Param, Patch, Post } from '@nestjs/common';
+import {
+  Body,
+  Controller,
+  Delete,
+  Get,
+  Param,
+  Patch,
+  Post,
+} from '@nestjs/common';
 import { AccountService } from '../service/account.service';
 import { account as AccountModel } from '@prisma/client';
 import { hash } from 'bcryptjs';
@@ -70,17 +78,10 @@ export class AccountController {
   //   }
   // }
 
-  // async read(request: IRequest, res: Response, next: NextFunction) {
-  //   try {
-  //     const id = request.userId;
-
-  //     const response = await service.read(id);
-
-  //     return res.status(200).json(response);
-  //   } catch (error) {
-  //     next(error);
-  //   }
-  // }
+  @Get('read/:id')
+  async read(@Param('id') id: string) {
+    return this.accountService.read({ id });
+  }
 
   // async readAdmin(request: Request, res: Response, next: NextFunction) {
   //   try {
@@ -94,15 +95,10 @@ export class AccountController {
   //   }
   // }
 
-  // async readAll(request: Request, res: Response, next: NextFunction) {
-  //   try {
-  //     const response = await service.readAll();
-
-  //     return res.status(200).json(response);
-  //   } catch (error) {
-  //     next(error);
-  //   }
-  // }
+  @Get('readAll')
+  async readAll() {
+    return this.accountService.readAll();
+  }
 
   // async getStatsAdmin(request: Request, res: Response, next: NextFunction) {
   //   try {

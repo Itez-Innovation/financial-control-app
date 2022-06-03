@@ -68,6 +68,36 @@ let AccountService = class AccountService {
                 throw new Error('Internal server error');
         }
     }
+    async read({ id }) {
+        try {
+            const accountFound = await this.findById(id);
+            if (!accountFound)
+                throw new not_found_error_1.default(`Account ${id}`);
+            return this.prisma.account.findUnique({
+                where: { id: id },
+            });
+        }
+        catch (error) {
+            if (error instanceof custom_error_1.default)
+                throw error;
+            else
+                throw new Error('Internal server error');
+        }
+    }
+    async readAll() {
+        try {
+            const accountsFound = await this.prisma.account.findMany();
+            if (!accountsFound)
+                throw new not_found_error_1.default(`No accounts were found`);
+            return accountsFound;
+        }
+        catch (error) {
+            if (error instanceof custom_error_1.default)
+                throw error;
+            else
+                throw new Error('Internal server error');
+        }
+    }
     async findByCpf(CPF) {
         return this.prisma.account.findFirst({
             where: { CPF },

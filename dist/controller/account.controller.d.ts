@@ -14,4 +14,6 @@ export declare class AccountController {
         Name?: string;
         password?: string;
     }): Promise<AccountModel>;
+    read(id: string): Promise<AccountModel>;
+    readAll(): Promise<AccountModel[]>;
 }

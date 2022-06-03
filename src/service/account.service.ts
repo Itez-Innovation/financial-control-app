@@ -59,31 +59,33 @@ export class AccountService {
     }
   }
 
-  // async read(id: string) {
-  //   try {
-  //     const accountFound = await this.repository.findById(id);
+  async read({ id }) {
+    try {
+      const accountFound = await this.findById(id);
 
-  //     if (!accountFound) throw new NotFoundError(`Account ${id}`);
+      if (!accountFound) throw new NotFoundError(`Account ${id}`);
 
-  //     return accountFound;
-  //   } catch (error) {
-  //     if (error instanceof CustomError) throw error;
-  //     else throw new Error('Internal server error');
-  //   }
-  // }
+      return this.prisma.account.findUnique({
+        where: { id: id },
+      });
+    } catch (error) {
+      if (error instanceof CustomError) throw error;
+      else throw new Error('Internal server error');
+    }
+  }
 
-  // async readAll() {
-  //   try {
-  //     const accountsFound = await this.repository.get_all();
+  async readAll() {
+    try {
+      const accountsFound = await this.prisma.account.findMany();
 
-  //     if (!accountsFound) throw new NotFoundError(`No accounts were found`);
+      if (!accountsFound) throw new NotFoundError(`No accounts were found`);
 
-  //     return accountsFound;
-  //   } catch (error) {
-  //     if (error instanceof CustomError) throw error;
-  //     else throw new Error('Internal server error');
-  //   }
-  // }
+      return accountsFound;
+    } catch (error) {
+      if (error instanceof CustomError) throw error;
+      else throw new Error('Internal server error');
+    }
+  }
 
   // async getStats(id: string) {
   //   try {
