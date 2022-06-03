@@ -1,6 +1,6 @@
 import { Injectable } from '@nestjs/common';
 import { PrismaService } from './prisma.service';
-import { Prisma } from '@prisma/client';
+import { account } from '@prisma/client';
 import ConflictError from '../exceptions/conflict.error';
 import NotFoundError from '../exceptions/not-found.error';
 import UnauthorizedError from '../exceptions/unauthorized.error';
@@ -28,31 +28,36 @@ export class AccountService {
     }
   }
 
-  // async delete(id: string) {
-  //   try {
-  //     const accountFound = await this.repository.findById(id);
+  async delete({ id }) {
+    try {
+      const accountFound = await this.findById(id);
 
-  //     if (!accountFound) throw new NotFoundError(`Account ${id}`);
+      if (!accountFound) throw new NotFoundError(`Account ${id}`);
 
-  //     return this.repository.delete(id);
-  //   } catch (error) {
-  //     if (error instanceof CustomError) throw error;
-  //     else throw new Error('Internal server error');
-  //   }
-  // }
+      return this.prisma.account.delete({
+        where: { id },
+      });
+    } catch (error) {
+      if (error instanceof CustomError) throw error;
+      else throw new Error('Internal server error');
+    }
+  }
 
-  // async update(CPF, Name, password, id) {
-  //   try {
-  //     const accountFound = await this.repository.findById(id);
+  async update({ id, CPF, Name, password }) {
+    try {
+      const accountFound = await this.findById(id);
 
-  //     if (!accountFound) throw new NotFoundError(`Account ${id}`);
+      if (!accountFound) throw new NotFoundError(`Account ${id}`);
 
-  //     return this.repository.update(id, CPF, Name, password);
-  //   } catch (error) {
-  //     if (error instanceof CustomError) throw error;
-  //     else throw new Error('Internal server error');
-  //   }
-  // }
+      return this.prisma.account.update({
+        data: { CPF, Name, password },
+        where: { id: id },
+      });
+    } catch (error) {
+      if (error instanceof CustomError) throw error;
+      else throw new Error('Internal server error');
+    }
+  }
 
   // async read(id: string) {
   //   try {
@@ -161,15 +166,15 @@ export class AccountService {
   //   }
   // }
 
-  async findByCpf(CPF: string) {
+  async findByCpf(CPF: string): Promise<account> {
     return this.prisma.account.findFirst({
       where: { CPF },
     });
   }
 
-  async findById(Id: Prisma.accountWhereUniqueInput) {
+  async findById(id: string): Promise<account> {
     return this.prisma.account.findFirst({
-      where: Id,
+      where: { id },
     });
   }
 }

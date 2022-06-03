@@ -13,6 +13,7 @@ exports.AccountService = void 0;
 const common_1 = require("@nestjs/common");
 const prisma_service_1 = require("./prisma.service");
 const conflict_error_1 = require("../exceptions/conflict.error");
+const not_found_error_1 = require("../exceptions/not-found.error");
 const custom_error_1 = require("../exceptions/custom.error");
 let AccountService = class AccountService {
     constructor(prisma) {
@@ -34,14 +35,47 @@ let AccountService = class AccountService {
                 throw new Error(`Internal server error`);
         }
     }
+    async delete({ id }) {
+        try {
+            const accountFound = await this.findById(id);
+            if (!accountFound)
+                throw new not_found_error_1.default(`Account ${id}`);
+            return this.prisma.account.delete({
+                where: { id },
+            });
+        }
+        catch (error) {
+            if (error instanceof custom_error_1.default)
+                throw error;
+            else
+                throw new Error('Internal server error');
+        }
+    }
+    async update({ id, CPF, Name, password }) {
+        try {
+            const accountFound = await this.findById(id);
+            if (!accountFound)
+                throw new not_found_error_1.default(`Account ${id}`);
+            return this.prisma.account.update({
+                data: { CPF, Name, password },
+                where: { id: id },
+            });
+        }
+        catch (error) {
+            if (error instanceof custom_error_1.default)
+                throw error;
+            else
+                throw new Error('Internal server error');
+        }
+    }
     async findByCpf(CPF) {
         return this.prisma.account.findFirst({
             where: { CPF },
         });
     }
-    async findById(Id) {
+    async findById(id) {
         return this.prisma.account.findFirst({
-            where: Id,
+            where: { id },
         });
     }
 };

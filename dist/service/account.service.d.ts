@@ -1,5 +1,5 @@
 import { PrismaService } from './prisma.service';
-import { Prisma } from '@prisma/client';
+import { account } from '@prisma/client';
 export declare class AccountService {
     private prisma;
     constructor(prisma: PrismaService);
@@ -7,7 +7,16 @@ export declare class AccountService {
         CPF: any;
         Name: any;
         password: any;
-    }): Promise<import(".prisma/client").account>;
-    findByCpf(CPF: string): Promise<import(".prisma/client").account>;
-    findById(Id: Prisma.accountWhereUniqueInput): Promise<import(".prisma/client").account>;
+    }): Promise<account>;
+    delete({ id }: {
+        id: any;
+    }): Promise<account>;
+    update({ id, CPF, Name, password }: {
+        id: any;
+        CPF: any;
+        Name: any;
+        password: any;
+    }): Promise<account>;
+    findByCpf(CPF: string): Promise<account>;
+    findById(id: string): Promise<account>;
 }

@@ -23,8 +23,20 @@ let AccountController = class AccountController {
     async create(createData) {
         const { CPF, Name, password } = createData;
         const passHash = await (0, bcryptjs_1.hash)(password, 8);
-        console.log('OI');
         return this.accountService.create({
+            CPF,
+            Name,
+            password: passHash,
+        });
+    }
+    async delete(id) {
+        return this.accountService.delete({ id: id });
+    }
+    async update(id, updateData) {
+        const { CPF, Name, password } = updateData;
+        const passHash = await (0, bcryptjs_1.hash)(password, 8);
+        return this.accountService.update({
+            id,
             CPF,
             Name,
             password: passHash,
@@ -38,6 +50,21 @@ __decorate([
     __metadata("design:paramtypes", [Object]),
     __metadata("design:returntype", Promise)
 ], AccountController.prototype, "create", null);
+__decorate([
+    (0, common_1.Delete)('delete/:id'),
+    __param(0, (0, common_1.Param)('id')),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", [String]),
+    __metadata("design:returntype", Promise)
+], AccountController.prototype, "delete", null);
+__decorate([
+    (0, common_1.Patch)('update/:id'),
+    __param(0, (0, common_1.Param)('id')),
+    __param(1, (0, common_1.Body)()),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", [String, Object]),
+    __metadata("design:returntype", Promise)
+], AccountController.prototype, "update", null);
 AccountController = __decorate([
     (0, common_1.Controller)('account'),
     __metadata("design:paramtypes", [account_service_1.AccountService])

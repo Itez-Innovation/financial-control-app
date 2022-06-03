@@ -1,4 +1,4 @@
-import { Body, Controller, Post } from '@nestjs/common';
+import { Body, Controller, Delete, Param, Patch, Post } from '@nestjs/common';
 import { AccountService } from '../service/account.service';
 import { account as AccountModel } from '@prisma/client';
 import { hash } from 'bcryptjs';
@@ -15,8 +15,6 @@ export class AccountController {
 
     const passHash = await hash(password, 8);
 
-    console.log('OI');
-
     return this.accountService.create({
       CPF,
       Name,
@@ -24,17 +22,10 @@ export class AccountController {
     });
   }
 
-  // async delete(request: IRequest, res: Response, next: NextFunction) {
-  //   try {
-  //     const id = request.userId;
-
-  //     await service.delete(id);
-
-  //     return res.status(202).json();
-  //   } catch (error) {
-  //     next(error);
-  //   }
-  // }
+  @Delete('delete/:id')
+  async delete(@Param('id') id: string) {
+    return this.accountService.delete({ id: id });
+  }
 
   // async deleteAdmin(request: Request, res: Response, next: NextFunction) {
   //   try {
@@ -48,21 +39,22 @@ export class AccountController {
   //   }
   // }
 
-  // async update(request: IRequest, res: Response, next: NextFunction) {
-  //   try {
-  //     let id = request.body;
+  @Patch('update/:id')
+  async update(
+    @Param('id') id: string,
+    @Body() updateData: { CPF?: string; Name?: string; password?: string },
+  ) {
+    const { CPF, Name, password } = updateData;
 
-  //     const { CPF, Name, password } = request.body;
+    const passHash = await hash(password, 8);
 
-  //     const passHash = await hash(password, 8);
-
-  //     const response = await service.update(CPF, Name, passHash, id);
-
-  //     return res.status(200).json(response);
-  //   } catch (error) {
-  //     next(error);
-  //   }
-  // }
+    return this.accountService.update({
+      id,
+      CPF,
+      Name,
+      password: passHash,
+    });
+  }
 
   // async updateAdmin(request: Request, res: Response, next: NextFunction) {
   //   try {
