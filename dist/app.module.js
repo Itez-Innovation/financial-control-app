@@ -35,6 +35,7 @@ const cash_outflow_controller_1 = require("./controller/cash-outflow.controller"
 const permission_controller_1 = require("./controller/permission.controller");
 const role_controller_1 = require("./controller/role.controller");
 const account_module_1 = require("./module/account.module");
+const prisma_service_1 = require("./service/prisma.service");
 let AppModule = class AppModule {
     constructor(connection) {
         this.connection = connection;
@@ -80,6 +81,7 @@ AppModule = __decorate([
             cash_outflow_service_1.CashOutflowService,
             permission_service_1.PermissionService,
             role_service_1.RoleService,
+            prisma_service_1.PrismaService,
         ],
     }),
     __metadata("design:paramtypes", [typeorm_2.Connection])

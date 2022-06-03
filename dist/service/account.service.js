@@ -5,13 +5,49 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
     else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
     return c > 3 && r && Object.defineProperty(target, key, r), r;
 };
+var __metadata = (this && this.__metadata) || function (k, v) {
+    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
+};
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.AccountService = void 0;
 const common_1 = require("@nestjs/common");
+const prisma_service_1 = require("./prisma.service");
+const conflict_error_1 = require("../exceptions/conflict.error");
+const custom_error_1 = require("../exceptions/custom.error");
 let AccountService = class AccountService {
+    constructor(prisma) {
+        this.prisma = prisma;
+    }
+    async create({ CPF, Name, password }) {
+        try {
+            const accountAlreadyExists = await this.findByCpf(CPF);
+            if (accountAlreadyExists)
+                throw new conflict_error_1.default(`This account ${CPF} already exists`);
+            return this.prisma.account.create({
+                data: { CPF, Name, password },
+            });
+        }
+        catch (error) {
+            if (error instanceof custom_error_1.default)
+                throw error;
+            else
+                throw new Error(`Internal server error`);
+        }
+    }
+    async findByCpf(CPF) {
+        return this.prisma.account.findFirst({
+            where: { CPF },
+        });
+    }
+    async findById(Id) {
+        return this.prisma.account.findFirst({
+            where: Id,
+        });
+    }
 };
 AccountService = __decorate([
-    (0, common_1.Injectable)()
+    (0, common_1.Injectable)(),
+    __metadata("design:paramtypes", [prisma_service_1.PrismaService])
 ], AccountService);
 exports.AccountService = AccountService;
 //# sourceMappingURL=account.service.js.map

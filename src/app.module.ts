@@ -23,7 +23,7 @@ import { CashOutflowController } from './controller/cash-outflow.controller';
 import { PermissionController } from './controller/permission.controller';
 import { RoleController } from './controller/role.controller';
 import { AccountModule } from './module/account.module';
-import { PrismaService } from './prisma/prisma.service';
+import { PrismaService } from './service/prisma.service';
 
 @Module({
   imports: [
