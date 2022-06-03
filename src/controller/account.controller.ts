@@ -150,19 +150,15 @@ export class AccountController {
 
   @Post('admin/acl')
   async createAcl(
-    @Param('id') id: string,
+    @Param('id') userId: string,
     @Body() aclData: { roles: string[]; permissions: string[] },
   ) {
-    try {
-      const { permissions, roles } = request.body;
+    const { roles, permissions } = aclData;
 
-      const userId = request.userId;
-
-      const response = await service.createACL({ userId, permissions, roles });
-
-      return res.status(201).json(response);
-    } catch (error) {
-      next(error);
-    }
+    return this.accountService.createACL({
+      userId,
+      roles,
+      permissions,
+    });
   }
 }
