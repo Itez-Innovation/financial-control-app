@@ -148,17 +148,21 @@ export class AccountController {
   //   }
   // }
 
-  // async createAcl(request: IRequest, res: Response, next: NextFunction) {
-  //   try {
-  //     const { permissions, roles } = request.body;
+  @Post('admin/acl')
+  async createAcl(
+    @Param('id') id: string,
+    @Body() aclData: { roles: string[]; permissions: string[] },
+  ) {
+    try {
+      const { permissions, roles } = request.body;
 
-  //     const userId = request.userId;
+      const userId = request.userId;
 
-  //     const response = await service.createACL({ userId, permissions, roles });
+      const response = await service.createACL({ userId, permissions, roles });
 
-  //     return res.status(201).json(response);
-  //   } catch (error) {
-  //     next(error);
-  //   }
-  // }
+      return res.status(201).json(response);
+    } catch (error) {
+      next(error);
+    }
+  }
 }

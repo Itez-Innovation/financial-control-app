@@ -1,12 +1,11 @@
 import { Injectable } from '@nestjs/common';
 import { PrismaService } from './prisma.service';
-import { account } from '@prisma/client';
+import { account, permissions, roles } from '@prisma/client';
 import ConflictError from '../exceptions/conflict.error';
 import NotFoundError from '../exceptions/not-found.error';
 import UnauthorizedError from '../exceptions/unauthorized.error';
 import ForbiddenError from '../exceptions/forbidden.error';
 import CustomError from '../exceptions/custom.error';
-import { CreateAccountDto } from '../dto/account/create-account.dto';
 
 @Injectable()
 export class AccountService {
@@ -143,30 +142,30 @@ export class AccountService {
   //   return this.repoToken.generateToken(sub);
   // }
 
-  // async createACL(dto: CreateAclDto) {
-  //   try {
-  //     const { userId, roles, permissions } = dto;
+  async createACL({ userId, roles, permissions }) {
+    try {
+      const user = await this.findById(userId);
 
-  //     const user = await this.repository.findById(userId);
+      if (!user) throw new NotFoundError("Couldn't find this account");
 
-  //     if (!user) throw new NotFoundError("Couldn't find this account");
+      const permissionsExists: permissions[] = await this.prisma.permissions.findMany({
+          select: { id: permissions },
+      });
+      const rolesExists = await this.prisma.permissions.findMany({
+        select: { id: permissions },
+      });
 
-  //     const permissionsExists = await this.permissionRepo.findByIds(
-  //       permissions,
-  //     );
-  //     const rolesExists = await this.roleRepo.findByIds(roles);
+      this.prisma.account.update({
+        where: { id: userId },
+        data: { roles: rolesExists, permissions: permissionsExists },
+      });
 
-  //     user.permissions = permissionsExists;
-  //     user.roles = rolesExists;
-
-  //     this.repository.create(user);
-
-  //     return user;
-  //   } catch (error) {
-  //     if (error instanceof CustomError) throw error;
-  //     else throw new Error('Internal server error');
-  //   }
-  // }
+      return user;
+    } catch (error) {
+      if (error instanceof CustomError) throw error;
+      else throw new Error('Internal server error');
+    }
+  }
 
   async findByCpf(CPF: string): Promise<account> {
     return this.prisma.account.findFirst({
