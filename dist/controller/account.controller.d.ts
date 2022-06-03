@@ -16,4 +16,8 @@ export declare class AccountController {
     }): Promise<AccountModel>;
     read(id: string): Promise<AccountModel>;
     readAll(): Promise<AccountModel[]>;
+    createAcl(userId: string, aclData: {
+        roles: string[];
+        permissions: string[];
+    }): Promise<AccountModel>;
 }

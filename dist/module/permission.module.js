@@ -8,6 +8,7 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.PermissionModule = void 0;
 const common_1 = require("@nestjs/common");
+const prisma_service_1 = require("../service/prisma.service");
 const permission_controller_1 = require("../controller/permission.controller");
 const permission_service_1 = require("../service/permission.service");
 let PermissionModule = class PermissionModule {
@@ -15,7 +16,7 @@ let PermissionModule = class PermissionModule {
 PermissionModule = __decorate([
     (0, common_1.Module)({
         controllers: [permission_controller_1.PermissionController],
-        providers: [permission_service_1.PermissionService]
+        providers: [permission_service_1.PermissionService, prisma_service_1.PrismaService],
     })
 ], PermissionModule);
 exports.PermissionModule = PermissionModule;

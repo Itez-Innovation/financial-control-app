@@ -98,6 +98,24 @@ let AccountService = class AccountService {
                 throw new Error('Internal server error');
         }
     }
+    async createACL({ userId, roles, permissions }) {
+        try {
+            const user = await this.findById(userId);
+            if (!user)
+                throw new not_found_error_1.default("Couldn't find this account");
+            this.prisma.account.update({
+                where: { id: userId },
+                data: { roles: roles, permissions: permissions },
+            });
+            return user;
+        }
+        catch (error) {
+            if (error instanceof custom_error_1.default)
+                throw error;
+            else
+                throw new Error('Internal server error');
+        }
+    }
     async findByCpf(CPF) {
         return this.prisma.account.findFirst({
             where: { CPF },

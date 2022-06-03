@@ -28,8 +28,14 @@ export class RoleService {
 
       if (!role) throw new NotFoundError('Role does not exists!');
 
-      const permissionsExist = await this.prisma.roles.findMany({
-        select: { id: permissions },
+      const { permissoes } = permissions;
+
+      const permissionsExist = await this.prisma.permissions.findMany({
+        where: {
+          id: {
+            in: permissoes,
+          },
+        },
       });
 
       if (!permissionsExist)
@@ -37,7 +43,7 @@ export class RoleService {
 
       return await this.prisma.roles.update({
         where: { id: roleId },
-        data: { permissions: permissions },
+        data: { permissions: permissoes },
       });
     } catch (error) {
       if (error instanceof CustomError) throw error;

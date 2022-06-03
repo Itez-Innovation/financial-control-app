@@ -21,6 +21,11 @@ export declare class AccountService {
         id: any;
     }): Promise<account>;
     readAll(): Promise<account[]>;
+    createACL({ userId, roles, permissions }: {
+        userId: any;
+        roles: any;
+        permissions: any;
+    }): Promise<account>;
     findByCpf(CPF: string): Promise<account>;
     findById(id: string): Promise<account>;
 }

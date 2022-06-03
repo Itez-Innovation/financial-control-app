@@ -17,9 +17,12 @@ export class RoleController {
 
   @Post('permission/:id')
   async createRolePermission(
-    @Param('id') id: string,
+    @Param('id') roleId: string,
     @Body() permissions: string[],
   ) {
-    return this.roleService.createRolePermission({ roleId: id, permissions });
+    return this.roleService.createRolePermission({
+      roleId: roleId,
+      permissions: permissions,
+    });
   }
 }

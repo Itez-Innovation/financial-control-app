@@ -48,6 +48,14 @@ let AccountController = class AccountController {
     async readAll() {
         return this.accountService.readAll();
     }
+    async createAcl(userId, aclData) {
+        const { roles, permissions } = aclData;
+        return this.accountService.createACL({
+            userId,
+            roles,
+            permissions,
+        });
+    }
 };
 __decorate([
     (0, common_1.Post)('create'),
@@ -84,6 +92,14 @@ __decorate([
     __metadata("design:paramtypes", []),
     __metadata("design:returntype", Promise)
 ], AccountController.prototype, "readAll", null);
+__decorate([
+    (0, common_1.Post)('admin/acl'),
+    __param(0, (0, common_1.Param)('id')),
+    __param(1, (0, common_1.Body)()),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", [String, Object]),
+    __metadata("design:returntype", Promise)
+], AccountController.prototype, "createAcl", null);
 AccountController = __decorate([
     (0, common_1.Controller)('account'),
     __metadata("design:paramtypes", [account_service_1.AccountService])
