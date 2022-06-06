@@ -75,13 +75,14 @@ export class CashOutflowService {
 
   async readAll() {
     try {
-      const OutputsFound = await this.repository.get_all();
+      const OutputsFound = await this.prisma.cashOutflow.findMany();
 
-      if (!OutputsFound) throw new Error('Outputs not found');
+      if (!OutputsFound) throw new NotFoundError('Output not found');
 
-      return this.repository.get_all();
+      return OutputsFound;
     } catch (error) {
-      throw new Error(error);
+      if (error instanceof CustomError) throw error;
+      else throw new Error(`Internal server error`);
     }
   }
 }

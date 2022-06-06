@@ -16,5 +16,5 @@ export declare class CashOutflowService {
         id: any;
     }): Promise<import(".prisma/client").cashOutflow>;
     read(id: string): Promise<import(".prisma/client").cashOutflow>;
-    readAll(): Promise<any>;
+    readAll(): Promise<import(".prisma/client").cashOutflow[]>;
 }
