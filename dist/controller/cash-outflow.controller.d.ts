@@ -2,11 +2,10 @@ import { CashOutflowService } from '../service/cash-outflow.service';
 export declare class CashOutflowController {
     private readonly cashOutflowService;
     constructor(cashOutflowService: CashOutflowService);
-    create(createData: {
+    create(account_id: string, createData: {
         Area: any;
         Titulo: any;
         Valor: any;
-        account_id: any;
     }): Promise<import(".prisma/client").cashOutflow>;
     delete(id: string): Promise<import(".prisma/client").cashOutflow>;
     update(id: string, updateData: {

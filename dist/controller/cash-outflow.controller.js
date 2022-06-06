@@ -19,8 +19,8 @@ let CashOutflowController = class CashOutflowController {
     constructor(cashOutflowService) {
         this.cashOutflowService = cashOutflowService;
     }
-    async create(createData) {
-        const { Area, Titulo, Valor, account_id } = createData;
+    async create(account_id, createData) {
+        const { Area, Titulo, Valor } = createData;
         return this.cashOutflowService.create({ Area, Titulo, Valor, account_id });
     }
     async delete(id) {
@@ -43,10 +43,11 @@ let CashOutflowController = class CashOutflowController {
     }
 };
 __decorate([
-    (0, common_1.Post)('create'),
-    __param(0, (0, common_1.Body)()),
+    (0, common_1.Post)('create/:id'),
+    __param(0, (0, common_1.Param)('id')),
+    __param(1, (0, common_1.Body)()),
     __metadata("design:type", Function),
-    __metadata("design:paramtypes", [Object]),
+    __metadata("design:paramtypes", [String, Object]),
     __metadata("design:returntype", Promise)
 ], CashOutflowController.prototype, "create", null);
 __decorate([
