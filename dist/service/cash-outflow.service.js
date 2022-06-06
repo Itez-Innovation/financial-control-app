@@ -8,21 +8,34 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
 var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
-var _a;
+var __importDefault = (this && this.__importDefault) || function (mod) {
+    return (mod && mod.__esModule) ? mod : { "default": mod };
+};
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.CashOutflowService = void 0;
 const common_1 = require("@nestjs/common");
+const custom_error_1 = __importDefault(require("../exceptions/custom.error"));
+const prisma_service_1 = require("./prisma.service");
 let CashOutflowService = class CashOutflowService {
     constructor(prisma) {
         this.prisma = prisma;
     }
-    async create(dto) {
+    async create({ Area, Titulo, Valor, account_id }) {
         try {
-            const newOutput = new Output(dto);
-            return this.repository.create(newOutput);
+            return this.prisma.cashOutflow.create({
+                data: {
+                    Area: Area,
+                    Titulo: Titulo,
+                    Valor: Valor,
+                    account_id: account_id,
+                },
+            });
         }
         catch (error) {
-            throw new Error(error);
+            if (error instanceof custom_error_1.default)
+                throw error;
+            else
+                throw new Error(`Internal server error`);
         }
     }
     async delete(id) {
@@ -73,7 +86,7 @@ let CashOutflowService = class CashOutflowService {
 };
 CashOutflowService = __decorate([
     (0, common_1.Injectable)(),
-    __metadata("design:paramtypes", [typeof (_a = typeof PrismaService !== "undefined" && PrismaService) === "function" ? _a : Object])
+    __metadata("design:paramtypes", [prisma_service_1.PrismaService])
 ], CashOutflowService);
 exports.CashOutflowService = CashOutflowService;
 //# sourceMappingURL=cash-outflow.service.js.map

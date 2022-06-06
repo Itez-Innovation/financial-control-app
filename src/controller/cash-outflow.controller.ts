@@ -1,4 +1,4 @@
-import { Controller, Post } from '@nestjs/common';
+import { Body, Controller, Post } from '@nestjs/common';
 import { CashOutflowService } from '../service/cash-outflow.service';
 
 @Controller('cash-outflow')
@@ -6,21 +6,10 @@ export class CashOutflowController {
   constructor(private readonly cashOutflowService: CashOutflowService) {}
 
   @Post('create')
-  async create() {
-    try {
-      const { Area, Titulo, Valor, account_id } = request.body;
+  async create(@Body() createData: { Area; Titulo; Valor; account_id }) {
+    const { Area, Titulo, Valor, account_id } = createData;
 
-      const response = await service.create({
-        Area,
-        Titulo,
-        Valor,
-        account_id,
-      });
-
-      return res.status(201).json(response);
-    } catch (error) {
-      res.status(500).json({ code: 500, message: 'internal server error' });
-    }
+    return this.cashOutflowService.create({ Area, Titulo, Valor, account_id });
   }
 
   async delete(request: Request, res: Response, next: NextFunction) {
