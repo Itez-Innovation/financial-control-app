@@ -23,6 +23,7 @@ export declare class AccountController {
         token: string;
         refreshToken: import(".prisma/client").refreshToken;
     }>;
+    refresh(id: string): Promise<string>;
     createAcl(userId: string, aclData: {
         roles: string[];
         permissions: string[];

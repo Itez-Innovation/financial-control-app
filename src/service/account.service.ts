@@ -116,11 +116,7 @@ export class AccountService {
 
       const token = await this.generateToken(acc.id);
 
-      console.log(token);
-
       const refreshToken = await this.generateRefreshToken(acc.id);
-
-      console.log(refreshToken);
 
       return { token, refreshToken };
     } catch (error) {
@@ -129,22 +125,22 @@ export class AccountService {
     }
   }
 
-  // async refresh(refreshToken: string) {
-  //   let refToken = await this.repoToken.findById(refreshToken);
+  async refresh(id: string) {
+    const refToken = await this.findTokenById(id);
 
-  //   if (!refToken) throw new UnauthorizedError("Refresh Token isn't valid");
+    if (!refToken) throw new UnauthorizedError("Refresh Token isn't valid");
 
-  //   const { exp, sub } = jwt.decode(refToken.refToken, { json: true });
+    const { exp, sub } = jwt.decode(refToken.refToken, { json: true });
 
-  //   const refreshTokenExpired = dayjs().isAfter(dayjs.unix(exp));
+    const refreshTokenExpired = dayjs().isAfter(dayjs.unix(exp));
 
-  //   if (refreshTokenExpired) {
-  //     await this.repoToken.delete(refToken.id);
-  //     throw new ForbiddenError('Refresh Token Expired!');
-  //   }
+    if (refreshTokenExpired) {
+      await this.deleteToken(refToken.id);
+      throw new ForbiddenError('Refresh Token Expired!');
+    }
 
-  //   return this.repoToken.generateToken(sub);
-  // }
+    return this.generateToken(sub);
+  }
 
   async createACL({ userId, roles, permissions }) {
     try {

@@ -131,17 +131,12 @@ export class AccountController {
     return this.accountService.login({ CPF, password });
   }
 
-  // async refresh(request: Request, res: Response, next: NextFunction) {
-  //   try {
-  //     const refreshToken = request.params;
+  @Post('refresh/:id')
+  async refresh(@Param('id') id: string) {
+    const refresh = await this.accountService.refresh(id);
 
-  //     const response = await service.refresh(refreshToken.id);
-
-  //     return res.status(200).json(response);
-  //   } catch (error) {
-  //     next(error);
-  //   }
-  // }
+    return JSON.stringify(refresh);
+  }
 
   @Post('admin/acl')
   async createAcl(

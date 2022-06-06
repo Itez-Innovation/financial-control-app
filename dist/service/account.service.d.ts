@@ -28,6 +28,7 @@ export declare class AccountService {
         token: string;
         refreshToken: import(".prisma/client").refreshToken;
     }>;
+    refresh(id: string): Promise<string>;
     createACL({ userId, roles, permissions }: {
         userId: any;
         roles: any;
