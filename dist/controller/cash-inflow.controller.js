@@ -16,7 +16,61 @@ let CashInflowController = class CashInflowController {
     constructor(cashInflowService) {
         this.cashInflowService = cashInflowService;
     }
+    async create() {
+        try {
+            const { Titulo, Valor, account_id } = request.body;
+            const response = await service.create({ Titulo, Valor, account_id });
+            return res.status(201).json(response);
+        }
+        catch (error) {
+            res.status(500).json({ code: 500, message: 'internal server error' });
+        }
+    }
+    async delete(request, res, next) {
+        try {
+            const { id } = request.body;
+            await service.delete(id);
+            return res.status(204).json();
+        }
+        catch (error) {
+            res.status(500).json({ code: 500, message: 'internal server error' });
+        }
+    }
+    async update(request, res, next) {
+        try {
+            const { Titulo, Valor, id } = request.body;
+            const response = await service.update({ Titulo, Valor }, id);
+            return res.status(201).json(response);
+        }
+        catch (error) {
+            res.status(500).json({ code: 500, message: 'internal server error' });
+        }
+    }
+    async read(request, res, next) {
+        try {
+            const { id } = request.body;
+            const response = await service.read(id);
+            return res.status(201).json(response);
+        }
+        catch (error) {
+            res.status(500).json({ code: 500, message: 'internal server error' });
+        }
+    }
+    async readAll(request, res, next) {
+        try {
+            return res.status(201).json(await service.readAll());
+        }
+        catch (error) {
+            res.status(500).json({ code: 500, message: 'internal server error' });
+        }
+    }
 };
+__decorate([
+    (0, common_1.Post)('create'),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", []),
+    __metadata("design:returntype", Promise)
+], CashInflowController.prototype, "create", null);
 CashInflowController = __decorate([
     (0, common_1.Controller)('cash-inflow'),
     __metadata("design:paramtypes", [cash_inflow_service_1.CashInflowService])

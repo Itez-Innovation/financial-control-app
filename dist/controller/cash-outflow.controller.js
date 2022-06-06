@@ -16,7 +16,67 @@ let CashOutflowController = class CashOutflowController {
     constructor(cashOutflowService) {
         this.cashOutflowService = cashOutflowService;
     }
+    async create() {
+        try {
+            const { Area, Titulo, Valor, account_id } = request.body;
+            const response = await service.create({
+                Area,
+                Titulo,
+                Valor,
+                account_id,
+            });
+            return res.status(201).json(response);
+        }
+        catch (error) {
+            res.status(500).json({ code: 500, message: 'internal server error' });
+        }
+    }
+    async delete(request, res, next) {
+        try {
+            const { id } = request.body;
+            await service.delete(id);
+            return res.status(204).json();
+        }
+        catch (error) {
+            res.status(500).json({ code: 500, message: 'internal server error' });
+        }
+    }
+    async update(request, res, next) {
+        try {
+            const { Area, Titulo, Valor, id } = request.body;
+            const response = await service.update({ Area, Titulo, Valor }, id);
+            return res.status(201).json(response);
+        }
+        catch (error) {
+            res.status(500).json({ code: 500, message: 'internal server error' });
+        }
+    }
+    async read(request, res, next) {
+        try {
+            const { id } = request.body;
+            const response = await service.read(id);
+            return res.status(201).json(response);
+        }
+        catch (error) {
+            res.status(500).json({ code: 500, message: 'internal server error' });
+        }
+    }
+    async readAll(request, res, next) {
+        try {
+            const response = await service.readAll();
+            return res.status(201).json(response);
+        }
+        catch (error) {
+            res.status(500).json({ code: 500, message: 'internal server error' });
+        }
+    }
 };
+__decorate([
+    (0, common_1.Post)('create'),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", []),
+    __metadata("design:returntype", Promise)
+], CashOutflowController.prototype, "create", null);
 CashOutflowController = __decorate([
     (0, common_1.Controller)('cash-outflow'),
     __metadata("design:paramtypes", [cash_outflow_service_1.CashOutflowService])
