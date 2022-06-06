@@ -1,17 +1,19 @@
 import { Injectable } from '@nestjs/common';
+import CustomError from '../exceptions/custom.error';
 import { PrismaService } from './prisma.service';
 
 @Injectable()
 export class CashInflowService {
   constructor(private prisma: PrismaService) {}
 
-  async create(dto: CreateInputDto) {
+  async create({ Titulo, Valor, account_id }) {
     try {
-      const newInput = new Input(dto);
-
-      return this.repository.create(newInput);
+      return this.prisma.cashInflow.create({
+        data: { Titulo: Titulo, Valor: Valor, account_id: account_id },
+      });
     } catch (error) {
-      throw new Error(error);
+      if (error instanceof CustomError) throw error;
+      else throw new Error('Internal server error');
     }
   }
 

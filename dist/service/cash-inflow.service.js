@@ -8,21 +8,29 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
 var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
+var __importDefault = (this && this.__importDefault) || function (mod) {
+    return (mod && mod.__esModule) ? mod : { "default": mod };
+};
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.CashInflowService = void 0;
 const common_1 = require("@nestjs/common");
+const custom_error_1 = __importDefault(require("../exceptions/custom.error"));
 const prisma_service_1 = require("./prisma.service");
 let CashInflowService = class CashInflowService {
     constructor(prisma) {
         this.prisma = prisma;
     }
-    async create(dto) {
+    async create({ Titulo, Valor, account_id }) {
         try {
-            const newInput = new Input(dto);
-            return this.repository.create(newInput);
+            return this.prisma.cashInflow.create({
+                data: { Titulo: Titulo, Valor: Valor, account_id: account_id },
+            });
         }
         catch (error) {
-            throw new Error(error);
+            if (error instanceof custom_error_1.default)
+                throw error;
+            else
+                throw new Error('Internal server error');
         }
     }
     async delete(id) {

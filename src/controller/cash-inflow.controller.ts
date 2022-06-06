@@ -1,21 +1,22 @@
-import { Controller, Post } from '@nestjs/common';
+import { Body, Controller, Param, Post } from '@nestjs/common';
 import { CashInflowService } from '../service/cash-inflow.service';
 
 @Controller('cash-inflow')
 export class CashInflowController {
   constructor(private readonly cashInflowService: CashInflowService) {}
 
-  @Post('create')
-  async create() {
-    try {
-      const { Titulo, Valor, account_id } = request.body;
+  @Post('create/:id')
+  async create(
+    @Param('id') account_id: string,
+    @Body() createData: { Titulo; Valor },
+  ) {
+    const { Titulo, Valor } = createData;
 
-      const response = await service.create({ Titulo, Valor, account_id });
-
-      return res.status(201).json(response);
-    } catch (error) {
-      res.status(500).json({ code: 500, message: 'internal server error' });
-    }
+    return this.cashInflowService.create({
+      Titulo,
+      Valor,
+      account_id,
+    });
   }
 
   async delete(request: Request, res: Response, next: NextFunction) {
