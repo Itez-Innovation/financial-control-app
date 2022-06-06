@@ -16,6 +16,13 @@ export declare class AccountController {
     }): Promise<AccountModel>;
     read(id: string): Promise<AccountModel>;
     readAll(): Promise<AccountModel[]>;
+    login(dataLogin: {
+        CPF: any;
+        password: any;
+    }): Promise<{
+        token: string;
+        refreshToken: import(".prisma/client").refreshToken;
+    }>;
     createAcl(userId: string, aclData: {
         roles: string[];
         permissions: string[];

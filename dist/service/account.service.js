@@ -15,6 +15,8 @@ const prisma_service_1 = require("./prisma.service");
 const conflict_error_1 = require("../exceptions/conflict.error");
 const not_found_error_1 = require("../exceptions/not-found.error");
 const custom_error_1 = require("../exceptions/custom.error");
+const bcryptjs_1 = require("bcryptjs");
+const jwt = require("jsonwebtoken");
 let AccountService = class AccountService {
     constructor(prisma) {
         this.prisma = prisma;
@@ -98,6 +100,28 @@ let AccountService = class AccountService {
                 throw new Error('Internal server error');
         }
     }
+    async login({ CPF, password }) {
+        try {
+            const cpfMatch = await this.findByCpf(CPF);
+            if (!cpfMatch)
+                throw new not_found_error_1.default(`CPF or Password doesn't match`);
+            const passMatch = (0, bcryptjs_1.compare)(password, (await this.findByCpf(CPF)).password);
+            if (!passMatch)
+                throw new not_found_error_1.default(`CPF or Password doesn't match`);
+            const acc = await this.findByCpf(CPF);
+            const token = await this.generateToken(acc.id);
+            console.log(token);
+            const refreshToken = await this.generateRefreshToken(acc.id);
+            console.log(refreshToken);
+            return { token, refreshToken };
+        }
+        catch (error) {
+            if (error instanceof custom_error_1.default)
+                throw error;
+            else
+                throw new Error('Internal server error');
+        }
+    }
     async createACL({ userId, roles, permissions }) {
         try {
             const user = await this.findById(userId);
@@ -124,6 +148,31 @@ let AccountService = class AccountService {
     async findById(id) {
         return this.prisma.account.findFirst({
             where: { id },
+        });
+    }
+    async generateRefreshToken(account_id) {
+        const refToken = jwt.sign({ userId: account_id }, process.env.SECRET, {
+            expiresIn: '1h',
+            subject: account_id,
+        });
+        return this.prisma.refreshToken.create({
+            data: { refToken: refToken, account_id: account_id },
+        });
+    }
+    async generateToken(account_id) {
+        return jwt.sign({ userId: account_id }, process.env.SECRET, {
+            expiresIn: '10m',
+            subject: account_id,
+        });
+    }
+    async deleteToken(id) {
+        return this.prisma.refreshToken.delete({
+            where: { id: id },
+        });
+    }
+    async findTokenById(id) {
+        return this.prisma.refreshToken.findUnique({
+            where: { id: id },
         });
     }
 };

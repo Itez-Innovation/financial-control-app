@@ -124,17 +124,12 @@ export class AccountController {
   //   }
   // }
 
-  // async login(request: Request, res: Response, next: NextFunction) {
-  //   try {
-  //     const { CPF, password } = request.body;
+  @Post('login')
+  async login(@Body() dataLogin: { CPF; password }) {
+    const { CPF, password } = dataLogin;
 
-  //     const token = await service.login(CPF, password);
-
-  //     return res.status(200).json(token);
-  //   } catch (error) {
-  //     next(error);
-  //   }
-  // }
+    return this.accountService.login({ CPF, password });
+  }
 
   // async refresh(request: Request, res: Response, next: NextFunction) {
   //   try {

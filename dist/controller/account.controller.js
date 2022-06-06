@@ -48,6 +48,10 @@ let AccountController = class AccountController {
     async readAll() {
         return this.accountService.readAll();
     }
+    async login(dataLogin) {
+        const { CPF, password } = dataLogin;
+        return this.accountService.login({ CPF, password });
+    }
     async createAcl(userId, aclData) {
         const { roles, permissions } = aclData;
         return this.accountService.createACL({
@@ -92,6 +96,13 @@ __decorate([
     __metadata("design:paramtypes", []),
     __metadata("design:returntype", Promise)
 ], AccountController.prototype, "readAll", null);
+__decorate([
+    (0, common_1.Post)('login'),
+    __param(0, (0, common_1.Body)()),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", [Object]),
+    __metadata("design:returntype", Promise)
+], AccountController.prototype, "login", null);
 __decorate([
     (0, common_1.Post)('admin/acl'),
     __param(0, (0, common_1.Param)('id')),

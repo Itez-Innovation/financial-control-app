@@ -6,6 +6,9 @@ import NotFoundError from '../exceptions/not-found.error';
 import UnauthorizedError from '../exceptions/unauthorized.error';
 import ForbiddenError from '../exceptions/forbidden.error';
 import CustomError from '../exceptions/custom.error';
+import { compare } from 'bcryptjs';
+import dayjs from 'dayjs';
+import * as jwt from 'jsonwebtoken';
 
 @Injectable()
 export class AccountService {
@@ -99,31 +102,32 @@ export class AccountService {
   //   }
   // }
 
-  // async login(CPF: string, password: string) {
-  //   try {
-  //     let cpfMatch = await this.repository.findByCpf(CPF);
-  //     if (!cpfMatch) throw new NotFoundError(`CPF or Password doesn't match`);
+  async login({ CPF, password }) {
+    try {
+      const cpfMatch = await this.findByCpf(CPF);
 
-  //     let passMatch = await compare(
-  //       password,
-  //       (
-  //         await this.repository.findByCpf(CPF)
-  //       ).password,
-  //     );
-  //     if (!passMatch) throw new NotFoundError(`CPF or Password doesn't match`);
+      if (!cpfMatch) throw new NotFoundError(`CPF or Password doesn't match`);
 
-  //     const acc = await this.repository.findByCpf(CPF);
+      const passMatch = compare(password, (await this.findByCpf(CPF)).password);
 
-  //     const token = await this.repoToken.generateToken(acc.id);
+      if (!passMatch) throw new NotFoundError(`CPF or Password doesn't match`);
 
-  //     const refreshToken = await this.repoToken.generateRefreshToken(acc.id);
+      const acc = await this.findByCpf(CPF);
 
-  //     return { token, refreshToken };
-  //   } catch (error) {
-  //     if (error instanceof CustomError) throw error;
-  //     else throw new Error('Internal server error');
-  //   }
-  // }
+      const token = await this.generateToken(acc.id);
+
+      console.log(token);
+
+      const refreshToken = await this.generateRefreshToken(acc.id);
+
+      console.log(refreshToken);
+
+      return { token, refreshToken };
+    } catch (error) {
+      if (error instanceof CustomError) throw error;
+      else throw new Error('Internal server error');
+    }
+  }
 
   // async refresh(refreshToken: string) {
   //   let refToken = await this.repoToken.findById(refreshToken);
@@ -176,6 +180,38 @@ export class AccountService {
   async findById(id: string): Promise<account> {
     return this.prisma.account.findFirst({
       where: { id },
+    });
+  }
+
+  // Token Repository
+
+  async generateRefreshToken(account_id: string) {
+    const refToken = jwt.sign({ userId: account_id }, process.env.SECRET, {
+      expiresIn: '1h',
+      subject: account_id,
+    });
+
+    return this.prisma.refreshToken.create({
+      data: { refToken: refToken, account_id: account_id },
+    });
+  }
+
+  async generateToken(account_id: string) {
+    return jwt.sign({ userId: account_id }, process.env.SECRET, {
+      expiresIn: '10m',
+      subject: account_id,
+    });
+  }
+
+  async deleteToken(id: string) {
+    return this.prisma.refreshToken.delete({
+      where: { id: id },
+    });
+  }
+
+  async findTokenById(id: string) {
+    return this.prisma.refreshToken.findUnique({
+      where: { id: id },
     });
   }
 }
