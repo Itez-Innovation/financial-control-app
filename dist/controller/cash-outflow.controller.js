@@ -35,15 +35,8 @@ let CashOutflowController = class CashOutflowController {
             id,
         });
     }
-    async read(request, res, next) {
-        try {
-            const { id } = request.body;
-            const response = await service.read(id);
-            return res.status(201).json(response);
-        }
-        catch (error) {
-            res.status(500).json({ code: 500, message: 'internal server error' });
-        }
+    async read(id) {
+        return this.cashOutflowService.read(id);
     }
     async readAll(request, res, next) {
         try {
@@ -77,6 +70,13 @@ __decorate([
     __metadata("design:paramtypes", [String, Object]),
     __metadata("design:returntype", Promise)
 ], CashOutflowController.prototype, "update", null);
+__decorate([
+    (0, common_1.Get)('read/:id'),
+    __param(0, (0, common_1.Param)('id')),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", [String]),
+    __metadata("design:returntype", Promise)
+], CashOutflowController.prototype, "read", null);
 CashOutflowController = __decorate([
     (0, common_1.Controller)('cash-outflow'),
     __metadata("design:paramtypes", [cash_outflow_service_1.CashOutflowService])

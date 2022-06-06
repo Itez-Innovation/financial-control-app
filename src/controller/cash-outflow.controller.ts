@@ -1,4 +1,4 @@
-import { Body, Controller, Delete, Param, Patch, Post } from '@nestjs/common';
+import { Body, Controller, Delete, Get, Param, Patch, Post } from '@nestjs/common';
 import { CashOutflowService } from '../service/cash-outflow.service';
 
 @Controller('cash-outflow')
@@ -32,16 +32,9 @@ export class CashOutflowController {
     });
   }
 
-  async read(request: Request, res: Response, next: NextFunction) {
-    try {
-      const { id } = request.body;
-
-      const response = await service.read(id);
-
-      return res.status(201).json(response);
-    } catch (error) {
-      res.status(500).json({ code: 500, message: 'internal server error' });
-    }
+  @Get('read/:id')
+  async read(@Param('id') id: string) {
+    return this.cashOutflowService.read(id);
   }
 
   async readAll(request: Request, res: Response, next: NextFunction) {

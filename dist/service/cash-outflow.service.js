@@ -78,13 +78,18 @@ let CashOutflowService = class CashOutflowService {
     }
     async read(id) {
         try {
-            const outputFound = await this.repository.findByID(id);
+            const outputFound = await this.prisma.cashOutflow.findFirst({
+                where: { id: id },
+            });
             if (!outputFound)
-                throw new Error('Output not found');
-            return this.repository.findByID(id);
+                throw new not_found_error_1.default('Output not found');
+            return outputFound;
         }
         catch (error) {
-            throw new Error(error);
+            if (error instanceof custom_error_1.default)
+                throw error;
+            else
+                throw new Error(`Internal server error`);
         }
     }
     async readAll() {
