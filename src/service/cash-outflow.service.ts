@@ -1,4 +1,5 @@
 import { Injectable } from '@nestjs/common';
+import NotFoundError from '../exceptions/not-found.error';
 import CustomError from '../exceptions/custom.error';
 import { PrismaService } from './prisma.service';
 
@@ -24,13 +25,18 @@ export class CashOutflowService {
 
   async delete(id: string) {
     try {
-      const outputFound = await this.repository.findByID(id);
+      const outputFound = await this.prisma.cashOutflow.findFirst({
+        where: { id: id },
+      });
 
-      if (!outputFound) throw new Error('Output not found');
+      if (!outputFound) throw new NotFoundError('Output not found');
 
-      return this.repository.delete(id);
+      return this.prisma.cashOutflow.delete({
+        where: { id: id },
+      });
     } catch (error) {
-      throw new Error(error);
+      if (error instanceof CustomError) throw error;
+      else throw new Error(`Internal server error`);
     }
   }
 

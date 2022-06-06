@@ -14,6 +14,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.CashOutflowService = void 0;
 const common_1 = require("@nestjs/common");
+const not_found_error_1 = __importDefault(require("../exceptions/not-found.error"));
 const custom_error_1 = __importDefault(require("../exceptions/custom.error"));
 const prisma_service_1 = require("./prisma.service");
 let CashOutflowService = class CashOutflowService {
@@ -40,13 +41,20 @@ let CashOutflowService = class CashOutflowService {
     }
     async delete(id) {
         try {
-            const outputFound = await this.repository.findByID(id);
+            const outputFound = await this.prisma.cashOutflow.findFirst({
+                where: { id: id },
+            });
             if (!outputFound)
-                throw new Error('Output not found');
-            return this.repository.delete(id);
+                throw new not_found_error_1.default('Output not found');
+            return this.prisma.cashOutflow.delete({
+                where: { id: id },
+            });
         }
         catch (error) {
-            throw new Error(error);
+            if (error instanceof custom_error_1.default)
+                throw error;
+            else
+                throw new Error(`Internal server error`);
         }
     }
     async update(dto, id) {
