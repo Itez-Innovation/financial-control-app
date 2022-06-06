@@ -57,16 +57,23 @@ let CashOutflowService = class CashOutflowService {
                 throw new Error(`Internal server error`);
         }
     }
-    async update(dto, id) {
+    async update({ Area, Titulo, Valor, id }) {
         try {
-            const { Area, Titulo, Valor } = dto;
-            const outputFound = await this.repository.findByID(id);
+            const outputFound = await this.prisma.cashOutflow.findFirst({
+                where: { id: id },
+            });
             if (!outputFound)
-                throw new Error('Output not found');
-            return this.repository.update(id, Area, Titulo, Valor);
+                throw new not_found_error_1.default('Output not found');
+            return this.prisma.cashOutflow.update({
+                data: { Area: Area, Titulo: Titulo, Valor: Valor },
+                where: { id: id },
+            });
         }
         catch (error) {
-            throw new Error(error);
+            if (error instanceof custom_error_1.default)
+                throw error;
+            else
+                throw new Error(`Internal server error`);
         }
     }
     async read(id) {

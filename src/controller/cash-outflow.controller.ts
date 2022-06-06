@@ -1,4 +1,4 @@
-import { Body, Controller, Delete, Post } from '@nestjs/common';
+import { Body, Controller, Delete, Param, Patch, Post } from '@nestjs/common';
 import { CashOutflowService } from '../service/cash-outflow.service';
 
 @Controller('cash-outflow')
@@ -17,16 +17,19 @@ export class CashOutflowController {
     return this.cashOutflowService.delete(id);
   }
 
-  async update(request: Request, res: Response, next: NextFunction) {
-    try {
-      const { Area, Titulo, Valor, id } = request.body;
+  @Patch('update/:id')
+  async update(
+    @Param('id') id: string,
+    @Body() updateData: { Area?: string; Titulo?: string; Valor?: number },
+  ) {
+    const { Area, Titulo, Valor } = updateData;
 
-      const response = await service.update({ Area, Titulo, Valor }, id);
-
-      return res.status(201).json(response);
-    } catch (error) {
-      res.status(500).json({ code: 500, message: 'internal server error' });
-    }
+    return this.cashOutflowService.update({
+      Area,
+      Titulo,
+      Valor,
+      id,
+    });
   }
 
   async read(request: Request, res: Response, next: NextFunction) {

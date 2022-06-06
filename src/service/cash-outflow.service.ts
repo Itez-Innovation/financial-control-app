@@ -40,17 +40,21 @@ export class CashOutflowService {
     }
   }
 
-  async update(dto: UpdateOutputDto, id: string) {
+  async update({ Area, Titulo, Valor, id }) {
     try {
-      const { Area, Titulo, Valor } = dto;
+      const outputFound = await this.prisma.cashOutflow.findFirst({
+        where: { id: id },
+      });
 
-      const outputFound = await this.repository.findByID(id);
+      if (!outputFound) throw new NotFoundError('Output not found');
 
-      if (!outputFound) throw new Error('Output not found');
-
-      return this.repository.update(id, Area, Titulo, Valor);
+      return this.prisma.cashOutflow.update({
+        data: { Area: Area, Titulo: Titulo, Valor: Valor },
+        where: { id: id },
+      });
     } catch (error) {
-      throw new Error(error);
+      if (error instanceof CustomError) throw error;
+      else throw new Error(`Internal server error`);
     }
   }
 

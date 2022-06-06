@@ -26,15 +26,14 @@ let CashOutflowController = class CashOutflowController {
     async delete(id) {
         return this.cashOutflowService.delete(id);
     }
-    async update(request, res, next) {
-        try {
-            const { Area, Titulo, Valor, id } = request.body;
-            const response = await service.update({ Area, Titulo, Valor }, id);
-            return res.status(201).json(response);
-        }
-        catch (error) {
-            res.status(500).json({ code: 500, message: 'internal server error' });
-        }
+    async update(id, updateData) {
+        const { Area, Titulo, Valor } = updateData;
+        return this.cashOutflowService.update({
+            Area,
+            Titulo,
+            Valor,
+            id,
+        });
     }
     async read(request, res, next) {
         try {
@@ -70,6 +69,14 @@ __decorate([
     __metadata("design:paramtypes", [String]),
     __metadata("design:returntype", Promise)
 ], CashOutflowController.prototype, "delete", null);
+__decorate([
+    (0, common_1.Patch)('update/:id'),
+    __param(0, (0, common_1.Param)('id')),
+    __param(1, (0, common_1.Body)()),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", [String, Object]),
+    __metadata("design:returntype", Promise)
+], CashOutflowController.prototype, "update", null);
 CashOutflowController = __decorate([
     (0, common_1.Controller)('cash-outflow'),
     __metadata("design:paramtypes", [cash_outflow_service_1.CashOutflowService])
