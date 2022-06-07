@@ -1,5 +1,5 @@
 /* eslint-disable prettier/prettier */
-import { Body, Controller, Delete, Param, Patch, Post } from '@nestjs/common';
+import { Body, Controller, Delete, Get, Param, Patch, Post } from '@nestjs/common';
 import { CashInflowService } from '../service/cash-inflow.service';
 
 @Controller('cash-inflow')
@@ -36,23 +36,13 @@ export class CashInflowController {
     });
   }
 
-  async read(request: Request, res: Response, next: NextFunction) {
-    try {
-      const { id } = request.body;
-
-      const response = await service.read(id);
-
-      return res.status(201).json(response);
-    } catch (error) {
-      res.status(500).json({ code: 500, message: 'internal server error' });
-    }
+  @Get('read/:id')
+  async read(@Param('id') id: string) {
+    return this.cashInflowService.read(id);
   }
 
-  async readAll(request: Request, res: Response, next: NextFunction) {
-    try {
-      return res.status(201).json(await service.readAll());
-    } catch (error) {
-      res.status(500).json({ code: 500, message: 'internal server error' });
-    }
+  @Get('admin/readAll')
+  async readAll() {
+    return this.cashInflowService.readAll();
   }
 }

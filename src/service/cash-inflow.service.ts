@@ -55,25 +55,29 @@ export class CashInflowService {
 
   async read(id: string) {
     try {
-      const inputFound = await this.repository.findByID(id);
+      const inputFound = await this.prisma.cashInflow.findFirst({
+        where: { id: id },
+      });
 
-      if (!inputFound) throw new Error('Input not found');
+      if (!inputFound) throw new NotFoundError('Input not found');
 
-      return this.repository.findByID(id);
+      return inputFound;
     } catch (error) {
-      throw new Error(error);
+      if (error instanceof CustomError) throw error;
+      else throw new Error('Internal server error');
     }
   }
 
   async readAll() {
     try {
-      const inputsFound = await this.repository.get_all();
+      const inputsFound = await this.prisma.cashInflow.findMany();
 
-      if (!inputsFound) throw new Error('Inputs not found');
+      if (!inputsFound) throw new NotFoundError('Inputs not found');
 
-      return this.repository.get_all();
+      return inputsFound;
     } catch (error) {
-      throw new Error(error);
+      if (error instanceof CustomError) throw error;
+      else throw new Error('Internal server error');
     }
   }
 }
