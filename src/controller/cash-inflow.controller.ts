@@ -1,4 +1,4 @@
-import { Body, Controller, Param, Post } from '@nestjs/common';
+import { Body, Controller, Delete, Param, Post } from '@nestjs/common';
 import { CashInflowService } from '../service/cash-inflow.service';
 
 @Controller('cash-inflow')
@@ -19,16 +19,9 @@ export class CashInflowController {
     });
   }
 
-  async delete(request: Request, res: Response, next: NextFunction) {
-    try {
-      const { id } = request.body;
-
-      await service.delete(id);
-
-      return res.status(204).json();
-    } catch (error) {
-      res.status(500).json({ code: 500, message: 'internal server error' });
-    }
+  @Delete('delete/:id')
+  async delete(@Param('id') id: string) {
+    return this.cashInflowService.delete(id);
   }
 
   async update(request: Request, res: Response, next: NextFunction) {

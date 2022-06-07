@@ -1,4 +1,5 @@
 import { Injectable } from '@nestjs/common';
+import NotFoundError from '../exceptions/not-found.error';
 import CustomError from '../exceptions/custom.error';
 import { PrismaService } from './prisma.service';
 
@@ -8,7 +9,7 @@ export class CashInflowService {
 
   async create({ Titulo, Valor, account_id }) {
     try {
-      return this.prisma.cashInflow.create({
+      return await this.prisma.cashInflow.create({
         data: { Titulo: Titulo, Valor: Valor, account_id: account_id },
       });
     } catch (error) {
@@ -19,13 +20,18 @@ export class CashInflowService {
 
   async delete(id: string) {
     try {
-      const inputFound = await this.repository.findByID(id);
+      const inputFound = await this.prisma.cashInflow.findFirst({
+        where: { id: id },
+      });
 
-      if (!inputFound) throw new Error('Input not found');
+      if (!inputFound) throw new NotFoundError('Input not found');
 
-      return this.repository.delete(id);
+      return this.prisma.cashInflow.delete({
+        where: { id: id },
+      });
     } catch (error) {
-      throw new Error(error);
+      if (error instanceof CustomError) throw error;
+      else throw new Error('Internal server error');
     }
   }
 
