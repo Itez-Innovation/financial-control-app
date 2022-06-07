@@ -1,4 +1,5 @@
-import { Body, Controller, Delete, Param, Post } from '@nestjs/common';
+/* eslint-disable prettier/prettier */
+import { Body, Controller, Delete, Param, Patch, Post } from '@nestjs/common';
 import { CashInflowService } from '../service/cash-inflow.service';
 
 @Controller('cash-inflow')
@@ -24,16 +25,15 @@ export class CashInflowController {
     return this.cashInflowService.delete(id);
   }
 
-  async update(request: Request, res: Response, next: NextFunction) {
-    try {
-      const { Titulo, Valor, id } = request.body;
-
-      const response = await service.update({ Titulo, Valor }, id);
-
-      return res.status(201).json(response);
-    } catch (error) {
-      res.status(500).json({ code: 500, message: 'internal server error' });
-    }
+  @Patch('update/:id')
+  async update(@Param('id') id: string, @Body() updateData: { Titulo; Valor }) {
+    const { Titulo, Valor } = updateData;
+    
+    return this.cashInflowService.update({
+      Titulo,
+      Valor,
+      id,
+    });
   }
 
   async read(request: Request, res: Response, next: NextFunction) {

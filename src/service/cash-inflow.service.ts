@@ -35,17 +35,21 @@ export class CashInflowService {
     }
   }
 
-  async update(dto: UpdateInputDto, id: string) {
+  async update({ Titulo, Valor, id }) {
     try {
-      const { Titulo, Valor } = dto;
+      const inputFound = await this.prisma.cashInflow.findFirst({
+        where: { id: id },
+      });
 
-      const inputFound = await this.repository.findByID(id);
+      if (!inputFound) throw new NotFoundError('Input not found');
 
-      if (!inputFound) throw new Error('Input not found');
-
-      return this.repository.update(id, Titulo, Valor);
+      return this.prisma.cashInflow.update({
+        where: { id: id },
+        data: { Titulo: Titulo, Valor: Valor },
+      });
     } catch (error) {
-      throw new Error(error);
+      if (error instanceof CustomError) throw error;
+      else throw new Error('Internal server error');
     }
   }
 
