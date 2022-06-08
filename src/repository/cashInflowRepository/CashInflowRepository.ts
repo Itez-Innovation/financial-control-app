@@ -4,38 +4,33 @@ import ICashInflowRepository from './ICashInflowRepository';
 export default class CashInflowRepository implements ICashInflowRepository {
   constructor(private prisma: PrismaService) {}
 
-  async create(input: Input) {
-    return this.repository.save(input);
+  async create(input) {
+    return this.prisma.cashInflow.create(input);
   }
 
   async get_all() {
-    return this.repository.find();
+    return this.prisma.cashInflow.findMany();
   }
 
   async delete(id: string) {
-    if (!(await this.repository.findOne({ id }))) {
-      console.log('Esse ganho não existe!');
-    } else {
-      await this.repository.delete({ id });
-      console.log('Ganho removido!');
-    }
+    await this.prisma.cashInflow.delete({ where: { id: id } });
   }
 
-  async update(id: string, titulo: string, valor: number) {
-    if (!(await this.repository.findOne({ id }))) {
-      console.log('Esse ganho não existe!');
-    } else {
-      const inflow = await this.repository.findOne({ id });
-      inflow.Titulo = titulo ? titulo : inflow.Titulo;
-      inflow.Valor = valor ? valor : inflow.Valor;
+  async update(id: string, Titulo?: string, Valor?: number) {
+    const inflow = await this.findById(id);
 
-      const saved = await this.repository.save(inflow);
-      console.log('Ganho atualizado!');
-      return saved;
-    }
+    inflow.Titulo = Titulo ? Titulo : inflow.Titulo;
+    inflow.Valor = Valor ? Valor : inflow.Valor;
+
+    return this.prisma.cashInflow.update({
+      where: { id: id },
+      data: { Titulo: inflow.Titulo, Valor: inflow.Valor },
+    });
   }
 
-  findByID(id: string) {
-    return this.repository.findOne({ id });
+  async findById(id: string) {
+    return this.prisma.cashInflow.findFirst({
+      where: { id: id },
+    });
   }
 }

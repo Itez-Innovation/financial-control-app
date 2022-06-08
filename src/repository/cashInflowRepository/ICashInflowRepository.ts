@@ -1,7 +1,9 @@
+import { cashInflow } from '@prisma/client';
+
 export default interface ICashInflowRepository {
-  create(input: Input): Promise<CashInflowEntity>;
-  get_all(): Promise<CashInflowEntity[]>;
+  create(input): Promise<cashInflow>;
+  get_all(): Promise<cashInflow[]>;
   delete(id: string): Promise<any>;
-  update(id: string, titulo: string, valor: number): Promise<CashInflowEntity>;
-  findByID(id: string): Promise<CashInflowEntity | undefined>;
+  update(id: string, Titulo?: string, Valor?: number): Promise<cashInflow>;
+  findById(id: string): Promise<cashInflow | undefined>;
 }
