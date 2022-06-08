@@ -166,6 +166,12 @@ let AccountService = class AccountService {
             const user = await this.findById(userId);
             if (!user)
                 throw new not_found_error_1.default("Couldn't find this account");
+            const permissionsExists = await this.prisma.permissions.findMany({
+                select: { id: permissions },
+            });
+            const rolesExists = await this.prisma.permissions.findMany({
+                select: { id: permissions },
+            });
             this.prisma.account.update({
                 where: { id: userId },
                 data: { roles: roles, permissions: permissions },

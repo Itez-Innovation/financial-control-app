@@ -27,43 +27,22 @@ let CashInflowController = class CashInflowController {
             account_id,
         });
     }
-    async delete(request, res, next) {
-        try {
-            const { id } = request.body;
-            await service.delete(id);
-            return res.status(204).json();
-        }
-        catch (error) {
-            res.status(500).json({ code: 500, message: 'internal server error' });
-        }
+    async delete(id) {
+        return this.cashInflowService.delete(id);
     }
-    async update(request, res, next) {
-        try {
-            const { Titulo, Valor, id } = request.body;
-            const response = await service.update({ Titulo, Valor }, id);
-            return res.status(201).json(response);
-        }
-        catch (error) {
-            res.status(500).json({ code: 500, message: 'internal server error' });
-        }
+    async update(id, updateData) {
+        const { Titulo, Valor } = updateData;
+        return this.cashInflowService.update({
+            Titulo,
+            Valor,
+            id,
+        });
     }
-    async read(request, res, next) {
-        try {
-            const { id } = request.body;
-            const response = await service.read(id);
-            return res.status(201).json(response);
-        }
-        catch (error) {
-            res.status(500).json({ code: 500, message: 'internal server error' });
-        }
+    async read(id) {
+        return this.cashInflowService.read(id);
     }
-    async readAll(request, res, next) {
-        try {
-            return res.status(201).json(await service.readAll());
-        }
-        catch (error) {
-            res.status(500).json({ code: 500, message: 'internal server error' });
-        }
+    async readAll() {
+        return this.cashInflowService.readAll();
     }
 };
 __decorate([
@@ -74,6 +53,34 @@ __decorate([
     __metadata("design:paramtypes", [String, Object]),
     __metadata("design:returntype", Promise)
 ], CashInflowController.prototype, "create", null);
+__decorate([
+    (0, common_1.Delete)('delete/:id'),
+    __param(0, (0, common_1.Param)('id')),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", [String]),
+    __metadata("design:returntype", Promise)
+], CashInflowController.prototype, "delete", null);
+__decorate([
+    (0, common_1.Patch)('update/:id'),
+    __param(0, (0, common_1.Param)('id')),
+    __param(1, (0, common_1.Body)()),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", [String, Object]),
+    __metadata("design:returntype", Promise)
+], CashInflowController.prototype, "update", null);
+__decorate([
+    (0, common_1.Get)('read/:id'),
+    __param(0, (0, common_1.Param)('id')),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", [String]),
+    __metadata("design:returntype", Promise)
+], CashInflowController.prototype, "read", null);
+__decorate([
+    (0, common_1.Get)('admin/readAll'),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", []),
+    __metadata("design:returntype", Promise)
+], CashInflowController.prototype, "readAll", null);
 CashInflowController = __decorate([
     (0, common_1.Controller)('cash-inflow'),
     __metadata("design:paramtypes", [cash_inflow_service_1.CashInflowService])

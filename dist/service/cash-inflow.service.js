@@ -14,6 +14,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.CashInflowService = void 0;
 const common_1 = require("@nestjs/common");
+const not_found_error_1 = __importDefault(require("../exceptions/not-found.error"));
 const custom_error_1 = __importDefault(require("../exceptions/custom.error"));
 const prisma_service_1 = require("./prisma.service");
 let CashInflowService = class CashInflowService {
@@ -22,7 +23,7 @@ let CashInflowService = class CashInflowService {
     }
     async create({ Titulo, Valor, account_id }) {
         try {
-            return this.prisma.cashInflow.create({
+            return await this.prisma.cashInflow.create({
                 data: { Titulo: Titulo, Valor: Valor, account_id: account_id },
             });
         }
@@ -35,47 +36,69 @@ let CashInflowService = class CashInflowService {
     }
     async delete(id) {
         try {
-            const inputFound = await this.repository.findByID(id);
+            const inputFound = await this.prisma.cashInflow.findFirst({
+                where: { id: id },
+            });
             if (!inputFound)
-                throw new Error('Input not found');
-            return this.repository.delete(id);
+                throw new not_found_error_1.default('Input not found');
+            return this.prisma.cashInflow.delete({
+                where: { id: id },
+            });
         }
         catch (error) {
-            throw new Error(error);
+            if (error instanceof custom_error_1.default)
+                throw error;
+            else
+                throw new Error('Internal server error');
         }
     }
-    async update(dto, id) {
+    async update({ Titulo, Valor, id }) {
         try {
-            const { Titulo, Valor } = dto;
-            const inputFound = await this.repository.findByID(id);
+            const inputFound = await this.prisma.cashInflow.findFirst({
+                where: { id: id },
+            });
             if (!inputFound)
-                throw new Error('Input not found');
-            return this.repository.update(id, Titulo, Valor);
+                throw new not_found_error_1.default('Input not found');
+            return this.prisma.cashInflow.update({
+                where: { id: id },
+                data: { Titulo: Titulo, Valor: Valor },
+            });
         }
         catch (error) {
-            throw new Error(error);
+            if (error instanceof custom_error_1.default)
+                throw error;
+            else
+                throw new Error('Internal server error');
         }
     }
     async read(id) {
         try {
-            const inputFound = await this.repository.findByID(id);
+            const inputFound = await this.prisma.cashInflow.findFirst({
+                where: { id: id },
+            });
             if (!inputFound)
-                throw new Error('Input not found');
-            return this.repository.findByID(id);
+                throw new not_found_error_1.default('Input not found');
+            return inputFound;
         }
         catch (error) {
-            throw new Error(error);
+            if (error instanceof custom_error_1.default)
+                throw error;
+            else
+                throw new Error('Internal server error');
         }
     }
     async readAll() {
         try {
-            const inputsFound = await this.repository.get_all();
+            const inputsFound = await this.prisma.cashInflow.findMany();
             if (!inputsFound)
-                throw new Error('Inputs not found');
-            return this.repository.get_all();
+                throw new not_found_error_1.default('Inputs not found');
+            return inputsFound;
         }
         catch (error) {
-            throw new Error(error);
+            if (error instanceof custom_error_1.default)
+                throw error;
+            else
+                throw new Error('Internal server error');
         }
     }
 };

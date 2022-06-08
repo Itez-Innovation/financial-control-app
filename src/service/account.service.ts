@@ -148,12 +148,12 @@ export class AccountService {
 
       if (!user) throw new NotFoundError("Couldn't find this account");
 
-      // const permissionsExists = await this.prisma.permissions.findMany({
-      //   select: { id: permissions },
-      // });
-      // const rolesExists = await this.prisma.permissions.findMany({
-      //   select: { id: permissions },
-      // });
+      const permissionsExists = await this.prisma.permissions.findMany({
+        select: { id: permissions },
+      });
+      const rolesExists = await this.prisma.permissions.findMany({
+        select: { id: permissions },
+      });
 
       this.prisma.account.update({
         where: { id: userId },
