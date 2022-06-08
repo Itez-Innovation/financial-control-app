@@ -1,46 +1,52 @@
+import { account } from '@prisma/client';
+import { hash } from 'bcryptjs';
 import { PrismaService } from '../../service/prisma.service';
 import IAccountRepository from './IAccountRepository';
 
 export default class AccountRepository implements IAccountRepository {
   constructor(private prisma: PrismaService) {}
 
-  async create(account: Account | AccountEntity) {
-    return this.repository.save(account);
+  async create(account) {
+    return this.prisma.account.create(account);
   }
 
   async delete(id: string) {
-    return this.repository.delete({ id });
+    return this.prisma.account.delete({ where: { id: id } });
   }
 
   async update(id: string, CPF: string, Name?: string, password?: string) {
-    const acc = await this.repository.findOne({ id });
+    const acc = await this.findById(id);
+
     acc.CPF = CPF ? CPF : acc.CPF;
     acc.Name = Name ? Name : acc.Name;
     acc.password = (await hash(password, 8)) ? password : acc.password;
 
-    await this.repository.save(acc);
-
-    console.log(acc);
-
-    return acc;
-  }
-
-  async get_all() {
-    return this.repository.find();
-  }
-
-  async getStats(idS: string) {
-    return this.repository.find({
-      relations: ['inputs', 'outputs'],
-      where: { id: idS },
+    return this.prisma.account.update({
+      where: { id: id },
+      data: { CPF: acc.CPF, Name: acc.Name, password: acc.password },
     });
   }
 
-  findByCpf(CPF: string) {
-    return this.repository.findOne({ CPF });
+  async get_all() {
+    return this.prisma.account.findMany();
   }
 
-  findById(id: string) {
-    return this.repository.findOne({ id });
+  async getStats(id: string) {
+    return this.prisma.account.findMany({
+      include: { input: true, output: true },
+      where: { id: id },
+    });
+  }
+
+  async findByCpf(CPF: string): Promise<account> {
+    return this.prisma.account.findFirst({
+      where: { CPF },
+    });
+  }
+
+  async findById(id: string): Promise<account> {
+    return this.prisma.account.findFirst({
+      where: { id },
+    });
   }
 }

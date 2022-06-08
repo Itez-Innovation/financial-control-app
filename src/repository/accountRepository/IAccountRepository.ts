@@ -1,14 +1,16 @@
+import { account } from '@prisma/client';
+
 export default interface IAccountRepository {
-  create(account: Account | AccountEntity): Promise<Account | AccountEntity>;
+  create(account): Promise<account>;
   delete(id: string): Promise<any>;
-  get_all(): Promise<AccountEntity[]>;
-  getStats(idS: string): Promise<AccountEntity[]>;
+  get_all(): Promise<account[]>;
+  getStats(id: string): Promise<account | any>;
   update(
     id: string,
     CPF: string,
     Name?: string,
     password?: string,
-  ): Promise<AccountEntity>;
-  findByCpf(CPF: string): Promise<AccountEntity | undefined>;
-  findById(id: string): Promise<AccountEntity | undefined>;
+  ): Promise<account>;
+  findByCpf(CPF: string): Promise<account | undefined>;
+  findById(id: string): Promise<account | undefined>;
 }
