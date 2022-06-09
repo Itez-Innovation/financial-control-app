@@ -4,8 +4,8 @@ import ICashInflowRepository from './ICashInflowRepository';
 export default class CashInflowRepository implements ICashInflowRepository {
   constructor(private prisma: PrismaService) {}
 
-  async create(input) {
-    return this.prisma.cashInflow.create(input);
+  async create(cashInflow) {
+    return this.prisma.cashInflow.create(cashInflow);
   }
 
   async get_all() {

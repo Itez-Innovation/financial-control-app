@@ -4,57 +4,53 @@ import ICashOutflowRepository from './ICashOutflowRepository';
 export default class CashOutflowRepository implements ICashOutflowRepository {
   constructor(private prisma: PrismaService) {}
 
-  async create(output: Output) {
-    return this.repository.save(output);
+  async create(output) {
+    return this.prisma.cashOutflow.create(output);
   }
 
   async get_all() {
-    return this.repository.find();
+    return this.prisma.cashOutflow.findMany();
   }
 
   async delete(id: string) {
-    if (!(await this.repository.findOne({ id }))) {
-      console.log('Esse gasto não existe!');
-    } else {
-      console.log('Gasto removido!');
-      await this.repository.delete({ id });
-    }
+    return this.prisma.cashOutflow.delete({
+      where: { id: id },
+    });
   }
 
-  async update(id: string, area: string, titulo: string, valor: number) {
-    if (!(await this.repository.findOne({ id }))) {
-      console.log('Esse gasto não existe!');
-    } else {
-      const outflow = await this.repository.findOne({ id });
-      outflow.Area = area ? area : outflow.Area;
-      outflow.Titulo = titulo ? titulo : outflow.Titulo;
-      outflow.Valor = valor ? valor : outflow.Valor;
+  async update(id: string, area?: string, titulo?: string, valor?: number) {
+    const outflow = await this.prisma.cashOutflow.findFirst({
+      where: { id: id },
+    });
+    outflow.Area = area ? area : outflow.Area;
+    outflow.Titulo = titulo ? titulo : outflow.Titulo;
+    outflow.Valor = valor ? valor : outflow.Valor;
 
-      const saved = await this.repository.save(outflow);
-
-      console.log('Gasto atualizado!');
-
-      return saved;
-    }
+    return this.prisma.cashOutflow.update({
+      where: { id: id },
+      data: {
+        Area: outflow.Area,
+        Titulo: outflow.Titulo,
+        Valor: outflow.Valor,
+      },
+    });
   }
 
-  // public async findByTitulo(Titulo: string): Promise<CashOutflow[]> {
-  //     return this.find({
-  //         where: {
-  //             Titulo,
-  //         }
-  //     })
-  // }
+  findById(id: string) {
+    return this.prisma.cashOutflow.findFirst({
+      where: { id: id },
+    });
+  }
 
-  // public async findByArea(Area: string): Promise<CashOutflow[]> {
-  //     return this.find({
-  //         where: {
-  //             Area,
-  //         }
-  //     })
-  // }
+  async findByTitulo(Titulo: string) {
+    return this.prisma.cashOutflow.findFirst({
+      where: { Titulo: Titulo },
+    });
+  }
 
-  findByID(id: string) {
-    return this.repository.findOne({ id });
+  async findByArea(Area: string) {
+    return this.prisma.cashOutflow.findFirst({
+      where: { Area: Area },
+    });
   }
 }
