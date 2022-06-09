@@ -156,36 +156,4 @@ export class AccountService {
       else throw new Error('Internal server error');
     }
   }
-
-  // Token Repository
-
-  async generateRefreshToken(account_id: string) {
-    const refToken = jwt.sign({ userId: account_id }, process.env.SECRET, {
-      expiresIn: '1h',
-      subject: account_id,
-    });
-
-    return this.prisma.refreshToken.create({
-      data: { refToken: refToken, account_id: account_id },
-    });
-  }
-
-  async generateToken(account_id: string) {
-    return jwt.sign({ userId: account_id }, process.env.SECRET, {
-      expiresIn: '10m',
-      subject: account_id,
-    });
-  }
-
-  async deleteToken(id: string) {
-    return this.prisma.refreshToken.delete({
-      where: { id: id },
-    });
-  }
-
-  async findTokenById(id: string) {
-    return this.prisma.refreshToken.findUnique({
-      where: { id: id },
-    });
-  }
 }

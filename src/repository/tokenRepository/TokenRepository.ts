@@ -1,3 +1,4 @@
+import * as jwt from 'jsonwebtoken';
 import { PrismaService } from '../../service/prisma.service';
 import ITokenRepository from './ITokenRepository';
 
@@ -10,12 +11,9 @@ export default class TokenRepository implements ITokenRepository {
       subject: account_id,
     });
 
-    const refreshToken = new RefreshToken({ refToken, account_id });
-
-    const result: RefreshTokenEntity | RefreshToken =
-      await this.repository.save(refreshToken);
-
-    return result;
+    return this.prisma.refreshToken.create({
+      data: { refToken: refToken, account_id: account_id },
+    });
   }
 
   async generateToken(account_id: string) {
@@ -25,11 +23,15 @@ export default class TokenRepository implements ITokenRepository {
     });
   }
 
-  async delete(id: string) {
-    return this.repository.delete({ id });
+  async deleteToken(id: string) {
+    return this.prisma.refreshToken.delete({
+      where: { id: id },
+    });
   }
 
-  findById(id: string) {
-    return this.repository.findOne(id);
+  async findTokenById(id: string) {
+    return this.prisma.refreshToken.findUnique({
+      where: { id: id },
+    });
   }
 }
