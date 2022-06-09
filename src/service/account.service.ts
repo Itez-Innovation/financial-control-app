@@ -8,10 +8,14 @@ import { compare } from 'bcryptjs';
 import dayjs from 'dayjs';
 import * as jwt from 'jsonwebtoken';
 import IAccountRepository from '../repository/accountRepository/IAccountRepository';
+import ITokenRepository from 'src/repository/tokenRepository/ITokenRepository';
 
 @Injectable()
 export class AccountService {
-  constructor(private AccountRepository: IAccountRepository) {}
+  constructor(
+    private AccountRepository: IAccountRepository,
+    private TokenRepository: ITokenRepository,
+  ) {}
 
   async create({ CPF, Name, password }) {
     try {
@@ -107,9 +111,11 @@ export class AccountService {
 
       const acc = await this.AccountRepository.findByCpf(CPF);
 
-      const token = await this.generateToken(acc.id);
+      const token = await this.TokenRepository.generateToken(acc.id);
 
-      const refreshToken = await this.generateRefreshToken(acc.id);
+      const refreshToken = await this.TokenRepository.generateRefreshToken(
+        acc.id,
+      );
 
       return { token, refreshToken };
     } catch (error) {
@@ -119,7 +125,7 @@ export class AccountService {
   }
 
   async refresh(id: string) {
-    const refToken = await this.findTokenById(id);
+    const refToken = await this.TokenRepository.findTokenById(id);
 
     if (!refToken) throw new UnauthorizedError("Refresh Token isn't valid");
 
@@ -128,11 +134,11 @@ export class AccountService {
     const refreshTokenExpired = dayjs().isAfter(dayjs.unix(exp));
 
     if (refreshTokenExpired) {
-      await this.deleteToken(refToken.id);
+      await this.TokenRepository.deleteToken(refToken.id);
       throw new ForbiddenError('Refresh Token Expired!');
     }
 
-    return this.generateToken(sub);
+    return this.TokenRepository.generateToken(sub);
   }
 
   async createACL({ userId, roles, permissions }) {
