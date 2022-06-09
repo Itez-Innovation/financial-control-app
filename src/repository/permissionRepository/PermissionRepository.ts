@@ -4,19 +4,25 @@ import IPermissionRepository from './IPermissionRepository';
 export default class PermissionRepository implements IPermissionRepository {
   constructor(private prisma: PrismaService) {}
 
-  async create(permission: Permission) {
-    return this.repository.save(permission);
+  async create(permission) {
+    return this.prisma.permissions.create(permission);
   }
 
   findByName(name: string) {
-    return this.repository.findOne({ name });
+    return this.prisma.permissions.findFirst({
+      where: { name: name },
+    });
   }
 
   findById(id: string) {
-    return this.repository.findOne({ id });
+    return this.prisma.permissions.findFirst({
+      where: { id: id },
+    });
   }
 
   findByIds(ids: string[]) {
-    return this.repository.findByIds(ids);
+    return this.prisma.permissions.findMany({
+      where: { id: { in: ids } },
+    });
   }
 }
