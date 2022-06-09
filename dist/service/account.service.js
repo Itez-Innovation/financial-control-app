@@ -173,7 +173,7 @@ let AccountService = class AccountService {
             const user = await this.AccountRepository.findById(userId);
             if (!user)
                 throw new not_found_error_1.default("Couldn't find this account");
-            const permissionsExists = await this.PermissionRepository.findByIds(permissions);
+            const permExists = await this.PermissionRepository.findByIds(permissions);
             const rolesExists = await this.RoleRepository.findByIds(roles);
             this.AccountRepository.create(user);
             return user;
