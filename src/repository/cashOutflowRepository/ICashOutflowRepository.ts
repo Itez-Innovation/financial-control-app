@@ -1,7 +1,7 @@
 import { cashOutflow } from '@prisma/client';
 
 export default interface ICashOutflowRepository {
-  create(cashOutflow): Promise<cashOutflow>;
+  create(cashOutflow: cashOutflow): Promise<cashOutflow>;
   get_all(): Promise<cashOutflow[]>;
   delete(id: string): Promise<any>;
   update(

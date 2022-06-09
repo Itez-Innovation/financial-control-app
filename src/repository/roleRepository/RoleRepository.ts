@@ -1,22 +1,31 @@
+import { roles } from '@prisma/client';
 import { PrismaService } from '../../service/prisma.service';
 import IRoleRepository from './IRoleRepository';
 
 export default class RoleRepository implements IRoleRepository {
   constructor(private prisma: PrismaService) {}
 
-  async create(role: Role | RoleEntity) {
-    return this.repository.save(role);
+  async create(role: roles) {
+    return this.prisma.roles.create({
+      data: role,
+    });
   }
 
   findByName(name: string) {
-    return this.repository.findOne({ name });
+    return this.prisma.roles.findFirst({
+      where: { name: name },
+    });
   }
 
   findById(id: string) {
-    return this.repository.findOne({ id });
+    return this.prisma.roles.findFirst({
+      where: { id: id },
+    });
   }
 
   findByIds(ids: string[]) {
-    return this.repository.findByIds(ids);
+    return this.prisma.roles.findMany({
+      where: { id: { in: ids } },
+    });
   }
 }

@@ -16,20 +16,17 @@ exports.CashOutflowService = void 0;
 const common_1 = require("@nestjs/common");
 const not_found_error_1 = __importDefault(require("../exceptions/not-found.error"));
 const custom_error_1 = __importDefault(require("../exceptions/custom.error"));
-const prisma_service_1 = require("./prisma.service");
 let CashOutflowService = class CashOutflowService {
-    constructor(prisma) {
-        this.prisma = prisma;
+    constructor(CashOutflowRepository) {
+        this.CashOutflowRepository = CashOutflowRepository;
     }
     async create({ Area, Titulo, Valor, account_id }) {
         try {
-            return this.prisma.cashOutflow.create({
-                data: {
-                    Area: Area,
-                    Titulo: Titulo,
-                    Valor: Valor,
-                    account_id: account_id,
-                },
+            return this.CashOutflowRepository.create({
+                account_id,
+                Area,
+                Titulo,
+                Valor,
             });
         }
         catch (error) {
@@ -41,14 +38,10 @@ let CashOutflowService = class CashOutflowService {
     }
     async delete(id) {
         try {
-            const outputFound = await this.prisma.cashOutflow.findFirst({
-                where: { id: id },
-            });
+            const outputFound = await this.CashOutflowRepository.findById(id);
             if (!outputFound)
                 throw new not_found_error_1.default('Output not found');
-            return this.prisma.cashOutflow.delete({
-                where: { id: id },
-            });
+            return this.CashOutflowRepository.delete(id);
         }
         catch (error) {
             if (error instanceof custom_error_1.default)
@@ -59,15 +52,10 @@ let CashOutflowService = class CashOutflowService {
     }
     async update({ Area, Titulo, Valor, id }) {
         try {
-            const outputFound = await this.prisma.cashOutflow.findFirst({
-                where: { id: id },
-            });
+            const outputFound = await this.CashOutflowRepository.findById(id);
             if (!outputFound)
                 throw new not_found_error_1.default('Output not found');
-            return this.prisma.cashOutflow.update({
-                data: { Area: Area, Titulo: Titulo, Valor: Valor },
-                where: { id: id },
-            });
+            return this.CashOutflowRepository.update(id, Area, Titulo, Valor);
         }
         catch (error) {
             if (error instanceof custom_error_1.default)
@@ -78,9 +66,7 @@ let CashOutflowService = class CashOutflowService {
     }
     async read(id) {
         try {
-            const outputFound = await this.prisma.cashOutflow.findFirst({
-                where: { id: id },
-            });
+            const outputFound = await this.CashOutflowRepository.findById(id);
             if (!outputFound)
                 throw new not_found_error_1.default('Output not found');
             return outputFound;
@@ -94,7 +80,7 @@ let CashOutflowService = class CashOutflowService {
     }
     async readAll() {
         try {
-            const OutputsFound = await this.prisma.cashOutflow.findMany();
+            const OutputsFound = await this.CashOutflowRepository.get_all();
             if (!OutputsFound)
                 throw new not_found_error_1.default('Output not found');
             return OutputsFound;
@@ -109,7 +95,7 @@ let CashOutflowService = class CashOutflowService {
 };
 CashOutflowService = __decorate([
     (0, common_1.Injectable)(),
-    __metadata("design:paramtypes", [prisma_service_1.PrismaService])
+    __metadata("design:paramtypes", [Object])
 ], CashOutflowService);
 exports.CashOutflowService = CashOutflowService;
 //# sourceMappingURL=cash-outflow.service.js.map

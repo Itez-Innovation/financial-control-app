@@ -4,37 +4,49 @@ class CashOutflowRepository {
     constructor(prisma) {
         this.prisma = prisma;
     }
-    async create(output) {
-        return this.repository.save(output);
+    async create(cashOutflow) {
+        return this.prisma.cashOutflow.create({
+            data: cashOutflow,
+        });
     }
     async get_all() {
-        return this.repository.find();
+        return this.prisma.cashOutflow.findMany();
     }
     async delete(id) {
-        if (!(await this.repository.findOne({ id }))) {
-            console.log('Esse gasto não existe!');
-        }
-        else {
-            console.log('Gasto removido!');
-            await this.repository.delete({ id });
-        }
+        return this.prisma.cashOutflow.delete({
+            where: { id: id },
+        });
     }
     async update(id, area, titulo, valor) {
-        if (!(await this.repository.findOne({ id }))) {
-            console.log('Esse gasto não existe!');
-        }
-        else {
-            const outflow = await this.repository.findOne({ id });
-            outflow.Area = area ? area : outflow.Area;
-            outflow.Titulo = titulo ? titulo : outflow.Titulo;
-            outflow.Valor = valor ? valor : outflow.Valor;
-            const saved = await this.repository.save(outflow);
-            console.log('Gasto atualizado!');
-            return saved;
-        }
+        const outflow = await this.prisma.cashOutflow.findFirst({
+            where: { id: id },
+        });
+        outflow.Area = area ? area : outflow.Area;
+        outflow.Titulo = titulo ? titulo : outflow.Titulo;
+        outflow.Valor = valor ? valor : outflow.Valor;
+        return this.prisma.cashOutflow.update({
+            where: { id: id },
+            data: {
+                Area: outflow.Area,
+                Titulo: outflow.Titulo,
+                Valor: outflow.Valor,
+            },
+        });
     }
-    findByID(id) {
-        return this.repository.findOne({ id });
+    findById(id) {
+        return this.prisma.cashOutflow.findFirst({
+            where: { id: id },
+        });
+    }
+    async findByTitulo(Titulo) {
+        return this.prisma.cashOutflow.findFirst({
+            where: { Titulo: Titulo },
+        });
+    }
+    async findByArea(Area) {
+        return this.prisma.cashOutflow.findFirst({
+            where: { Area: Area },
+        });
     }
 }
 exports.default = CashOutflowRepository;

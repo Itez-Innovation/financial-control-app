@@ -4,36 +4,30 @@ class CashInflowRepository {
     constructor(prisma) {
         this.prisma = prisma;
     }
-    async create(input) {
-        return this.repository.save(input);
+    async create(cashInflow) {
+        return this.prisma.cashInflow.create({
+            data: cashInflow,
+        });
     }
     async get_all() {
-        return this.repository.find();
+        return this.prisma.cashInflow.findMany();
     }
     async delete(id) {
-        if (!(await this.repository.findOne({ id }))) {
-            console.log('Esse ganho não existe!');
-        }
-        else {
-            await this.repository.delete({ id });
-            console.log('Ganho removido!');
-        }
+        await this.prisma.cashInflow.delete({ where: { id: id } });
     }
-    async update(id, titulo, valor) {
-        if (!(await this.repository.findOne({ id }))) {
-            console.log('Esse ganho não existe!');
-        }
-        else {
-            const inflow = await this.repository.findOne({ id });
-            inflow.Titulo = titulo ? titulo : inflow.Titulo;
-            inflow.Valor = valor ? valor : inflow.Valor;
-            const saved = await this.repository.save(inflow);
-            console.log('Ganho atualizado!');
-            return saved;
-        }
+    async update(id, Titulo, Valor) {
+        const inflow = await this.findById(id);
+        inflow.Titulo = Titulo ? Titulo : inflow.Titulo;
+        inflow.Valor = Valor ? Valor : inflow.Valor;
+        return this.prisma.cashInflow.update({
+            where: { id: id },
+            data: { Titulo: inflow.Titulo, Valor: inflow.Valor },
+        });
     }
-    findByID(id) {
-        return this.repository.findOne({ id });
+    async findById(id) {
+        return this.prisma.cashInflow.findFirst({
+            where: { id: id },
+        });
     }
 }
 exports.default = CashInflowRepository;

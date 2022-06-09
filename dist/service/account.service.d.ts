@@ -1,26 +1,32 @@
-import { PrismaService } from './prisma.service';
-import { account } from '@prisma/client';
+import IAccountRepository from '../repository/accountRepository/IAccountRepository';
+import ITokenRepository from 'src/repository/tokenRepository/ITokenRepository';
+import IPermissionRepository from 'src/repository/permissionRepository/IPermissionRepository';
+import IRoleRepository from 'src/repository/roleRepository/IRoleRepository';
 export declare class AccountService {
-    private prisma;
-    constructor(prisma: PrismaService);
+    private AccountRepository;
+    private TokenRepository;
+    private PermissionRepository;
+    private RoleRepository;
+    constructor(AccountRepository: IAccountRepository, TokenRepository: ITokenRepository, PermissionRepository: IPermissionRepository, RoleRepository: IRoleRepository);
     create({ CPF, Name, password }: {
         CPF: any;
         Name: any;
         password: any;
-    }): Promise<account>;
+    }): Promise<import(".prisma/client").account>;
     delete({ id }: {
         id: any;
-    }): Promise<account>;
+    }): Promise<any>;
     update({ id, CPF, Name, password }: {
         id: any;
         CPF: any;
         Name: any;
         password: any;
-    }): Promise<account>;
+    }): Promise<import(".prisma/client").account>;
     read({ id }: {
         id: any;
-    }): Promise<account>;
-    readAll(): Promise<account[]>;
+    }): Promise<import(".prisma/client").account>;
+    readAll(): Promise<import(".prisma/client").account[]>;
+    getStats(id: string): Promise<any>;
     login({ CPF, password }: {
         CPF: any;
         password: any;
@@ -33,11 +39,5 @@ export declare class AccountService {
         userId: any;
         roles: any;
         permissions: any;
-    }): Promise<account>;
-    findByCpf(CPF: string): Promise<account>;
-    findById(id: string): Promise<account>;
-    generateRefreshToken(account_id: string): Promise<import(".prisma/client").refreshToken>;
-    generateToken(account_id: string): Promise<string>;
-    deleteToken(id: string): Promise<import(".prisma/client").refreshToken>;
-    findTokenById(id: string): Promise<import(".prisma/client").refreshToken>;
+    }): Promise<import(".prisma/client").account>;
 }

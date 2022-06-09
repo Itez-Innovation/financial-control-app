@@ -16,15 +16,16 @@ exports.CashInflowService = void 0;
 const common_1 = require("@nestjs/common");
 const not_found_error_1 = __importDefault(require("../exceptions/not-found.error"));
 const custom_error_1 = __importDefault(require("../exceptions/custom.error"));
-const prisma_service_1 = require("./prisma.service");
 let CashInflowService = class CashInflowService {
-    constructor(prisma) {
-        this.prisma = prisma;
+    constructor(CashInflowRepository) {
+        this.CashInflowRepository = CashInflowRepository;
     }
     async create({ Titulo, Valor, account_id }) {
         try {
-            return await this.prisma.cashInflow.create({
-                data: { Titulo: Titulo, Valor: Valor, account_id: account_id },
+            return await this.CashInflowRepository.create({
+                Titulo,
+                Valor,
+                account_id,
             });
         }
         catch (error) {
@@ -36,14 +37,10 @@ let CashInflowService = class CashInflowService {
     }
     async delete(id) {
         try {
-            const inputFound = await this.prisma.cashInflow.findFirst({
-                where: { id: id },
-            });
+            const inputFound = await this.CashInflowRepository.findById(id);
             if (!inputFound)
                 throw new not_found_error_1.default('Input not found');
-            return this.prisma.cashInflow.delete({
-                where: { id: id },
-            });
+            return this.CashInflowRepository.delete(id);
         }
         catch (error) {
             if (error instanceof custom_error_1.default)
@@ -54,15 +51,10 @@ let CashInflowService = class CashInflowService {
     }
     async update({ Titulo, Valor, id }) {
         try {
-            const inputFound = await this.prisma.cashInflow.findFirst({
-                where: { id: id },
-            });
+            const inputFound = await this.CashInflowRepository.findById(id);
             if (!inputFound)
                 throw new not_found_error_1.default('Input not found');
-            return this.prisma.cashInflow.update({
-                where: { id: id },
-                data: { Titulo: Titulo, Valor: Valor },
-            });
+            return this.CashInflowRepository.update(id, Titulo, Valor);
         }
         catch (error) {
             if (error instanceof custom_error_1.default)
@@ -73,9 +65,7 @@ let CashInflowService = class CashInflowService {
     }
     async read(id) {
         try {
-            const inputFound = await this.prisma.cashInflow.findFirst({
-                where: { id: id },
-            });
+            const inputFound = await this.CashInflowRepository.findById(id);
             if (!inputFound)
                 throw new not_found_error_1.default('Input not found');
             return inputFound;
@@ -89,7 +79,7 @@ let CashInflowService = class CashInflowService {
     }
     async readAll() {
         try {
-            const inputsFound = await this.prisma.cashInflow.findMany();
+            const inputsFound = await this.CashInflowRepository.get_all();
             if (!inputsFound)
                 throw new not_found_error_1.default('Inputs not found');
             return inputsFound;
@@ -104,7 +94,7 @@ let CashInflowService = class CashInflowService {
 };
 CashInflowService = __decorate([
     (0, common_1.Injectable)(),
-    __metadata("design:paramtypes", [prisma_service_1.PrismaService])
+    __metadata("design:paramtypes", [Object])
 ], CashInflowService);
 exports.CashInflowService = CashInflowService;
 //# sourceMappingURL=cash-inflow.service.js.map

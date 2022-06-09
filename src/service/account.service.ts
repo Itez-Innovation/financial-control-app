@@ -9,12 +9,16 @@ import dayjs from 'dayjs';
 import * as jwt from 'jsonwebtoken';
 import IAccountRepository from '../repository/accountRepository/IAccountRepository';
 import ITokenRepository from 'src/repository/tokenRepository/ITokenRepository';
+import IPermissionRepository from 'src/repository/permissionRepository/IPermissionRepository';
+import IRoleRepository from 'src/repository/roleRepository/IRoleRepository';
 
 @Injectable()
 export class AccountService {
   constructor(
     private AccountRepository: IAccountRepository,
     private TokenRepository: ITokenRepository,
+    private PermissionRepository: IPermissionRepository,
+    private RoleRepository: IRoleRepository,
   ) {}
 
   async create({ CPF, Name, password }) {
@@ -147,12 +151,10 @@ export class AccountService {
 
       if (!user) throw new NotFoundError("Couldn't find this account");
 
-      // const permissionsExists = await this.prisma.permissions.findMany({
-      //   select: { id: permissions },
-      // });
-      // const rolesExists = await this.prisma.permissions.findMany({
-      //   select: { id: permissions },
-      // });
+      const permissionsExists = await this.PermissionRepository.findByIds(
+        permissions,
+      );
+      const rolesExists = await this.RoleRepository.findByIds(roles);
 
       this.AccountRepository.create(user);
 

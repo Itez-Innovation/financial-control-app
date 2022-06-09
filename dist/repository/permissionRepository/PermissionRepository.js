@@ -5,16 +5,24 @@ class PermissionRepository {
         this.prisma = prisma;
     }
     async create(permission) {
-        return this.repository.save(permission);
+        return this.prisma.permissions.create({
+            data: permission,
+        });
     }
     findByName(name) {
-        return this.repository.findOne({ name });
+        return this.prisma.permissions.findFirst({
+            where: { name: name },
+        });
     }
     findById(id) {
-        return this.repository.findOne({ id });
+        return this.prisma.permissions.findFirst({
+            where: { id: id },
+        });
     }
     findByIds(ids) {
-        return this.repository.findByIds(ids);
+        return this.prisma.permissions.findMany({
+            where: { id: { in: ids } },
+        });
     }
 }
 exports.default = PermissionRepository;

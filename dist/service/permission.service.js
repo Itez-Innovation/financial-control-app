@@ -16,21 +16,16 @@ exports.PermissionService = void 0;
 const common_1 = require("@nestjs/common");
 const custom_error_1 = __importDefault(require("../exceptions/custom.error"));
 const conflict_error_1 = __importDefault(require("../exceptions/conflict.error"));
-const prisma_service_1 = require("./prisma.service");
 let PermissionService = class PermissionService {
-    constructor(prisma) {
-        this.prisma = prisma;
+    constructor(PermissionRepository) {
+        this.PermissionRepository = PermissionRepository;
     }
     async create({ name, description }) {
         try {
-            const permissionAlreadyExists = await this.prisma.permissions.findFirst({
-                where: { name: name },
-            });
+            const permissionAlreadyExists = await this.PermissionRepository.findByName(name);
             if (permissionAlreadyExists)
                 throw new conflict_error_1.default('Permission already exists!');
-            return this.prisma.permissions.create({
-                data: { name: name, description: description },
-            });
+            return this.PermissionRepository.create({ name, description });
         }
         catch (error) {
             if (error instanceof custom_error_1.default)
@@ -42,7 +37,7 @@ let PermissionService = class PermissionService {
 };
 PermissionService = __decorate([
     (0, common_1.Injectable)(),
-    __metadata("design:paramtypes", [prisma_service_1.PrismaService])
+    __metadata("design:paramtypes", [Object])
 ], PermissionService);
 exports.PermissionService = PermissionService;
 //# sourceMappingURL=permission.service.js.map

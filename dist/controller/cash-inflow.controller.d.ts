@@ -6,7 +6,7 @@ export declare class CashInflowController {
         Titulo: any;
         Valor: any;
     }): Promise<import(".prisma/client").cashInflow>;
-    delete(id: string): Promise<import(".prisma/client").cashInflow>;
+    delete(id: string): Promise<any>;
     update(id: string, updateData: {
         Titulo: any;
         Valor: any;

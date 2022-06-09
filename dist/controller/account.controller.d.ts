@@ -8,7 +8,7 @@ export declare class AccountController {
         Name: string;
         password: string;
     }): Promise<AccountModel>;
-    delete(id: string): Promise<AccountModel>;
+    delete(id: string): Promise<any>;
     update(id: string, updateData: {
         CPF?: string;
         Name?: string;

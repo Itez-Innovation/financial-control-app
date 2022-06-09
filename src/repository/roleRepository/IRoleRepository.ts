@@ -1,6 +1,8 @@
+import { roles } from '@prisma/client';
+
 export default interface IRoleRepository {
-  create(role: Role | RoleEntity): Promise<RoleEntity>;
-  findByName(name: string): Promise<RoleEntity | undefined>;
-  findById(id: string): Promise<RoleEntity | undefined>;
-  findByIds(ids: string[]): Promise<RoleEntity[]>;
+  create(role: roles): Promise<roles>;
+  findByName(name: string): Promise<roles | undefined>;
+  findById(id: string): Promise<roles | undefined>;
+  findByIds(ids: string[]): Promise<roles[]>;
 }

@@ -37,7 +37,6 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.AccountService = void 0;
 const common_1 = require("@nestjs/common");
-const prisma_service_1 = require("./prisma.service");
 const conflict_error_1 = __importDefault(require("../exceptions/conflict.error"));
 const not_found_error_1 = __importDefault(require("../exceptions/not-found.error"));
 const unauthorized_error_1 = __importDefault(require("../exceptions/unauthorized.error"));
@@ -47,17 +46,18 @@ const bcryptjs_1 = require("bcryptjs");
 const dayjs_1 = __importDefault(require("dayjs"));
 const jwt = __importStar(require("jsonwebtoken"));
 let AccountService = class AccountService {
-    constructor(prisma) {
-        this.prisma = prisma;
+    constructor(AccountRepository, TokenRepository, PermissionRepository, RoleRepository) {
+        this.AccountRepository = AccountRepository;
+        this.TokenRepository = TokenRepository;
+        this.PermissionRepository = PermissionRepository;
+        this.RoleRepository = RoleRepository;
     }
     async create({ CPF, Name, password }) {
         try {
-            const accountAlreadyExists = await this.findByCpf(CPF);
+            const accountAlreadyExists = await this.AccountRepository.findByCpf(CPF);
             if (accountAlreadyExists)
                 throw new conflict_error_1.default(`This account ${CPF} already exists`);
-            return this.prisma.account.create({
-                data: { CPF, Name, password },
-            });
+            return this.AccountRepository.create({ CPF, Name, password });
         }
         catch (error) {
             if (error instanceof custom_error_1.default)
@@ -68,12 +68,10 @@ let AccountService = class AccountService {
     }
     async delete({ id }) {
         try {
-            const accountFound = await this.findById(id);
+            const accountFound = await this.AccountRepository.findById(id);
             if (!accountFound)
                 throw new not_found_error_1.default(`Account ${id}`);
-            return this.prisma.account.delete({
-                where: { id },
-            });
+            return this.AccountRepository.delete(id);
         }
         catch (error) {
             if (error instanceof custom_error_1.default)
@@ -84,13 +82,10 @@ let AccountService = class AccountService {
     }
     async update({ id, CPF, Name, password }) {
         try {
-            const accountFound = await this.findById(id);
+            const accountFound = await this.AccountRepository.findById(id);
             if (!accountFound)
                 throw new not_found_error_1.default(`Account ${id}`);
-            return this.prisma.account.update({
-                data: { CPF, Name, password },
-                where: { id: id },
-            });
+            return this.AccountRepository.update(CPF, Name, password);
         }
         catch (error) {
             if (error instanceof custom_error_1.default)
@@ -101,12 +96,10 @@ let AccountService = class AccountService {
     }
     async read({ id }) {
         try {
-            const accountFound = await this.findById(id);
+            const accountFound = await this.AccountRepository.findById(id);
             if (!accountFound)
                 throw new not_found_error_1.default(`Account ${id}`);
-            return this.prisma.account.findUnique({
-                where: { id: id },
-            });
+            return this.AccountRepository.findById(id);
         }
         catch (error) {
             if (error instanceof custom_error_1.default)
@@ -117,7 +110,7 @@ let AccountService = class AccountService {
     }
     async readAll() {
         try {
-            const accountsFound = await this.prisma.account.findMany();
+            const accountsFound = await this.AccountRepository.get_all();
             if (!accountsFound)
                 throw new not_found_error_1.default(`No accounts were found`);
             return accountsFound;
@@ -129,17 +122,31 @@ let AccountService = class AccountService {
                 throw new Error('Internal server error');
         }
     }
+    async getStats(id) {
+        try {
+            const statsFound = await this.AccountRepository.getStats(id);
+            if (!statsFound)
+                throw new not_found_error_1.default("Couldn't find Financial Stats");
+            return statsFound;
+        }
+        catch (error) {
+            if (error instanceof custom_error_1.default)
+                throw error;
+            else
+                throw new Error('Internal server error');
+        }
+    }
     async login({ CPF, password }) {
         try {
-            const cpfMatch = await this.findByCpf(CPF);
+            const cpfMatch = await this.AccountRepository.findByCpf(CPF);
             if (!cpfMatch)
                 throw new not_found_error_1.default(`CPF or Password doesn't match`);
-            const passMatch = (0, bcryptjs_1.compare)(password, (await this.findByCpf(CPF)).password);
+            const passMatch = (0, bcryptjs_1.compare)(password, (await this.AccountRepository.findByCpf(CPF)).password);
             if (!passMatch)
                 throw new not_found_error_1.default(`CPF or Password doesn't match`);
-            const acc = await this.findByCpf(CPF);
-            const token = await this.generateToken(acc.id);
-            const refreshToken = await this.generateRefreshToken(acc.id);
+            const acc = await this.AccountRepository.findByCpf(CPF);
+            const token = await this.TokenRepository.generateToken(acc.id);
+            const refreshToken = await this.TokenRepository.generateRefreshToken(acc.id);
             return { token, refreshToken };
         }
         catch (error) {
@@ -150,32 +157,25 @@ let AccountService = class AccountService {
         }
     }
     async refresh(id) {
-        const refToken = await this.findTokenById(id);
+        const refToken = await this.TokenRepository.findTokenById(id);
         if (!refToken)
             throw new unauthorized_error_1.default("Refresh Token isn't valid");
         const { exp, sub } = jwt.decode(refToken.refToken, { json: true });
         const refreshTokenExpired = (0, dayjs_1.default)().isAfter(dayjs_1.default.unix(exp));
         if (refreshTokenExpired) {
-            await this.deleteToken(refToken.id);
+            await this.TokenRepository.deleteToken(refToken.id);
             throw new forbidden_error_1.default('Refresh Token Expired!');
         }
-        return this.generateToken(sub);
+        return this.TokenRepository.generateToken(sub);
     }
     async createACL({ userId, roles, permissions }) {
         try {
-            const user = await this.findById(userId);
+            const user = await this.AccountRepository.findById(userId);
             if (!user)
                 throw new not_found_error_1.default("Couldn't find this account");
-            const permissionsExists = await this.prisma.permissions.findMany({
-                select: { id: permissions },
-            });
-            const rolesExists = await this.prisma.permissions.findMany({
-                select: { id: permissions },
-            });
-            this.prisma.account.update({
-                where: { id: userId },
-                data: { roles: roles, permissions: permissions },
-            });
+            const permissionsExists = await this.PermissionRepository.findByIds(permissions);
+            const rolesExists = await this.RoleRepository.findByIds(roles);
+            this.AccountRepository.create(user);
             return user;
         }
         catch (error) {
@@ -185,45 +185,10 @@ let AccountService = class AccountService {
                 throw new Error('Internal server error');
         }
     }
-    async findByCpf(CPF) {
-        return this.prisma.account.findFirst({
-            where: { CPF },
-        });
-    }
-    async findById(id) {
-        return this.prisma.account.findFirst({
-            where: { id },
-        });
-    }
-    async generateRefreshToken(account_id) {
-        const refToken = jwt.sign({ userId: account_id }, process.env.SECRET, {
-            expiresIn: '1h',
-            subject: account_id,
-        });
-        return this.prisma.refreshToken.create({
-            data: { refToken: refToken, account_id: account_id },
-        });
-    }
-    async generateToken(account_id) {
-        return jwt.sign({ userId: account_id }, process.env.SECRET, {
-            expiresIn: '10m',
-            subject: account_id,
-        });
-    }
-    async deleteToken(id) {
-        return this.prisma.refreshToken.delete({
-            where: { id: id },
-        });
-    }
-    async findTokenById(id) {
-        return this.prisma.refreshToken.findUnique({
-            where: { id: id },
-        });
-    }
 };
 AccountService = __decorate([
     (0, common_1.Injectable)(),
-    __metadata("design:paramtypes", [prisma_service_1.PrismaService])
+    __metadata("design:paramtypes", [Object, Object, Object, Object])
 ], AccountService);
 exports.AccountService = AccountService;
 //# sourceMappingURL=account.service.js.map

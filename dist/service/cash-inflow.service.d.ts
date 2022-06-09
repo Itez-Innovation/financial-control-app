@@ -1,13 +1,13 @@
-import { PrismaService } from './prisma.service';
+import ICashInflowRepository from '../repository/cashInflowRepository/ICashInflowRepository';
 export declare class CashInflowService {
-    private prisma;
-    constructor(prisma: PrismaService);
+    private CashInflowRepository;
+    constructor(CashInflowRepository: ICashInflowRepository);
     create({ Titulo, Valor, account_id }: {
         Titulo: any;
         Valor: any;
         account_id: any;
     }): Promise<import(".prisma/client").cashInflow>;
-    delete(id: string): Promise<import(".prisma/client").cashInflow>;
+    delete(id: string): Promise<any>;
     update({ Titulo, Valor, id }: {
         Titulo: any;
         Valor: any;

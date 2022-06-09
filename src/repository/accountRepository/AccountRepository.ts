@@ -6,8 +6,10 @@ import IAccountRepository from './IAccountRepository';
 export default class AccountRepository implements IAccountRepository {
   constructor(private prisma: PrismaService) {}
 
-  async create(account) {
-    return this.prisma.account.create(account);
+  async create({ CPF, Name, password }) {
+    return this.prisma.account.create({
+      data: { CPF: CPF, Name: Name, password: password },
+    });
   }
 
   async delete(id: string) {
