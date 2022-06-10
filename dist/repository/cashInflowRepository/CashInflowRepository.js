@@ -4,9 +4,9 @@ class CashInflowRepository {
     constructor(prisma) {
         this.prisma = prisma;
     }
-    async create(cashInflow) {
+    async create({ Titulo, Valor, account_id }) {
         return this.prisma.cashInflow.create({
-            data: cashInflow,
+            data: { Titulo: Titulo, Valor: Valor, account_id: account_id },
         });
     }
     async get_all() {

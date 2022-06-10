@@ -1,7 +1,7 @@
 import IAccountRepository from '../repository/accountRepository/IAccountRepository';
-import ITokenRepository from 'src/repository/tokenRepository/ITokenRepository';
-import IPermissionRepository from 'src/repository/permissionRepository/IPermissionRepository';
-import IRoleRepository from 'src/repository/roleRepository/IRoleRepository';
+import ITokenRepository from '../repository/tokenRepository/ITokenRepository';
+import IPermissionRepository from '../repository/permissionRepository/IPermissionRepository';
+import IRoleRepository from '../repository/roleRepository/IRoleRepository';
 export declare class AccountService {
     private AccountRepository;
     private TokenRepository;

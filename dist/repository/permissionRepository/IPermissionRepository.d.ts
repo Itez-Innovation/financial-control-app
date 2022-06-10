@@ -1,6 +1,9 @@
 import { permissions } from '@prisma/client';
 export default interface IPermissionRepository {
-    create(permission: permissions): Promise<permissions>;
+    create({ name, description }: {
+        name: any;
+        description: any;
+    }): Promise<permissions>;
     findByName(name: string): Promise<permissions | undefined>;
     findById(id: string): Promise<permissions | undefined>;
     findByIds(ids: string[]): Promise<permissions[] | undefined>;

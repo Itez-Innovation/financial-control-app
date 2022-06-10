@@ -5,9 +5,9 @@ import IPermissionRepository from './IPermissionRepository';
 export default class PermissionRepository implements IPermissionRepository {
   constructor(private prisma: PrismaService) {}
 
-  async create(permission: permissions) {
+  async create({ name, description }) {
     return this.prisma.permissions.create({
-      data: permission,
+      data: { name: name, description: description },
     });
   }
 

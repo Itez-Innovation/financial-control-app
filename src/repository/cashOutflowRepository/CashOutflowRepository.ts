@@ -1,13 +1,17 @@
-import { cashOutflow } from '@prisma/client';
 import { PrismaService } from '../../service/prisma.service';
 import ICashOutflowRepository from './ICashOutflowRepository';
 
 export default class CashOutflowRepository implements ICashOutflowRepository {
   constructor(private prisma: PrismaService) {}
 
-  async create(cashOutflow: cashOutflow) {
+  async create({ Area, Titulo, Valor, account_id }) {
     return this.prisma.cashOutflow.create({
-      data: cashOutflow,
+      data: {
+        Area: Area,
+        Titulo: Titulo,
+        Valor: Valor,
+        account_id: account_id,
+      },
     });
   }
 

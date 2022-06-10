@@ -4,7 +4,10 @@ import IPermissionRepository from './IPermissionRepository';
 export default class PermissionRepository implements IPermissionRepository {
     private prisma;
     constructor(prisma: PrismaService);
-    create(permission: permissions): Promise<permissions>;
+    create({ name, description }: {
+        name: any;
+        description: any;
+    }): Promise<permissions>;
     findByName(name: string): import(".prisma/client").Prisma.Prisma__permissionsClient<permissions>;
     findById(id: string): import(".prisma/client").Prisma.Prisma__permissionsClient<permissions>;
     findByIds(ids: string[]): import(".prisma/client").PrismaPromise<permissions[]>;
