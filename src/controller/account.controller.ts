@@ -6,10 +6,13 @@ import {
   Param,
   Patch,
   Post,
+  SetMetadata,
 } from '@nestjs/common';
 import { AccountService } from '../service/account.service';
 import { account as AccountModel } from '@prisma/client';
 import { hash } from 'bcryptjs';
+import { ERoles } from 'src/enum/roles.enum';
+import { Roles } from 'src/middleware/roles.decorator';
 
 @Controller('account')
 export class AccountController {
@@ -31,6 +34,7 @@ export class AccountController {
   }
 
   @Delete('delete/:id')
+  @Roles(ERoles.ADMIN)
   async delete(@Param('id') id: string) {
     return this.accountService.delete({ id: id });
   }
