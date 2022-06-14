@@ -16,6 +16,8 @@ exports.AccountController = void 0;
 const common_1 = require("@nestjs/common");
 const account_service_1 = require("../service/account.service");
 const bcryptjs_1 = require("bcryptjs");
+const roles_enum_1 = require("../enum/roles.enum");
+const roles_decorator_1 = require("../middleware/roles.decorator");
 let AccountController = class AccountController {
     constructor(accountService) {
         this.accountService = accountService;
@@ -74,6 +76,7 @@ __decorate([
 ], AccountController.prototype, "create", null);
 __decorate([
     (0, common_1.Delete)('delete/:id'),
+    (0, roles_decorator_1.Roles)(roles_enum_1.ERoles.ADMIN),
     __param(0, (0, common_1.Param)('id')),
     __metadata("design:type", Function),
     __metadata("design:paramtypes", [String]),
