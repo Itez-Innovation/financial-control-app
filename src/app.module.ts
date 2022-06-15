@@ -24,8 +24,6 @@ import { PermissionController } from './controller/permission.controller';
 import { RoleController } from './controller/role.controller';
 import { AccountModule } from './module/account.module';
 import { PrismaService } from './service/prisma.service';
-import { APP_GUARD } from '@nestjs/core';
-import { RolesGuard } from './middleware/roles.guard';
 
 @Module({
   imports: [
@@ -67,10 +65,6 @@ import { RolesGuard } from './middleware/roles.guard';
     PermissionService,
     RoleService,
     PrismaService,
-    {
-      provide: APP_GUARD,
-      useClass: RolesGuard,
-    },
   ],
 })
 export class AppModule {

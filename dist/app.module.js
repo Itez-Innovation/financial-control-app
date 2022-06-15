@@ -36,8 +36,6 @@ const permission_controller_1 = require("./controller/permission.controller");
 const role_controller_1 = require("./controller/role.controller");
 const account_module_1 = require("./module/account.module");
 const prisma_service_1 = require("./service/prisma.service");
-const core_1 = require("@nestjs/core");
-const roles_guard_1 = require("./middleware/roles.guard");
 let AppModule = class AppModule {
     constructor(connection) {
         this.connection = connection;
@@ -84,10 +82,6 @@ AppModule = __decorate([
             permission_service_1.PermissionService,
             role_service_1.RoleService,
             prisma_service_1.PrismaService,
-            {
-                provide: core_1.APP_GUARD,
-                useClass: roles_guard_1.RolesGuard,
-            },
         ],
     }),
     __metadata("design:paramtypes", [typeorm_2.Connection])

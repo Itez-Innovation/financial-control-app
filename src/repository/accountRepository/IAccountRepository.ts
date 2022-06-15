@@ -1,7 +1,4 @@
-import { Injectable } from '@nestjs/common';
 import { account } from '@prisma/client';
-import { AccountEntity } from 'src/entity/account.entity';
-import { EntityRepository } from 'typeorm';
 
 export default interface IAccountRepository {
   create({ CPF, Name, password }): Promise<account>;
