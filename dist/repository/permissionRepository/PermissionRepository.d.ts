@@ -1,4 +1,3 @@
-import { permissions } from '@prisma/client';
 import { PrismaService } from '../../service/prisma.service';
 import IPermissionRepository from './IPermissionRepository';
 export default class PermissionRepository implements IPermissionRepository {
@@ -7,8 +6,8 @@ export default class PermissionRepository implements IPermissionRepository {
     create({ name, description }: {
         name: any;
         description: any;
-    }): Promise<permissions>;
-    findByName(name: string): import(".prisma/client").Prisma.Prisma__permissionsClient<permissions>;
-    findById(id: string): import(".prisma/client").Prisma.Prisma__permissionsClient<permissions>;
-    findByIds(ids: string[]): import(".prisma/client").PrismaPromise<permissions[]>;
+    }): Promise<import(".prisma/client").permissions>;
+    findByName(name: string): import(".prisma/client").Prisma.Prisma__permissionsClient<import(".prisma/client").permissions>;
+    findById(id: string): import(".prisma/client").Prisma.Prisma__permissionsClient<import(".prisma/client").permissions>;
+    findByIds(ids: string[]): import(".prisma/client").PrismaPromise<import(".prisma/client").permissions[]>;
 }

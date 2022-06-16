@@ -1,6 +1,8 @@
+import { Injectable } from '@nestjs/common';
 import { PrismaService } from '../../service/prisma.service';
 import ICashOutflowRepository from './ICashOutflowRepository';
 
+@Injectable()
 export default class CashOutflowRepository implements ICashOutflowRepository {
   constructor(private prisma: PrismaService) {}
 

@@ -11,19 +11,12 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.AppModule = void 0;
 const common_1 = require("@nestjs/common");
-const typeorm_1 = require("@nestjs/typeorm");
-const typeorm_2 = require("typeorm");
+const typeorm_1 = require("typeorm");
 const cash_inflow_module_1 = require("./module/cash-inflow.module");
 const cash_outflow_module_1 = require("./module/cash-outflow.module");
 const permission_module_1 = require("./module/permission.module");
 const role_module_1 = require("./module/role.module");
 const refresh_token_module_1 = require("./module/refresh-token.module");
-const account_entity_1 = require("./entity/account.entity");
-const cash_inflow_entity_1 = require("./entity/cash-inflow.entity");
-const cash_outflow_entity_1 = require("./entity/cash-outflow.entity");
-const permission_entity_1 = require("./entity/permission.entity");
-const refreshToken_entity_1 = require("./entity/refreshToken.entity");
-const role_entity_1 = require("./entity/role.entity");
 const account_service_1 = require("./service/account.service");
 const cash_inflow_service_1 = require("./service/cash-inflow.service");
 const cash_outflow_service_1 = require("./service/cash-outflow.service");
@@ -36,6 +29,8 @@ const permission_controller_1 = require("./controller/permission.controller");
 const role_controller_1 = require("./controller/role.controller");
 const account_module_1 = require("./module/account.module");
 const prisma_service_1 = require("./service/prisma.service");
+const core_1 = require("@nestjs/core");
+const jwt_auth_guard_1 = require("./auth/guards/jwt-auth.guard");
 let AppModule = class AppModule {
     constructor(connection) {
         this.connection = connection;
@@ -44,23 +39,6 @@ let AppModule = class AppModule {
 AppModule = __decorate([
     (0, common_1.Module)({
         imports: [
-            typeorm_1.TypeOrmModule.forRoot({
-                type: 'postgres',
-                host: 'localhost',
-                port: 5432,
-                username: 'finance',
-                password: 'finance',
-                database: 'finance',
-                entities: [
-                    account_entity_1.Account,
-                    cash_inflow_entity_1.CashInflow,
-                    cash_outflow_entity_1.CashOutflow,
-                    permission_entity_1.Permission,
-                    refreshToken_entity_1.RefreshToken,
-                    role_entity_1.Role,
-                ],
-                synchronize: false,
-            }),
             account_module_1.AccountModule,
             cash_inflow_module_1.CashInflowModule,
             cash_outflow_module_1.CashOutflowModule,
@@ -82,9 +60,13 @@ AppModule = __decorate([
             permission_service_1.PermissionService,
             role_service_1.RoleService,
             prisma_service_1.PrismaService,
+            {
+                provide: core_1.APP_GUARD,
+                useClass: jwt_auth_guard_1.JwtAuthGuard,
+            },
         ],
     }),
-    __metadata("design:paramtypes", [typeorm_2.Connection])
+    __metadata("design:paramtypes", [typeorm_1.Connection])
 ], AppModule);
 exports.AppModule = AppModule;
 //# sourceMappingURL=app.module.js.map

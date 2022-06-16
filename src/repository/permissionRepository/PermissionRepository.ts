@@ -1,7 +1,8 @@
-import { permissions } from '@prisma/client';
+import { Injectable } from '@nestjs/common';
 import { PrismaService } from '../../service/prisma.service';
 import IPermissionRepository from './IPermissionRepository';
 
+@Injectable()
 export default class PermissionRepository implements IPermissionRepository {
   constructor(private prisma: PrismaService) {}
 

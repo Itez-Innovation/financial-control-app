@@ -1,8 +1,10 @@
+import { Injectable } from '@nestjs/common';
 import { account } from '@prisma/client';
 import { hash } from 'bcryptjs';
 import { PrismaService } from '../../service/prisma.service';
 import IAccountRepository from './IAccountRepository';
 
+@Injectable()
 export default class AccountRepository implements IAccountRepository {
   constructor(private prisma: PrismaService) {}
 

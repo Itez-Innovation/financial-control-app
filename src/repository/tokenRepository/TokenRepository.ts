@@ -1,7 +1,9 @@
+import { Injectable } from '@nestjs/common';
 import * as jwt from 'jsonwebtoken';
 import { PrismaService } from '../../service/prisma.service';
 import ITokenRepository from './ITokenRepository';
 
+@Injectable()
 export default class TokenRepository implements ITokenRepository {
   constructor(private prisma: PrismaService) {}
 

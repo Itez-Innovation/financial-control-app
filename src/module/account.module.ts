@@ -1,19 +1,10 @@
 import { Module } from '@nestjs/common';
-import AccountRepository from 'src/repository/accountRepository/AccountRepository';
-import PermissionRepository from 'src/repository/permissionRepository/PermissionRepository';
-import RoleRepository from 'src/repository/roleRepository/RoleRepository';
-import TokenRepository from 'src/repository/tokenRepository/TokenRepository';
 import { AccountController } from '../controller/account.controller';
 import { AccountService } from '../service/account.service';
 
 @Module({
   controllers: [AccountController],
   providers: [AccountService],
-  imports: [
-    AccountRepository,
-    TokenRepository,
-    PermissionRepository,
-    RoleRepository,
-  ],
+  imports: [],
 })
 export class AccountModule {}
