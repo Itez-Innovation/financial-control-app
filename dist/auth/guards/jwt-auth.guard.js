@@ -8,18 +8,23 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
 var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
+var __importDefault = (this && this.__importDefault) || function (mod) {
+    return (mod && mod.__esModule) ? mod : { "default": mod };
+};
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.JwtAuthGuard = void 0;
 const common_1 = require("@nestjs/common");
 const core_1 = require("@nestjs/core");
 const passport_1 = require("@nestjs/passport");
+const is_public_decorator_1 = require("../decorators/is-public.decorator");
+const unauthorized_error_1 = __importDefault(require("../../exceptions/unauthorized.error"));
 let JwtAuthGuard = class JwtAuthGuard extends (0, passport_1.AuthGuard)('jwt') {
     constructor(reflector) {
         super();
         this.reflector = reflector;
     }
     canActivate(context) {
-        const isPublic = this.reflector.getAllAndOverride(IS_PUBLIC_KEY, [
+        const isPublic = this.reflector.getAllAndOverride(is_public_decorator_1.IS_PUBLIC_KEY, [
             context.getHandler(),
             context.getClass(),
         ]);
@@ -32,7 +37,7 @@ let JwtAuthGuard = class JwtAuthGuard extends (0, passport_1.AuthGuard)('jwt') {
         }
         const canActivatePromise = canActivate;
         return canActivatePromise.catch((error) => {
-            if (error instanceof UnauthorizedError) {
+            if (error instanceof unauthorized_error_1.default) {
                 throw new common_1.UnauthorizedException(error.message);
             }
             throw new common_1.UnauthorizedException();

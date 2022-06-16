@@ -8,26 +8,16 @@ import {
   Post,
 } from '@nestjs/common';
 import { AccountService } from '../service/account.service';
-import { account as AccountModel } from '@prisma/client';
 import { hash } from 'bcryptjs';
+import { CreateAccountDto } from 'src/dto/account/create-account.dto';
 
 @Controller('account')
 export class AccountController {
   constructor(private readonly accountService: AccountService) {}
 
   @Post('create')
-  async create(
-    @Body() createData: { CPF: string; Name: string; password: string },
-  ): Promise<AccountModel> {
-    const { CPF, Name, password } = createData;
-
-    const passHash = await hash(password, 10);
-
-    return this.accountService.create({
-      CPF,
-      Name,
-      password: passHash,
-    });
+  async create(@Body() createAccountDto: CreateAccountDto) {
+    return this.accountService.create(createAccountDto);
   }
 
   @Delete('delete/:id')

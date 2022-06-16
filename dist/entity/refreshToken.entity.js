@@ -1,7 +1,7 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.RefreshTokenEntity = void 0;
-class RefreshTokenEntity {
+exports.RefreshToken = void 0;
+class RefreshToken {
 }
-exports.RefreshTokenEntity = RefreshTokenEntity;
+exports.RefreshToken = RefreshToken;
 //# sourceMappingURL=refreshToken.entity.js.map

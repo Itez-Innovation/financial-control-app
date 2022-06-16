@@ -1,7 +1,7 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.CashInflowEntity = void 0;
-class CashInflowEntity {
+exports.CashInflow = void 0;
+class CashInflow {
 }
-exports.CashInflowEntity = CashInflowEntity;
+exports.CashInflow = CashInflow;
 //# sourceMappingURL=cash-inflow.entity.js.map

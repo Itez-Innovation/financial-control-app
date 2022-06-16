@@ -16,18 +16,13 @@ exports.AccountController = void 0;
 const common_1 = require("@nestjs/common");
 const account_service_1 = require("../service/account.service");
 const bcryptjs_1 = require("bcryptjs");
+const create_account_dto_1 = require("../dto/account/create-account.dto");
 let AccountController = class AccountController {
     constructor(accountService) {
         this.accountService = accountService;
     }
-    async create(createData) {
-        const { CPF, Name, password } = createData;
-        const passHash = await (0, bcryptjs_1.hash)(password, 10);
-        return this.accountService.create({
-            CPF,
-            Name,
-            password: passHash,
-        });
+    async create(createAccountDto) {
+        return this.accountService.create(createAccountDto);
     }
     async delete(id) {
         return this.accountService.delete({ id: id });
@@ -69,7 +64,7 @@ __decorate([
     (0, common_1.Post)('create'),
     __param(0, (0, common_1.Body)()),
     __metadata("design:type", Function),
-    __metadata("design:paramtypes", [Object]),
+    __metadata("design:paramtypes", [create_account_dto_1.CreateAccountDto]),
     __metadata("design:returntype", Promise)
 ], AccountController.prototype, "create", null);
 __decorate([

@@ -1,9 +1,8 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.CurrentUser = void 0;
+exports.IsPublic = exports.IS_PUBLIC_KEY = void 0;
 const common_1 = require("@nestjs/common");
-exports.CurrentUser = (0, common_1.createParamDecorator)((data, context) => {
-    const request = context.switchToHttp().getRequest();
-    return request.user;
-});
+exports.IS_PUBLIC_KEY = 'isPublic';
+const IsPublic = () => (0, common_1.SetMetadata)(exports.IS_PUBLIC_KEY, true);
+exports.IsPublic = IsPublic;
 //# sourceMappingURL=is-public.decorator.js.map

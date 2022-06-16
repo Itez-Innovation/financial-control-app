@@ -4,13 +4,15 @@ import NotFoundError from '../exceptions/not-found.error';
 import UnauthorizedError from '../exceptions/unauthorized.error';
 import ForbiddenError from '../exceptions/forbidden.error';
 import CustomError from '../exceptions/custom.error';
-import { compare } from 'bcryptjs';
+import { compare, hash } from 'bcryptjs';
 import dayjs from 'dayjs';
 import * as jwt from 'jsonwebtoken';
 import IAccountRepository from '../repository/accountRepository/IAccountRepository';
 import ITokenRepository from '../repository/tokenRepository/ITokenRepository';
 import IPermissionRepository from '../repository/permissionRepository/IPermissionRepository';
 import IRoleRepository from '../repository/roleRepository/IRoleRepository';
+import { CreateAccountDto } from 'src/dto/account/create-account.dto';
+import { Prisma } from '@prisma/client';
 
 @Injectable()
 export class AccountService {
@@ -21,14 +23,20 @@ export class AccountService {
     private RoleRepository: IRoleRepository,
   ) {}
 
-  async create({ CPF, Name, password }) {
+  async create(createAccountDto: CreateAccountDto) {
     try {
-      const accountAlreadyExists = await this.AccountRepository.findByCpf(CPF);
+      const accountAlreadyExists = await this.AccountRepository.findByCpf(
+        createAccountDto.CPF,
+      );
 
       if (accountAlreadyExists)
-        throw new ConflictError(`This account ${CPF} already exists`);
+        throw new ConflictError(
+          `This account ${createAccountDto.CPF} already exists`,
+        );
 
-      return this.AccountRepository.create({ CPF, Name, password });
+      createAccountDto.password = await hash(createAccountDto.password, 8);
+
+      return this.AccountRepository.create(createAccountDto);
     } catch (error) {
       if (error instanceof CustomError) throw error;
       else throw new Error(`Internal server error`);

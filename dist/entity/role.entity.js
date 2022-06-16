@@ -1,7 +1,7 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.RoleEntity = void 0;
-class RoleEntity {
+exports.Role = void 0;
+class Role {
 }
-exports.RoleEntity = RoleEntity;
+exports.Role = Role;
 //# sourceMappingURL=role.entity.js.map

@@ -1,7 +1,9 @@
-import { PermissionEntity } from './permission.entity';
-export declare class RoleEntity {
+import { Account } from './account.entity';
+import { Permission } from './permission.entity';
+export declare class Role {
     id?: string;
     name: string;
     description: string;
-    permissions?: PermissionEntity[];
+    accounts?: Account[];
+    permissions?: Permission[];
 }

@@ -52,12 +52,13 @@ let AccountService = class AccountService {
         this.PermissionRepository = PermissionRepository;
         this.RoleRepository = RoleRepository;
     }
-    async create({ CPF, Name, password }) {
+    async create(createAccountDto) {
         try {
-            const accountAlreadyExists = await this.AccountRepository.findByCpf(CPF);
+            const accountAlreadyExists = await this.AccountRepository.findByCpf(createAccountDto.CPF);
             if (accountAlreadyExists)
-                throw new conflict_error_1.default(`This account ${CPF} already exists`);
-            return this.AccountRepository.create({ CPF, Name, password });
+                throw new conflict_error_1.default(`This account ${createAccountDto.CPF} already exists`);
+            createAccountDto.password = await (0, bcryptjs_1.hash)(createAccountDto.password, 8);
+            return this.AccountRepository.create(createAccountDto);
         }
         catch (error) {
             if (error instanceof custom_error_1.default)

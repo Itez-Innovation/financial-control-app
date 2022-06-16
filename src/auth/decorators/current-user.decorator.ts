@@ -1,4 +1,11 @@
-import { SetMetadata } from '@nestjs/common';
+import { createParamDecorator, ExecutionContext } from '@nestjs/common';
+import { Account } from 'src/entity/account.entity';
+import { AuthRequest } from '../models/AuthRequest';
 
-export const IS_PUBLIC_KEY = 'isPublic';
-export const IsPublic = () => SetMetadata(IS_PUBLIC_KEY, true);
+export const CurrentUser = createParamDecorator(
+  (data: unknown, context: ExecutionContext): Account => {
+    const request = context.switchToHttp().getRequest<AuthRequest>();
+
+    return request.account;
+  },
+);

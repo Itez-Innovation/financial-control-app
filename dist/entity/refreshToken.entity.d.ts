@@ -1,7 +1,7 @@
-import { AccountEntity } from './account.entity';
-export declare class RefreshTokenEntity {
+import { Account } from './account.entity';
+export declare class RefreshToken {
     id?: string;
     refToken: string;
     account_id: string;
-    account?: AccountEntity;
+    account?: Account;
 }

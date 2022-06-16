@@ -1,16 +1,16 @@
-import { RefreshTokenEntity } from './refreshToken.entity';
-import { CashInflowEntity } from './cash-inflow.entity';
-import { CashOutflowEntity } from './cash-outflow.entity';
-import { PermissionEntity } from './permission.entity';
-import { RoleEntity } from './role.entity';
-export declare class AccountEntity {
+import { RefreshToken } from './refreshToken.entity';
+import { CashInflow } from './cash-inflow.entity';
+import { CashOutflow } from './cash-outflow.entity';
+import { Permission } from './permission.entity';
+import { Role } from './role.entity';
+export declare class Account {
     id?: string;
     password: string;
     Name: string;
     CPF: string;
-    input?: CashInflowEntity[];
-    output?: CashOutflowEntity[];
-    refresh?: RefreshTokenEntity;
-    roles?: RoleEntity[];
-    permissions?: PermissionEntity[];
+    input?: CashInflow[];
+    output?: CashOutflow[];
+    permissions?: Permission[];
+    roles?: Role[];
+    refresh?: RefreshToken;
 }

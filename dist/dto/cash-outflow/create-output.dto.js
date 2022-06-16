@@ -1,7 +1,8 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.CreateInputDto = void 0;
-class CreateInputDto {
+exports.CreateOutputDto = void 0;
+const cash_outflow_entity_1 = require("../../entity/cash-outflow.entity");
+class CreateOutputDto extends cash_outflow_entity_1.CashOutflow {
 }
-exports.CreateInputDto = CreateInputDto;
+exports.CreateOutputDto = CreateOutputDto;
 //# sourceMappingURL=create-output.dto.js.map

@@ -15,7 +15,6 @@ const AccountRepository_1 = __importDefault(require("../repository/accountReposi
 const PermissionRepository_1 = __importDefault(require("../repository/permissionRepository/PermissionRepository"));
 const RoleRepository_1 = __importDefault(require("../repository/roleRepository/RoleRepository"));
 const TokenRepository_1 = __importDefault(require("../repository/tokenRepository/TokenRepository"));
-const prisma_service_1 = require("../service/prisma.service");
 const account_controller_1 = require("../controller/account.controller");
 const account_service_1 = require("../service/account.service");
 let AccountModule = class AccountModule {
@@ -23,7 +22,7 @@ let AccountModule = class AccountModule {
 AccountModule = __decorate([
     (0, common_1.Module)({
         controllers: [account_controller_1.AccountController],
-        providers: [account_service_1.AccountService, prisma_service_1.PrismaService],
+        providers: [account_service_1.AccountService],
         imports: [
             AccountRepository_1.default,
             TokenRepository_1.default,

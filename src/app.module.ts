@@ -6,12 +6,12 @@ import { CashOutflowModule } from './module/cash-outflow.module';
 import { PermissionModule } from './module/permission.module';
 import { RoleModule } from './module/role.module';
 import { RefreshTokenModule } from './module/refresh-token.module';
-import { AccountEntity } from './entity/account.entity';
-import { CashInflowEntity } from './entity/cash-inflow.entity';
-import { CashOutflowEntity } from './entity/cash-outflow.entity';
-import { PermissionEntity } from './entity/permission.entity';
-import { RefreshTokenEntity } from './entity/refreshToken.entity';
-import { RoleEntity } from './entity/role.entity';
+import { Account } from './entity/account.entity';
+import { CashInflow } from './entity/cash-inflow.entity';
+import { CashOutflow } from './entity/cash-outflow.entity';
+import { Permission } from './entity/permission.entity';
+import { RefreshToken } from './entity/refreshToken.entity';
+import { Role } from './entity/role.entity';
 import { AccountService } from './service/account.service';
 import { CashInflowService } from './service/cash-inflow.service';
 import { CashOutflowService } from './service/cash-outflow.service';
@@ -35,12 +35,12 @@ import { PrismaService } from './service/prisma.service';
       password: 'finance',
       database: 'finance',
       entities: [
-        AccountEntity,
-        CashInflowEntity,
-        CashOutflowEntity,
-        PermissionEntity,
-        RefreshTokenEntity,
-        RoleEntity,
+        Account,
+        CashInflow,
+        CashOutflow,
+        Permission,
+        RefreshToken,
+        Role,
       ],
       synchronize: false,
     }),

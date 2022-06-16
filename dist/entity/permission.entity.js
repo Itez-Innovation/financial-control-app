@@ -1,7 +1,7 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.PermissionEntity = void 0;
-class PermissionEntity {
+exports.Permission = void 0;
+class Permission {
 }
-exports.PermissionEntity = PermissionEntity;
+exports.Permission = Permission;
 //# sourceMappingURL=permission.entity.js.map

@@ -1,21 +1,17 @@
 import { AccountService } from '../service/account.service';
-import { account as AccountModel } from '@prisma/client';
+import { CreateAccountDto } from 'src/dto/account/create-account.dto';
 export declare class AccountController {
     private readonly accountService;
     constructor(accountService: AccountService);
-    create(createData: {
-        CPF: string;
-        Name: string;
-        password: string;
-    }): Promise<AccountModel>;
+    create(createAccountDto: CreateAccountDto): Promise<import(".prisma/client").account>;
     delete(id: string): Promise<any>;
     update(id: string, updateData: {
         CPF?: string;
         Name?: string;
         password?: string;
-    }): Promise<AccountModel>;
-    read(id: string): Promise<AccountModel>;
-    readAll(): Promise<AccountModel[]>;
+    }): Promise<import(".prisma/client").account>;
+    read(id: string): Promise<import(".prisma/client").account>;
+    readAll(): Promise<import(".prisma/client").account[]>;
     login(dataLogin: {
         CPF: any;
         password: any;
@@ -27,5 +23,5 @@ export declare class AccountController {
     createAcl(userId: string, aclData: {
         roles: string[];
         permissions: string[];
-    }): Promise<AccountModel>;
+    }): Promise<import(".prisma/client").account>;
 }
