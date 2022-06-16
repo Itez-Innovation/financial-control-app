@@ -1,26 +1,8 @@
-// import {
-//   Column,
-//   Entity,
-//   JoinColumn,
-//   OneToOne,
-//   PrimaryGeneratedColumn,
-// } from 'typeorm';
-import { AccountEntity } from './account.entity';
+import { Account } from './account.entity';
 
-// @Entity('refreshToken')
-export class RefreshTokenEntity {
-  // @PrimaryGeneratedColumn('uuid')
+export class RefreshToken {
   id?: string;
-
-  // @Column()
   refToken: string;
-
-  // @Column()
   account_id: string;
-
-  // @OneToOne((type) => AccountEntity, (account) => account.refresh, {
-  //   onDelete: 'CASCADE',
-  // })
-  // @JoinColumn({ name: 'account_id' })
-  account?: AccountEntity;
+  account?: Account;
 }

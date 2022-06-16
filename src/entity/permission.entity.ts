@@ -1,25 +1,10 @@
-// import {
-//   Column,
-//   Entity,
-//   CreateDateColumn,
-//   PrimaryGeneratedColumn,
-//   UpdateDateColumn,
-// } from 'typeorm';
+import { Account } from './account.entity';
+import { Role } from './role.entity';
 
-// @Entity()
-export class PermissionEntity {
-  // @PrimaryGeneratedColumn('uuid')
+export class Permission {
   id?: string;
-
-  // @CreateDateColumn({ name: 'created_At' })
-  // createdAt: Date;
-
-  // @UpdateDateColumn({ name: 'updated_At' })
-  // updatedAt: Date;
-
-  // @Column()
   name: string;
-
-  // @Column()
   description: string;
+  accounts?: Account[];
+  roles?: Role[];
 }
