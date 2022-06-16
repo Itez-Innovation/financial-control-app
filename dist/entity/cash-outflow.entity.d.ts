@@ -5,7 +5,5 @@ export declare class CashOutflowEntity {
     Titulo: string;
     Valor: number;
     account_id: string;
-    account: AccountEntity;
-    createdAt: Date;
-    updatedAt: Date;
+    account?: AccountEntity;
 }

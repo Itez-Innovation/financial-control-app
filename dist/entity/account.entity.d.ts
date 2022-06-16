@@ -4,15 +4,13 @@ import { CashOutflowEntity } from './cash-outflow.entity';
 import { PermissionEntity } from './permission.entity';
 import { RoleEntity } from './role.entity';
 export declare class AccountEntity {
-    id: string;
+    id?: string;
     password: string;
     Name: string;
     CPF: string;
-    input: CashInflowEntity[];
-    output: CashOutflowEntity[];
-    refresh: RefreshTokenEntity;
-    createdAt: Date;
-    updatedAt: Date;
-    roles: RoleEntity[];
-    permissions: PermissionEntity[];
+    input?: CashInflowEntity[];
+    output?: CashOutflowEntity[];
+    refresh?: RefreshTokenEntity;
+    roles?: RoleEntity[];
+    permissions?: PermissionEntity[];
 }

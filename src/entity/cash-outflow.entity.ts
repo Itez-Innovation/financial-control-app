@@ -1,46 +1,46 @@
-import {
-  Entity,
-  Column,
-  CreateDateColumn,
-  UpdateDateColumn,
-  PrimaryGeneratedColumn,
-  ManyToOne,
-  JoinColumn,
-} from 'typeorm';
+// import {
+//   Entity,
+//   Column,
+//   CreateDateColumn,
+//   UpdateDateColumn,
+//   PrimaryGeneratedColumn,
+//   ManyToOne,
+//   JoinColumn,
+// } from 'typeorm';
 import { AccountEntity } from './account.entity';
 
-@Entity()
+// @Entity()
 export class CashOutflowEntity {
-  @PrimaryGeneratedColumn('uuid')
+  // @PrimaryGeneratedColumn('uuid')
   id: string;
 
-  @Column({
-    unique: false,
-    nullable: false,
-  })
+  // @Column({
+  //   unique: false,
+  //   nullable: false,
+  // })
   Area: string;
 
-  @Column()
+  // @Column()
   Titulo: string;
 
-  @Column({
-    nullable: false,
-    type: 'float4',
-  })
+  // @Column({
+  //   nullable: false,
+  //   type: 'float4',
+  // })
   Valor: number;
 
-  @Column()
+  // @Column()
   account_id: string;
 
-  @ManyToOne((type) => AccountEntity, (account) => account.output, {
-    onDelete: 'CASCADE',
-  })
-  @JoinColumn({ name: 'account_id' })
-  account: AccountEntity;
+  // @ManyToOne((type) => AccountEntity, (account) => account.output, {
+  //   onDelete: 'CASCADE',
+  // })
+  // @JoinColumn({ name: 'account_id' })
+  account?: AccountEntity;
 
-  @CreateDateColumn({ name: 'created_At' })
-  createdAt: Date;
+  // @CreateDateColumn({ name: 'created_At' })
+  // createdAt: Date;
 
-  @UpdateDateColumn({ name: 'updated_At' })
-  updatedAt: Date;
+  // @UpdateDateColumn({ name: 'updated_At' })
+  // updatedAt: Date;
 }

@@ -21,7 +21,7 @@ export class AccountController {
   ): Promise<AccountModel> {
     const { CPF, Name, password } = createData;
 
-    const passHash = await hash(password, 8);
+    const passHash = await hash(password, 10);
 
     return this.accountService.create({
       CPF,

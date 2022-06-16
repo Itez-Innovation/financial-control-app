@@ -22,7 +22,7 @@ let AccountController = class AccountController {
     }
     async create(createData) {
         const { CPF, Name, password } = createData;
-        const passHash = await (0, bcryptjs_1.hash)(password, 8);
+        const passHash = await (0, bcryptjs_1.hash)(password, 10);
         return this.accountService.create({
             CPF,
             Name,

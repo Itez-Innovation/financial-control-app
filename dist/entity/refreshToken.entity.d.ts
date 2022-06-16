@@ -1,7 +1,7 @@
 import { AccountEntity } from './account.entity';
 export declare class RefreshTokenEntity {
-    id: string;
+    id?: string;
     refToken: string;
     account_id: string;
-    account: AccountEntity;
+    account?: AccountEntity;
 }

@@ -1,7 +1,5 @@
 export declare class PermissionEntity {
-    id: string;
-    createdAt: Date;
-    updatedAt: Date;
+    id?: string;
     name: string;
     description: string;
 }
