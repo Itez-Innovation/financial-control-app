@@ -1,8 +1,8 @@
 import { Injectable } from '@nestjs/common';
 import CustomError from '../exceptions/custom.error';
-import ConflictError from '../exceptions/conflict.error';
+import ConflictError from '../exceptions/conflict.exception';
 import { PrismaService } from './prisma.service';
-import NotFoundError from '../exceptions/not-found.error';
+import NotFoundError from '../exceptions/not-found.exception';
 
 @Injectable()
 export class RoleService {

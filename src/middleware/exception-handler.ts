@@ -1,12 +1,12 @@
 import { PrismaClient } from '@prisma/client';
 import { PrismaService } from 'src/service/prisma.service';
-import BadRequestError from '../exceptions/bad-request.error';
-import ConflictError from '../exceptions/conflict.error';
+import BadRequestError from '../exceptions/bad-request.exception';
+import ConflictError from '../exceptions/conflict.exception';
 import CustomError from '../exceptions/custom.error';
-import { ErrorCodes } from '../exceptions/error-code.error';
-import ForbiddenError from '../exceptions/forbidden.error';
-import NotFoundError from '../exceptions/not-found.error';
-import UnauthorizedError from '../exceptions/unauthorized.error';
+import { ErrorCodes } from '../exceptions/errorCode';
+import ForbiddenError from '../exceptions/forbidden.exception';
+import NotFoundError from '../exceptions/not-found.exception';
+import UnauthorizedError from '../exceptions/unauthorized.exception';
 
 export default function (error: any) {
   //   switch (error.constructor) {

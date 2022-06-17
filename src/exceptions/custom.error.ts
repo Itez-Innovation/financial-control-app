@@ -1,4 +1,4 @@
-import { ErrorCode } from './error-code.error';
+import { ErrorCode } from './errorCode';
 
 export default class CustomError extends Error {
   constructor(

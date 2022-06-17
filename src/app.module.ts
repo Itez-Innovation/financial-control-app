@@ -6,6 +6,8 @@ import { PermissionModule } from './module/permission.module';
 import { RoleModule } from './module/role.module';
 import { RefreshTokenModule } from './module/refresh-token.module';
 import { AccountModule } from './module/account.module';
+import { APP_GUARD } from '@nestjs/core';
+import { JwtAuthGuard } from './auth/guards/jwt-auth.guard';
 
 @Module({
   imports: [
@@ -15,6 +17,12 @@ import { AccountModule } from './module/account.module';
     PermissionModule,
     RoleModule,
     RefreshTokenModule,
+  ],
+  providers: [
+    {
+      provide: APP_GUARD,
+      useClass: JwtAuthGuard,
+    },
   ],
 })
 export class AppModule {}

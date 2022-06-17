@@ -3,7 +3,7 @@ import { JwtService } from '@nestjs/jwt';
 import * as bcrypt from 'bcrypt';
 import { Account } from 'src/entity/account.entity';
 import { IAccountRepository } from 'src/repository/accountRepository/IAccountRepository';
-import UnauthorizedError from '../exceptions/unauthorized.error';
+import UnauthorizedError from '../exceptions/unauthorized.exception';
 import { AccountPayload } from './models/AccountPayload';
 import { AccountToken } from './models/AccountToken';
 

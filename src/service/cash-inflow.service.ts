@@ -1,5 +1,5 @@
 import { Inject, Injectable } from '@nestjs/common';
-import NotFoundError from '../exceptions/not-found.error';
+import NotFoundError from '../exceptions/not-found.exception';
 import CustomError from '../exceptions/custom.error';
 import {
   ICashInflowRepository,

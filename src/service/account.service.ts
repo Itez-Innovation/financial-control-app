@@ -1,8 +1,8 @@
 import { Inject, Injectable } from '@nestjs/common';
-import ConflictError from '../exceptions/conflict.error';
-import NotFoundError from '../exceptions/not-found.error';
-import UnauthorizedError from '../exceptions/unauthorized.error';
-import ForbiddenError from '../exceptions/forbidden.error';
+import ConflictError from '../exceptions/conflict.exception';
+import NotFoundError from '../exceptions/not-found.exception';
+import UnauthorizedError from '../exceptions/unauthorized.exception';
+import ForbiddenError from '../exceptions/forbidden.exception';
 import CustomError from '../exceptions/custom.error';
 import { compare, hash } from 'bcryptjs';
 import dayjs from 'dayjs';

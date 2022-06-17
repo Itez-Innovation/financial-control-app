@@ -1,5 +1,5 @@
 import CustomError from './custom.error';
-import { ErrorCodes } from './error-code.error';
+import { ErrorCodes } from './errorCode';
 
 export default class ConflictError extends CustomError {
   constructor(public identifier: string) {
