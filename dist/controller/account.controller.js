@@ -11,10 +11,13 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 var __param = (this && this.__param) || function (paramIndex, decorator) {
     return function (target, key) { decorator(target, key, paramIndex); }
 };
+var __importDefault = (this && this.__importDefault) || function (mod) {
+    return (mod && mod.__esModule) ? mod : { "default": mod };
+};
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.AccountController = void 0;
 const common_1 = require("@nestjs/common");
-const account_service_1 = require("../service/account.service");
+const account_service_1 = __importDefault(require("../service/account.service"));
 const bcryptjs_1 = require("bcryptjs");
 const create_account_dto_1 = require("../dto/account/create-account.dto");
 let AccountController = class AccountController {
@@ -119,7 +122,7 @@ __decorate([
 ], AccountController.prototype, "createAcl", null);
 AccountController = __decorate([
     (0, common_1.Controller)('account'),
-    __metadata("design:paramtypes", [account_service_1.AccountService])
+    __metadata("design:paramtypes", [account_service_1.default])
 ], AccountController);
 exports.AccountController = AccountController;
 //# sourceMappingURL=account.controller.js.map

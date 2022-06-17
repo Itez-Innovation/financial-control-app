@@ -1,6 +1,6 @@
 import { JwtService } from '@nestjs/jwt';
 import { Account } from 'src/entity/account.entity';
-import IAccountRepository from 'src/repository/accountRepository/IAccountRepository';
+import { IAccountRepository } from 'src/repository/accountRepository/IAccountRepository';
 import { AccountToken } from './models/AccountToken';
 export declare class AuthService {
     private readonly jwtService;

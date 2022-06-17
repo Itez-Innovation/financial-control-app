@@ -1,4 +1,4 @@
-import { Injectable } from '@nestjs/common';
+import { Inject, Injectable } from '@nestjs/common';
 import ConflictError from '../exceptions/conflict.error';
 import NotFoundError from '../exceptions/not-found.error';
 import UnauthorizedError from '../exceptions/unauthorized.error';
@@ -7,16 +7,21 @@ import CustomError from '../exceptions/custom.error';
 import { compare, hash } from 'bcryptjs';
 import dayjs from 'dayjs';
 import * as jwt from 'jsonwebtoken';
-import IAccountRepository from '../repository/accountRepository/IAccountRepository';
+import {
+  IAccountRepository,
+  IACCOUNT_REPOSITORY,
+} from '../repository/accountRepository/IAccountRepository';
 import ITokenRepository from '../repository/tokenRepository/ITokenRepository';
 import IPermissionRepository from '../repository/permissionRepository/IPermissionRepository';
 import IRoleRepository from '../repository/roleRepository/IRoleRepository';
 import { CreateAccountDto } from 'src/dto/account/create-account.dto';
-import { Prisma } from '@prisma/client';
 
 @Injectable()
-export class AccountService {
+export default class AccountService {
+  SERVICE_NAME = 'ACCOUNT_SERVICE';
+
   constructor(
+    @Inject(IACCOUNT_REPOSITORY)
     private AccountRepository: IAccountRepository,
     private TokenRepository: ITokenRepository,
     private PermissionRepository: IPermissionRepository,

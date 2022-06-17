@@ -1,13 +1,14 @@
-import IAccountRepository from '../repository/accountRepository/IAccountRepository';
+import { IAccountRepository } from '../repository/accountRepository/IAccountRepository';
 import ITokenRepository from '../repository/tokenRepository/ITokenRepository';
 import IPermissionRepository from '../repository/permissionRepository/IPermissionRepository';
 import IRoleRepository from '../repository/roleRepository/IRoleRepository';
 import { CreateAccountDto } from 'src/dto/account/create-account.dto';
-export declare class AccountService {
+export default class AccountService {
     private AccountRepository;
     private TokenRepository;
     private PermissionRepository;
     private RoleRepository;
+    SERVICE_NAME: string;
     constructor(AccountRepository: IAccountRepository, TokenRepository: ITokenRepository, PermissionRepository: IPermissionRepository, RoleRepository: IRoleRepository);
     create(createAccountDto: CreateAccountDto): Promise<import(".prisma/client").account>;
     delete({ id }: {

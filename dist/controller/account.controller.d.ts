@@ -1,4 +1,4 @@
-import { AccountService } from '../service/account.service';
+import AccountService from '../service/account.service';
 import { CreateAccountDto } from 'src/dto/account/create-account.dto';
 export declare class AccountController {
     private readonly accountService;

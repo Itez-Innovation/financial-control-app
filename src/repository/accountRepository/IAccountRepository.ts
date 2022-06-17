@@ -1,7 +1,9 @@
 import { account } from '@prisma/client';
+import { Account } from 'src/entity/account.entity';
 
-export default interface IAccountRepository {
-  create({ CPF, Name, password }): Promise<account>;
+export const IACCOUNT_REPOSITORY = 'IAccountRepository';
+export interface IAccountRepository {
+  create(account: Account): Promise<account>;
   delete(id: string): Promise<any>;
   get_all(): Promise<account[]>;
   getStats(id: string): Promise<account | any>;

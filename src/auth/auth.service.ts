@@ -2,7 +2,7 @@ import { Injectable } from '@nestjs/common';
 import { JwtService } from '@nestjs/jwt';
 import * as bcrypt from 'bcrypt';
 import { Account } from 'src/entity/account.entity';
-import IAccountRepository from 'src/repository/accountRepository/IAccountRepository';
+import { IAccountRepository } from 'src/repository/accountRepository/IAccountRepository';
 import UnauthorizedError from '../exceptions/unauthorized.error';
 import { AccountPayload } from './models/AccountPayload';
 import { AccountToken } from './models/AccountToken';

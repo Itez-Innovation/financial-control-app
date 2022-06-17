@@ -17,20 +17,7 @@ const cash_outflow_module_1 = require("./module/cash-outflow.module");
 const permission_module_1 = require("./module/permission.module");
 const role_module_1 = require("./module/role.module");
 const refresh_token_module_1 = require("./module/refresh-token.module");
-const account_service_1 = require("./service/account.service");
-const cash_inflow_service_1 = require("./service/cash-inflow.service");
-const cash_outflow_service_1 = require("./service/cash-outflow.service");
-const permission_service_1 = require("./service/permission.service");
-const role_service_1 = require("./service/role.service");
-const account_controller_1 = require("./controller/account.controller");
-const cash_inflow_controller_1 = require("./controller/cash-inflow.controller");
-const cash_outflow_controller_1 = require("./controller/cash-outflow.controller");
-const permission_controller_1 = require("./controller/permission.controller");
-const role_controller_1 = require("./controller/role.controller");
 const account_module_1 = require("./module/account.module");
-const prisma_service_1 = require("./service/prisma.service");
-const core_1 = require("@nestjs/core");
-const jwt_auth_guard_1 = require("./auth/guards/jwt-auth.guard");
 let AppModule = class AppModule {
     constructor(connection) {
         this.connection = connection;
@@ -45,25 +32,6 @@ AppModule = __decorate([
             permission_module_1.PermissionModule,
             role_module_1.RoleModule,
             refresh_token_module_1.RefreshTokenModule,
-        ],
-        controllers: [
-            account_controller_1.AccountController,
-            cash_inflow_controller_1.CashInflowController,
-            cash_outflow_controller_1.CashOutflowController,
-            permission_controller_1.PermissionController,
-            role_controller_1.RoleController,
-        ],
-        providers: [
-            account_service_1.AccountService,
-            cash_inflow_service_1.CashInflowService,
-            cash_outflow_service_1.CashOutflowService,
-            permission_service_1.PermissionService,
-            role_service_1.RoleService,
-            prisma_service_1.PrismaService,
-            {
-                provide: core_1.APP_GUARD,
-                useClass: jwt_auth_guard_1.JwtAuthGuard,
-            },
         ],
     }),
     __metadata("design:paramtypes", [typeorm_1.Connection])

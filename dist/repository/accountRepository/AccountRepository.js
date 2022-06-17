@@ -16,9 +16,9 @@ let AccountRepository = class AccountRepository {
     constructor(prisma) {
         this.prisma = prisma;
     }
-    async create({ CPF, Name, password }) {
+    async create(account) {
         return this.prisma.account.create({
-            data: { CPF: CPF, Name: Name, password: password },
+            data: account,
         });
     }
     async delete(id) {

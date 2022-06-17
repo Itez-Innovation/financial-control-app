@@ -7,7 +7,7 @@ import {
   Patch,
   Post,
 } from '@nestjs/common';
-import { AccountService } from '../service/account.service';
+import AccountService from '../service/account.service';
 import { hash } from 'bcryptjs';
 import { CreateAccountDto } from 'src/dto/account/create-account.dto';
 
@@ -28,9 +28,7 @@ export class AccountController {
   // async deleteAdmin(request: Request, res: Response, next: NextFunction) {
   //   try {
   //     const { id } = request.body;
-
   //     await service.delete(id);
-
   //     return res.status(202).json();
   //   } catch (error) {
   //     next(error);
