@@ -1,8 +1,11 @@
-import { Injectable } from '@nestjs/common';
+import { Inject, Injectable } from '@nestjs/common';
 import { JwtService } from '@nestjs/jwt';
 import * as bcrypt from 'bcrypt';
 import { Account } from 'src/entity/account.entity';
-import { IAccountRepository } from 'src/repository/accountRepository/IAccountRepository';
+import {
+  IAccountRepository,
+  IACCOUNT_REPOSITORY,
+} from 'src/repository/accountRepository/IAccountRepository';
 import UnauthorizedError from '../exceptions/unauthorized.exception';
 import { AccountPayload } from './models/AccountPayload';
 import { AccountToken } from './models/AccountToken';
@@ -11,6 +14,7 @@ import { AccountToken } from './models/AccountToken';
 export class AuthService {
   constructor(
     private readonly jwtService: JwtService,
+    @Inject(IACCOUNT_REPOSITORY)
     private readonly accountRepository: IAccountRepository,
   ) {}
 

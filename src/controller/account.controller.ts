@@ -6,15 +6,20 @@ import {
   Param,
   Patch,
   Post,
+  UseGuards,
 } from '@nestjs/common';
 import AccountService from '../service/account.service';
 import { hash } from 'bcryptjs';
 import { CreateAccountDto } from 'src/dto/account/create-account.dto';
+import { IsPublic } from 'src/auth/decorators/is-public.decorator';
+import { LocalAuthGuard } from 'src/auth/guards/local-auth.guard';
 
 @Controller('account')
 export class AccountController {
   constructor(private readonly accountService: AccountService) {}
 
+  @IsPublic()
+  @UseGuards(LocalAuthGuard)
   @Post('create')
   async create(@Body() createAccountDto: CreateAccountDto) {
     return this.accountService.create(createAccountDto);
