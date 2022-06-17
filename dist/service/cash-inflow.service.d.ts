@@ -1,4 +1,4 @@
-import ICashInflowRepository from '../repository/cashInflowRepository/ICashInflowRepository';
+import { ICashInflowRepository } from '../repository/cashInflowRepository/ICashInflowRepository';
 export declare class CashInflowService {
     private CashInflowRepository;
     constructor(CashInflowRepository: ICashInflowRepository);

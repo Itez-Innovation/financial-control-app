@@ -1,6 +1,6 @@
 import { Injectable } from '@nestjs/common';
 import { PrismaService } from '../../service/prisma.service';
-import ICashInflowRepository from './ICashInflowRepository';
+import { ICashInflowRepository } from './ICashInflowRepository';
 
 @Injectable()
 export default class CashInflowRepository implements ICashInflowRepository {

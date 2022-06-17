@@ -1,7 +1,7 @@
 import { Injectable } from '@nestjs/common';
 import CustomError from '../exceptions/custom.error';
 import ConflictError from '../exceptions/conflict.error';
-import IPermissionRepository from 'src/repository/permissionRepository/IPermissionRepository';
+import { IPermissionRepository } from 'src/repository/permissionRepository/IPermissionRepository';
 
 @Injectable()
 export class PermissionService {

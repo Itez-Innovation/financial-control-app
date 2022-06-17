@@ -48,6 +48,9 @@ const bcryptjs_1 = require("bcryptjs");
 const dayjs_1 = __importDefault(require("dayjs"));
 const jwt = __importStar(require("jsonwebtoken"));
 const IAccountRepository_1 = require("../repository/accountRepository/IAccountRepository");
+const ITokenRepository_1 = require("../repository/tokenRepository/ITokenRepository");
+const IPermissionRepository_1 = require("../repository/permissionRepository/IPermissionRepository");
+const IRoleRepository_1 = require("../repository/roleRepository/IRoleRepository");
 let AccountService = class AccountService {
     constructor(AccountRepository, TokenRepository, PermissionRepository, RoleRepository) {
         this.AccountRepository = AccountRepository;
@@ -194,6 +197,9 @@ let AccountService = class AccountService {
 AccountService = __decorate([
     (0, common_1.Injectable)(),
     __param(0, (0, common_1.Inject)(IAccountRepository_1.IACCOUNT_REPOSITORY)),
+    __param(1, (0, common_1.Inject)(ITokenRepository_1.ITOKEN_REPOSITORY)),
+    __param(2, (0, common_1.Inject)(IPermissionRepository_1.IPERMISSION_REPOSITORY)),
+    __param(3, (0, common_1.Inject)(IRoleRepository_1.IROLE_REPOSITORY)),
     __metadata("design:paramtypes", [Object, Object, Object, Object])
 ], AccountService);
 exports.default = AccountService;

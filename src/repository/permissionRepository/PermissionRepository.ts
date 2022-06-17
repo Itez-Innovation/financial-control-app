@@ -1,14 +1,15 @@
 import { Injectable } from '@nestjs/common';
+import { Permission } from 'src/entity/permission.entity';
 import { PrismaService } from '../../service/prisma.service';
-import IPermissionRepository from './IPermissionRepository';
+import { IPermissionRepository } from './IPermissionRepository';
 
 @Injectable()
 export default class PermissionRepository implements IPermissionRepository {
   constructor(private prisma: PrismaService) {}
 
-  async create({ name, description }) {
+  async create(permission: Permission) {
     return this.prisma.permissions.create({
-      data: { name: name, description: description },
+      data: permission,
     });
   }
 

@@ -11,9 +11,17 @@ import {
   IAccountRepository,
   IACCOUNT_REPOSITORY,
 } from '../repository/accountRepository/IAccountRepository';
-import ITokenRepository from '../repository/tokenRepository/ITokenRepository';
-import IPermissionRepository from '../repository/permissionRepository/IPermissionRepository';
-import IRoleRepository from '../repository/roleRepository/IRoleRepository';
+import {
+  ITokenRepository,
+  ITOKEN_REPOSITORY,
+} from '../repository/tokenRepository/ITokenRepository';
+import {
+  IPermissionRepository,
+  IPERMISSION_REPOSITORY,
+} from '../repository/permissionRepository/IPermissionRepository';
+import IRoleRepository, {
+  IROLE_REPOSITORY,
+} from '../repository/roleRepository/IRoleRepository';
 import { CreateAccountDto } from 'src/dto/account/create-account.dto';
 
 @Injectable()
@@ -23,8 +31,11 @@ export default class AccountService {
   constructor(
     @Inject(IACCOUNT_REPOSITORY)
     private AccountRepository: IAccountRepository,
+    @Inject(ITOKEN_REPOSITORY)
     private TokenRepository: ITokenRepository,
+    @Inject(IPERMISSION_REPOSITORY)
     private PermissionRepository: IPermissionRepository,
+    @Inject(IROLE_REPOSITORY)
     private RoleRepository: IRoleRepository,
   ) {}
 

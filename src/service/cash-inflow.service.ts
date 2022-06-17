@@ -1,7 +1,7 @@
 import { Injectable } from '@nestjs/common';
 import NotFoundError from '../exceptions/not-found.error';
 import CustomError from '../exceptions/custom.error';
-import ICashInflowRepository from '../repository/cashInflowRepository/ICashInflowRepository';
+import { ICashInflowRepository } from '../repository/cashInflowRepository/ICashInflowRepository';
 
 @Injectable()
 export class CashInflowService {

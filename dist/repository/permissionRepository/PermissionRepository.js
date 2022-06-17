@@ -15,9 +15,9 @@ let PermissionRepository = class PermissionRepository {
     constructor(prisma) {
         this.prisma = prisma;
     }
-    async create({ name, description }) {
+    async create(permission) {
         return this.prisma.permissions.create({
-            data: { name: name, description: description },
+            data: permission,
         });
     }
     findByName(name) {

@@ -1,5 +1,5 @@
 import { Injectable } from '@nestjs/common';
-import { roles } from '@prisma/client';
+import { Role } from 'src/entity/role.entity';
 import { PrismaService } from '../../service/prisma.service';
 import IRoleRepository from './IRoleRepository';
 
@@ -7,7 +7,7 @@ import IRoleRepository from './IRoleRepository';
 export default class RoleRepository implements IRoleRepository {
   constructor(private prisma: PrismaService) {}
 
-  async create(role: roles) {
+  async create(role: Role) {
     return this.prisma.roles.create({
       data: role,
     });

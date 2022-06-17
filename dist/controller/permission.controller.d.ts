@@ -5,5 +5,5 @@ export declare class PermissionController {
     create(createData: {
         name: string;
         description: string;
-    }): Promise<import(".prisma/client").permissions>;
+    }): Promise<import("../entity/permission.entity").Permission>;
 }

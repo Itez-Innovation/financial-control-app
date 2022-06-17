@@ -1,5 +1,5 @@
 import { PrismaService } from '../../service/prisma.service';
-import ICashInflowRepository from './ICashInflowRepository';
+import { ICashInflowRepository } from './ICashInflowRepository';
 export default class CashInflowRepository implements ICashInflowRepository {
     private prisma;
     constructor(prisma: PrismaService);

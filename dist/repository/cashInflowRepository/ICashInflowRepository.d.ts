@@ -1,5 +1,6 @@
 import { cashInflow } from '@prisma/client';
-export default interface ICashInflowRepository {
+export declare const ICASHINFLOW_REPOSITORY = "ICashInflowRepository";
+export interface ICashInflowRepository {
     create({ Titulo, Valor, account_id }: {
         Titulo: any;
         Valor: any;

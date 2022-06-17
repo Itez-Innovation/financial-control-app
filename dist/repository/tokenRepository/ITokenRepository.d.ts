@@ -1,5 +1,6 @@
 import { refreshToken } from '@prisma/client';
-export default interface ITokenRepository {
+export declare const ITOKEN_REPOSITORY = "ITokenRepository";
+export interface ITokenRepository {
     generateRefreshToken(account_id: string): Promise<refreshToken>;
     generateToken(account_id: string): Promise<string>;
     deleteToken(id: string): Promise<any>;

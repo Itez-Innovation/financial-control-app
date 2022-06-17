@@ -13,6 +13,13 @@ exports.AccountModule = void 0;
 const common_1 = require("@nestjs/common");
 const AccountRepository_1 = __importDefault(require("../repository/accountRepository/AccountRepository"));
 const IAccountRepository_1 = require("../repository/accountRepository/IAccountRepository");
+const IPermissionRepository_1 = require("../repository/permissionRepository/IPermissionRepository");
+const PermissionRepository_1 = __importDefault(require("../repository/permissionRepository/PermissionRepository"));
+const IRoleRepository_1 = require("../repository/roleRepository/IRoleRepository");
+const RoleRepository_1 = __importDefault(require("../repository/roleRepository/RoleRepository"));
+const ITokenRepository_1 = require("../repository/tokenRepository/ITokenRepository");
+const TokenRepository_1 = __importDefault(require("../repository/tokenRepository/TokenRepository"));
+const prisma_service_1 = require("../service/prisma.service");
 const account_controller_1 = require("../controller/account.controller");
 const account_service_1 = __importDefault(require("../service/account.service"));
 let AccountModule = class AccountModule {
@@ -23,7 +30,11 @@ AccountModule = __decorate([
         controllers: [account_controller_1.AccountController],
         providers: [
             account_service_1.default,
+            prisma_service_1.PrismaService,
             { provide: IAccountRepository_1.IACCOUNT_REPOSITORY, useClass: AccountRepository_1.default },
+            { provide: ITokenRepository_1.ITOKEN_REPOSITORY, useClass: TokenRepository_1.default },
+            { provide: IPermissionRepository_1.IPERMISSION_REPOSITORY, useClass: PermissionRepository_1.default },
+            { provide: IRoleRepository_1.IROLE_REPOSITORY, useClass: RoleRepository_1.default },
         ],
         exports: [account_service_1.default],
     })
