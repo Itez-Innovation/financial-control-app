@@ -9,6 +9,7 @@ var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
 Object.defineProperty(exports, "__esModule", { value: true });
+exports.CashOutflowRepository = void 0;
 const common_1 = require("@nestjs/common");
 const prisma_service_1 = require("../../service/prisma.service");
 let CashOutflowRepository = class CashOutflowRepository {
@@ -69,5 +70,5 @@ CashOutflowRepository = __decorate([
     (0, common_1.Injectable)(),
     __metadata("design:paramtypes", [prisma_service_1.PrismaService])
 ], CashOutflowRepository);
-exports.default = CashOutflowRepository;
+exports.CashOutflowRepository = CashOutflowRepository;
 //# sourceMappingURL=CashOutflowRepository.js.map

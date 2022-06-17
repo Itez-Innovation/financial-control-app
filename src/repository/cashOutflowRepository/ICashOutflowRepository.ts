@@ -1,5 +1,6 @@
 import { cashOutflow } from '@prisma/client';
 
+export const ICASHOUTFLOW_REPOSITORY = 'ICashOutflowRepository';
 export default interface ICashOutflowRepository {
   create({ Area, Titulo, Valor, account_id }): Promise<cashOutflow>;
   get_all(): Promise<cashOutflow[]>;

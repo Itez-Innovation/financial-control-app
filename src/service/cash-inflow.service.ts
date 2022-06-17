@@ -1,11 +1,19 @@
-import { Injectable } from '@nestjs/common';
+import { Inject, Injectable } from '@nestjs/common';
 import NotFoundError from '../exceptions/not-found.error';
 import CustomError from '../exceptions/custom.error';
-import { ICashInflowRepository } from '../repository/cashInflowRepository/ICashInflowRepository';
+import {
+  ICashInflowRepository,
+  ICASHINFLOW_REPOSITORY,
+} from '../repository/cashInflowRepository/ICashInflowRepository';
 
 @Injectable()
 export class CashInflowService {
-  constructor(private CashInflowRepository: ICashInflowRepository) {}
+  SERVICE_NAME = 'CASHINFLOW_SERVICE';
+
+  constructor(
+    @Inject(ICASHINFLOW_REPOSITORY)
+    private CashInflowRepository: ICashInflowRepository,
+  ) {}
 
   async create({ Titulo, Valor, account_id }) {
     try {

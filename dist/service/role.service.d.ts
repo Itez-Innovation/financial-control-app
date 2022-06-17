@@ -1,6 +1,7 @@
 import { PrismaService } from './prisma.service';
 export declare class RoleService {
     private prisma;
+    SERVICE_NAME: string;
     constructor(prisma: PrismaService);
     create({ name, description }: {
         name: any;

@@ -17,6 +17,7 @@ RoleModule = __decorate([
     (0, common_1.Module)({
         providers: [role_service_1.RoleService, prisma_service_1.PrismaService],
         controllers: [role_controller_1.RoleController],
+        exports: [role_service_1.RoleService],
     })
 ], RoleModule);
 exports.RoleModule = RoleModule;

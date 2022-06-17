@@ -6,6 +6,8 @@ import NotFoundError from '../exceptions/not-found.error';
 
 @Injectable()
 export class RoleService {
+  SERVICE_NAME = 'ROLE_SERVICE';
+
   constructor(private prisma: PrismaService) {}
 
   async create({ name, description }) {

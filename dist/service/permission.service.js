@@ -8,6 +8,9 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
 var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
+var __param = (this && this.__param) || function (paramIndex, decorator) {
+    return function (target, key) { decorator(target, key, paramIndex); }
+};
 var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
@@ -16,9 +19,11 @@ exports.PermissionService = void 0;
 const common_1 = require("@nestjs/common");
 const custom_error_1 = __importDefault(require("../exceptions/custom.error"));
 const conflict_error_1 = __importDefault(require("../exceptions/conflict.error"));
+const IPermissionRepository_1 = require("../repository/permissionRepository/IPermissionRepository");
 let PermissionService = class PermissionService {
     constructor(PermissionRepository) {
         this.PermissionRepository = PermissionRepository;
+        this.SERVICE_NAME = 'PERMISSION_SERVICE';
     }
     async create({ name, description }) {
         try {
@@ -37,6 +42,7 @@ let PermissionService = class PermissionService {
 };
 PermissionService = __decorate([
     (0, common_1.Injectable)(),
+    __param(0, (0, common_1.Inject)(IPermissionRepository_1.IPERMISSION_REPOSITORY)),
     __metadata("design:paramtypes", [Object])
 ], PermissionService);
 exports.PermissionService = PermissionService;

@@ -1,11 +1,19 @@
-import { Injectable } from '@nestjs/common';
+import { Inject, Injectable } from '@nestjs/common';
 import CustomError from '../exceptions/custom.error';
 import ConflictError from '../exceptions/conflict.error';
-import { IPermissionRepository } from 'src/repository/permissionRepository/IPermissionRepository';
+import {
+  IPermissionRepository,
+  IPERMISSION_REPOSITORY,
+} from 'src/repository/permissionRepository/IPermissionRepository';
 
 @Injectable()
 export class PermissionService {
-  constructor(private PermissionRepository: IPermissionRepository) {}
+  SERVICE_NAME = 'PERMISSION_SERVICE';
+
+  constructor(
+    @Inject(IPERMISSION_REPOSITORY)
+    private PermissionRepository: IPermissionRepository,
+  ) {}
 
   async create({ name, description }) {
     try {

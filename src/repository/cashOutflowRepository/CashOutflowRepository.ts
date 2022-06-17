@@ -3,7 +3,7 @@ import { PrismaService } from '../../service/prisma.service';
 import ICashOutflowRepository from './ICashOutflowRepository';
 
 @Injectable()
-export default class CashOutflowRepository implements ICashOutflowRepository {
+export class CashOutflowRepository implements ICashOutflowRepository {
   constructor(private prisma: PrismaService) {}
 
   async create({ Area, Titulo, Valor, account_id }) {

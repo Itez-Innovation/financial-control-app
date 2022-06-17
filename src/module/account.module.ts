@@ -12,7 +12,6 @@ import { AccountController } from '../controller/account.controller';
 import AccountService from '../service/account.service';
 
 @Module({
-  imports: [],
   controllers: [AccountController],
   providers: [
     AccountService,

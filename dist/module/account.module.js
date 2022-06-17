@@ -26,7 +26,6 @@ let AccountModule = class AccountModule {
 };
 AccountModule = __decorate([
     (0, common_1.Module)({
-        imports: [],
         controllers: [account_controller_1.AccountController],
         providers: [
             account_service_1.default,

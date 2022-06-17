@@ -21,6 +21,7 @@ const not_found_error_1 = __importDefault(require("../exceptions/not-found.error
 let RoleService = class RoleService {
     constructor(prisma) {
         this.prisma = prisma;
+        this.SERVICE_NAME = 'ROLE_SERVICE';
     }
     async create({ name, description }) {
         try {

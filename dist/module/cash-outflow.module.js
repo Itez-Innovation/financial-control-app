@@ -11,12 +11,19 @@ const common_1 = require("@nestjs/common");
 const prisma_service_1 = require("../service/prisma.service");
 const cash_outflow_controller_1 = require("../controller/cash-outflow.controller");
 const cash_outflow_service_1 = require("../service/cash-outflow.service");
+const ICashOutflowRepository_1 = require("../repository/cashOutflowRepository/ICashOutflowRepository");
+const CashOutflowRepository_1 = require("../repository/cashOutflowRepository/CashOutflowRepository");
 let CashOutflowModule = class CashOutflowModule {
 };
 CashOutflowModule = __decorate([
     (0, common_1.Module)({
         controllers: [cash_outflow_controller_1.CashOutflowController],
-        providers: [cash_outflow_service_1.CashOutflowService, prisma_service_1.PrismaService],
+        providers: [
+            cash_outflow_service_1.CashOutflowService,
+            prisma_service_1.PrismaService,
+            { provide: ICashOutflowRepository_1.ICASHOUTFLOW_REPOSITORY, useClass: CashOutflowRepository_1.CashOutflowRepository },
+        ],
+        exports: [cash_outflow_service_1.CashOutflowService],
     })
 ], CashOutflowModule);
 exports.CashOutflowModule = CashOutflowModule;

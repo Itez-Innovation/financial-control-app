@@ -1,6 +1,6 @@
 import { PrismaService } from '../../service/prisma.service';
 import ICashOutflowRepository from './ICashOutflowRepository';
-export default class CashOutflowRepository implements ICashOutflowRepository {
+export declare class CashOutflowRepository implements ICashOutflowRepository {
     private prisma;
     constructor(prisma: PrismaService);
     create({ Area, Titulo, Valor, account_id }: {

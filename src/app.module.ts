@@ -17,6 +17,4 @@ import { AccountModule } from './module/account.module';
     RefreshTokenModule,
   ],
 })
-export class AppModule {
-  constructor(private connection: Connection) {}
-}
+export class AppModule {}

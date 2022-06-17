@@ -1,6 +1,7 @@
 import ICashOutflowRepository from 'src/repository/cashOutflowRepository/ICashOutflowRepository';
 export declare class CashOutflowService {
     private CashOutflowRepository;
+    SERVICE_NAME: string;
     constructor(CashOutflowRepository: ICashOutflowRepository);
     create({ Area, Titulo, Valor, account_id }: {
         Area: any;

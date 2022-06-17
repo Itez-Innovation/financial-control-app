@@ -1,6 +1,7 @@
 import { ICashInflowRepository } from '../repository/cashInflowRepository/ICashInflowRepository';
 export declare class CashInflowService {
     private CashInflowRepository;
+    SERVICE_NAME: string;
     constructor(CashInflowRepository: ICashInflowRepository);
     create({ Titulo, Valor, account_id }: {
         Titulo: any;
