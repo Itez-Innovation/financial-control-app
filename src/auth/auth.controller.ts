@@ -20,6 +20,6 @@ export class AuthController {
   @Post('login')
   @HttpCode(HttpStatus.OK)
   async login(@Request() req: AuthRequest) {
-    return this.authService.login(req.account);
+    return this.authService.login(req.user);
   }
 }

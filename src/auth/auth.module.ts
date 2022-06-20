@@ -10,6 +10,8 @@ import { AccountModule } from 'src/module/account.module';
 import { IACCOUNT_REPOSITORY } from 'src/repository/accountRepository/IAccountRepository';
 import AccountRepository from 'src/repository/accountRepository/AccountRepository';
 import { PrismaService } from 'src/service/prisma.service';
+import * as dotenv from 'dotenv';
+dotenv.config();
 
 @Module({
   imports: [

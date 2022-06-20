@@ -18,7 +18,7 @@ export class AuthService {
     private readonly accountRepository: IAccountRepository,
   ) {}
 
-  async login(account: Account): Promise<AccountToken> {
+  async login(account): Promise<AccountToken> {
     const payload: AccountPayload = {
       sub: account.id,
       CPF: account.CPF,
