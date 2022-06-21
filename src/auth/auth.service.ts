@@ -18,15 +18,17 @@ export class AuthService {
     private readonly accountRepository: IAccountRepository,
   ) {}
 
-  async login(account): Promise<AccountToken> {
+  async login(user): Promise<AccountToken> {
     const payload: AccountPayload = {
-      sub: account.id,
-      CPF: account.CPF,
-      Name: account.Name,
+      sub: user.id,
+      CPF: user.CPF,
+      Name: user.Name,
     };
 
     return {
-      access_token: this.jwtService.sign(payload),
+      access_token: this.jwtService.sign(payload, {
+        secret: `${process.env.JWT_SECRET_KEY}`,
+      }),
     };
   }
 

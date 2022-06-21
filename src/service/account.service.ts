@@ -23,6 +23,7 @@ import IRoleRepository, {
   IROLE_REPOSITORY,
 } from '../repository/roleRepository/IRoleRepository';
 import { CreateAccountDto } from 'src/dto/account/create-account.dto';
+import { IsPublic } from 'src/auth/decorators/is-public.decorator';
 
 @Injectable()
 export default class AccountService {
@@ -39,6 +40,7 @@ export default class AccountService {
     private RoleRepository: IRoleRepository,
   ) {}
 
+  @IsPublic()
   async create(createAccountDto: CreateAccountDto) {
     try {
       const accountAlreadyExists = await this.AccountRepository.findByCpf(

@@ -19,7 +19,6 @@ export class AccountController {
   constructor(private readonly accountService: AccountService) {}
 
   @IsPublic()
-  @UseGuards(LocalAuthGuard)
   @Post('create')
   async create(@Body() createAccountDto: CreateAccountDto) {
     return this.accountService.create(createAccountDto);

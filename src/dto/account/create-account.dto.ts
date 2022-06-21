@@ -1,7 +1,8 @@
-import { IsString, MinLength } from 'class-validator';
+import { IsString, MaxLength, MinLength } from 'class-validator';
 import { Account } from 'src/entity/account.entity';
 
 export class CreateAccountDto extends Account {
+  @MaxLength(11)
   CPF: string;
 
   @IsString()
