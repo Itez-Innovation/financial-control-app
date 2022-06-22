@@ -11,69 +11,82 @@ datasource db {
 }
 
 model account {
-  id            String        @id @default(uuid())
-  createdAt     DateTime      @default(now())
-  updatedAt     DateTime      @updatedAt
-  password      String
-  Name          String
-  CPF           String        @unique @db.VarChar(14) 
+  id          String        @id @default(uuid())
+  createdAt   DateTime      @default(now())
+  updatedAt   DateTime      @updatedAt
+  password    String
+  Name        String
+  CPF         String        @unique @db.VarChar(14)
   // Relations
-  input         cashInflow[]
-  output        cashOutflow[]
-  permissions   permissions[] @relation(references: [id])
-  roles         roles[]       @relation(references: [id])
-  refresh       refreshToken?
+  input       cashInflow[]
+  output      cashOutflow[]
+  permissions permissions[] @relation(references: [id])
+  roles       roles[]       @relation(references: [id])
+  refresh     refreshToken?
 }
 
 model cashInflow {
-  id            String        @id @default(uuid())
-  Titulo        String
-  Valor         Float
-  createdAt     DateTime      @default(now())
-  updatedAt     DateTime      @updatedAt
+  id         String   @id @default(uuid())
+  Titulo     String
+  Valor      Float
+  createdAt  DateTime @default(now())
+  updatedAt  DateTime @updatedAt
   // Relations
-  account       account       @relation(fields: [account_id], references: [id])
-  account_id    String
+  account    account  @relation(fields: [account_id], references: [id])
+  account_id String
 }
 
 model cashOutflow {
-  id            String        @id @default(uuid())
-  Area          String        @unique
-  Titulo        String
-  Valor         Float
-  createdAt     DateTime      @default(now())
-  updatedAt     DateTime      @updatedAt
+  id         String   @id @default(uuid())
+  Area       String   @unique
+  Titulo     String
+  Valor      Float
+  createdAt  DateTime @default(now())
+  updatedAt  DateTime @updatedAt
   // Relations
-  account       account       @relation(fields: [account_id], references: [id])
-  account_id    String
+  account    account  @relation(fields: [account_id], references: [id])
+  account_id String
 }
 
 model permissions {
-  id            String        @id @default(uuid())
-  name          String        
-  description   String
-  createdAt     DateTime      @default(now())
-  updatedAt     DateTime      @updatedAt
+  id          String    @id @default(uuid())
+  name        String
+  description String
+  createdAt   DateTime  @default(now())
+  updatedAt   DateTime  @updatedAt
   // Relations
-  accounts      account[]     @relation(references: [id])
-  roles         roles[]       @relation(references: [id])
+  accounts    account[] @relation(references: [id])
+  roles       roles[]   @relation(references: [id])
 }
 
 model refreshToken {
-  id            String        @id @default(uuid())
-  refToken      String        
+  id         String  @id @default(uuid())
+  refToken   String
   // Relations
-  account       account       @relation(fields: [account_id], references: [id])
-  account_id    String
+  account    account @relation(fields: [account_id], references: [id])
+  account_id String  @unique
 }
 
 model roles {
-  id            String        @id @default(uuid())
-  name          String
-  description   String
-  createdAt     DateTime      @default(now())
-  updatedAt     DateTime      @updatedAt
+  id          String        @id @default(uuid())
+  name        String
+  description String
+  createdAt   DateTime      @default(now())
+  updatedAt   DateTime      @updatedAt
   // Relations
-  accounts      account[]     @relation(references: [id])
-  permissions   permissions[] @relation(references: [id])
+  accounts    account[]     @relation(references: [id])
+  permissions permissions[] @relation(references: [id])
+}
+
+enum ERoles {
+  ADMIN
+  CREATOR
+}
+
+enum EPermissions {
+  CREATE_ACCOUNT
+  GET_ACCOUNT
+  GET_ALL_ACCOUNTS
+  UPDATE_ACCOUNT
+  DELETE_ACCOUNT
 }

@@ -12,7 +12,9 @@ import AccountService from '../service/account.service';
 import { hash } from 'bcryptjs';
 import { CreateAccountDto } from 'src/dto/account/create-account.dto';
 import { IsPublic } from 'src/auth/decorators/is-public.decorator';
-import { LocalAuthGuard } from 'src/auth/guards/local-auth.guard';
+import { Roles } from 'src/utils/roles.decorator';
+import { ERoles } from 'src/enum/roles.enum';
+import { RolesGuard } from 'src/auth/guards/roles.guard';
 
 @Controller('account')
 export class AccountController {
@@ -25,6 +27,8 @@ export class AccountController {
   }
 
   @Delete('delete/:id')
+  @UseGuards(RolesGuard)
+  @Roles(ERoles.ADMIN)
   async delete(@Param('id') id: string) {
     return this.accountService.delete({ id: id });
   }
