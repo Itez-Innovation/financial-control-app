@@ -134,7 +134,7 @@ export class AccountController {
     return JSON.stringify(refresh);
   }
 
-  @Post('admin/acl')
+  @Post('admin/acl/:id')
   async createAcl(
     @Param('id') userId: string,
     @Body() aclData: { roles: string[]; permissions: string[] },

@@ -3,6 +3,7 @@ import CustomError from '../exceptions/custom.error';
 import ConflictError from '../exceptions/conflict.exception';
 import { PrismaService } from './prisma.service';
 import NotFoundError from '../exceptions/not-found.exception';
+import { Role } from 'src/entity/role.entity';
 
 @Injectable()
 export class RoleService {
@@ -26,7 +27,7 @@ export class RoleService {
 
   async createRolePermission({ roleId, permissions }) {
     try {
-      const role = await this.findById(roleId);
+      const role: Role = await this.findById(roleId);
 
       if (!role) throw new NotFoundError('Role does not exists!');
 
@@ -43,9 +44,22 @@ export class RoleService {
       if (!permissionsExist)
         throw new NotFoundError('Permissions does not exists!');
 
+      console.log();
+
+      role.permissions = permissionsExist;
+
       return await this.prisma.roles.update({
         where: { id: roleId },
-        data: { permissions: permissoes },
+        data: {
+          permissions: {
+            connect: {
+              id: permissionsExist.at(0).id,
+            },
+          },
+        },
+        include: {
+          permissions: true,
+        },
       });
     } catch (error) {
       if (error instanceof CustomError) throw error;

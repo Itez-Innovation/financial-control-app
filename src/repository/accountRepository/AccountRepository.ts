@@ -10,6 +10,8 @@ export default class AccountRepository implements IAccountRepository {
   constructor(private prisma: PrismaService) {}
 
   async create(account: Account) {
+    console.log(account.roles);
+    console.log(account.permissions);
     return this.prisma.account.create({
       data: account,
     });

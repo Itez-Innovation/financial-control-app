@@ -24,6 +24,7 @@ import IRoleRepository, {
 } from '../repository/roleRepository/IRoleRepository';
 import { CreateAccountDto } from 'src/dto/account/create-account.dto';
 import { IsPublic } from 'src/auth/decorators/is-public.decorator';
+import { Account } from 'src/entity/account.entity';
 
 @Injectable()
 export default class AccountService {
@@ -173,16 +174,22 @@ export default class AccountService {
 
   async createACL({ userId, roles, permissions }) {
     try {
-      const user = await this.AccountRepository.findById(userId);
+      const account: Account = await this.AccountRepository.findById(userId);
 
-      if (!user) throw new NotFoundError("Couldn't find this account");
+      if (!account) throw new NotFoundError("Couldn't find this account");
 
       const permExists = await this.PermissionRepository.findByIds(permissions);
       const rolesExists = await this.RoleRepository.findByIds(roles);
 
-      this.AccountRepository.create(user);
+      account.permissions = permExists;
+      account.roles = rolesExists;
 
-      return user;
+      this.AccountRepository.create(account);
+
+      return {
+        ...account,
+        password: undefined,
+      };
     } catch (error) {
       if (error instanceof CustomError) throw error;
       else throw new Error('Internal server error');
