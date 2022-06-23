@@ -48,19 +48,23 @@ export class RoleService {
 
       role.permissions = permissionsExist;
 
-      return await this.prisma.roles.update({
-        where: { id: roleId },
-        data: {
-          permissions: {
-            connect: {
-              id: permissionsExist.at(0).id,
+      permissionsExist.forEach(async (element) => {
+        await this.prisma.roles.update({
+          where: { id: roleId },
+          data: {
+            permissions: {
+              connect: {
+                id: element.id,
+              },
             },
           },
-        },
-        include: {
-          permissions: true,
-        },
+          include: {
+            permissions: true,
+          },
+        });
       });
+
+      return permissionsExist;
     } catch (error) {
       if (error instanceof CustomError) throw error;
       else throw new Error('Internal server error');
