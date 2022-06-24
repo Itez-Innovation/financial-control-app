@@ -21,16 +21,18 @@ export default class AccountRepository implements IAccountRepository {
     return this.prisma.account.delete({ where: { id: id } });
   }
 
-  async update(id: string, CPF: string, Name?: string, password?: string) {
-    const acc = await this.findById(id);
+  async update(account: Account) {
+    const acc: Account = await this.findById(account.id);
 
-    acc.CPF = CPF ? CPF : acc.CPF;
-    acc.Name = Name ? Name : acc.Name;
-    acc.password = (await hash(password, 8)) ? password : acc.password;
+    acc.CPF = account.CPF ? account.CPF : acc.CPF;
+    acc.Name = account.Name ? account.Name : acc.Name;
+    acc.password = (await hash(account.password, 8))
+      ? account.password
+      : acc.password;
 
     return this.prisma.account.update({
-      where: { id: id },
-      data: { CPF: acc.CPF, Name: acc.Name, password: acc.password },
+      where: { id: account.id },
+      data: acc,
     });
   }
 

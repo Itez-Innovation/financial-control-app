@@ -79,11 +79,15 @@ export default class AccountService {
 
   async update({ id, CPF, Name, password }) {
     try {
-      const accountFound = await this.AccountRepository.findById(id);
+      const accountFound: Account = await this.AccountRepository.findById(id);
 
       if (!accountFound) throw new NotFoundError(`Account ${id}`);
 
-      return this.AccountRepository.update(CPF, Name, password);
+      accountFound.CPF = CPF;
+      accountFound.Name = Name;
+      accountFound.password = password;
+
+      return this.AccountRepository.update(accountFound);
     } catch (error) {
       if (error instanceof CustomError) throw error;
       else throw new Error('Internal server error');
@@ -183,6 +187,9 @@ export default class AccountService {
       const permExists = await this.PermissionRepository.findByIds(permissions);
       const rolesExists = await this.RoleRepository.findByIds(roles);
 
+      account.roles = rolesExists;
+      account.permissions = permExists;
+
       permExists.forEach(async (element) => {
         await this.prisma.account.update({
           where: { id: userId },
@@ -208,6 +215,8 @@ export default class AccountService {
           },
         });
       });
+
+      this.AccountRepository.update(account);
 
       return {
         ...account,

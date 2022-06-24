@@ -6,6 +6,7 @@ import {
   Param,
   Patch,
   Post,
+  SetMetadata,
   UseGuards,
 } from '@nestjs/common';
 import AccountService from '../service/account.service';

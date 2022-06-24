@@ -23,6 +23,7 @@ export class AuthService {
       sub: user.id,
       CPF: user.CPF,
       Name: user.Name,
+      role: user.role,
     };
 
     return {
@@ -34,6 +35,8 @@ export class AuthService {
 
   async validateAccount(CPF: string, password: string): Promise<Account> {
     const account = await this.accountRepository.findByCpf(CPF);
+
+    console.log(account.roles);
 
     if (account) {
       const isPasswordValid = await bcrypt.compare(password, account.password);
