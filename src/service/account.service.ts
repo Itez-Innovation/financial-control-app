@@ -25,6 +25,7 @@ import IRoleRepository, {
 import { CreateAccountDto } from 'src/dto/account/create-account.dto';
 import { IsPublic } from 'src/auth/decorators/is-public.decorator';
 import { Account } from 'src/entity/account.entity';
+import { PrismaService } from './prisma.service';
 
 @Injectable()
 export default class AccountService {
@@ -39,6 +40,7 @@ export default class AccountService {
     private PermissionRepository: IPermissionRepository,
     @Inject(IROLE_REPOSITORY)
     private RoleRepository: IRoleRepository,
+    private prisma: PrismaService,
   ) {}
 
   @IsPublic()
@@ -181,10 +183,31 @@ export default class AccountService {
       const permExists = await this.PermissionRepository.findByIds(permissions);
       const rolesExists = await this.RoleRepository.findByIds(roles);
 
-      account.permissions = permExists;
-      account.roles = rolesExists;
+      permExists.forEach(async (element) => {
+        await this.prisma.account.update({
+          where: { id: userId },
+          data: {
+            permissions: {
+              connect: {
+                id: element.id,
+              },
+            },
+          },
+        });
+      });
 
-      this.AccountRepository.create(account);
+      rolesExists.forEach(async (element) => {
+        await this.prisma.account.update({
+          where: { id: userId },
+          data: {
+            roles: {
+              connect: {
+                id: element.id,
+              },
+            },
+          },
+        });
+      });
 
       return {
         ...account,
