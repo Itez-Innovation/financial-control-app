@@ -2,10 +2,11 @@ import { CanActivate, ExecutionContext, Injectable } from '@nestjs/common';
 import { Reflector } from '@nestjs/core';
 import { Account } from 'src/entity/account.entity';
 import { Role } from 'src/entity/role.entity';
+import { PrismaService } from 'src/service/prisma.service';
 
 @Injectable()
 export class RolesGuard implements CanActivate {
-  constructor(private reflector: Reflector) {}
+  constructor(private reflector: Reflector, private prisma: PrismaService) {}
 
   async canActivate(context: ExecutionContext): Promise<boolean> {
     const requireRoles = this.reflector.getAllAndOverride<string[]>('roles', [
@@ -17,20 +18,28 @@ export class RolesGuard implements CanActivate {
       return true;
     }
 
-    const { user }: { user: Account } = context.switchToHttp().getRequest();
+    const { user } = context.switchToHttp().getRequest();
 
-    console.log(user);
+    const userRole = await this.prisma.roles.findMany({
+      where: {
+        accounts: {
+          some: {
+            id: user.id,
+          },
+        },
+      },
+    });
 
-    return matchRoles(requireRoles, user.roles);
+    console.log(requireRoles);
+
+    return matchRoles(requireRoles, userRole);
   }
 }
 function matchRoles(role: string[], roles: Role[]): boolean {
-  let secondElement;
-
   role.forEach((element) => {
     roles.forEach((element2) => {
-      secondElement = String(element2);
-      if (element == secondElement) {
+      if (element == element2.name) {
+        console.log(`retornei true! ${element} = ${element2.name}`);
         return true;
       }
     });
